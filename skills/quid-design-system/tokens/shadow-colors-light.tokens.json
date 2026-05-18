@@ -1,0 +1,105 @@
+{
+  "shadow-lg": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0,
+        0
+      ],
+      "alpha": 0.10000000149011612,
+      "hex": "#000000"
+    },
+    "$extensions": {
+      "com.figma.variableId": "VariableID:4769:35720",
+      "com.figma.hiddenFromPublishing": true,
+      "com.figma.scopes": [
+        "EFFECT_COLOR"
+      ]
+    }
+  },
+  "shadow-rg": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0,
+        0
+      ],
+      "alpha": 0.09000000357627869,
+      "hex": "#000000"
+    },
+    "$extensions": {
+      "com.figma.variableId": "VariableID:4769:35721",
+      "com.figma.hiddenFromPublishing": true,
+      "com.figma.scopes": [
+        "EFFECT_COLOR"
+      ]
+    }
+  },
+  "shadow-sm": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0,
+        0
+      ],
+      "alpha": 0.05999999865889549,
+      "hex": "#000000"
+    },
+    "$extensions": {
+      "com.figma.variableId": "VariableID:4769:35722",
+      "com.figma.hiddenFromPublishing": true,
+      "com.figma.scopes": [
+        "EFFECT_COLOR"
+      ]
+    }
+  },
+  "shadow-sm-hover": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0,
+        0
+      ],
+      "alpha": 0.11999999731779099,
+      "hex": "#000000"
+    },
+    "$extensions": {
+      "com.figma.variableId": "VariableID:4769:35723",
+      "com.figma.hiddenFromPublishing": true,
+      "com.figma.scopes": [
+        "EFFECT_COLOR"
+      ]
+    }
+  },
+  "shadow-rg-hover": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0,
+        0
+      ],
+      "alpha": 0.11999999731779099,
+      "hex": "#000000"
+    },
+    "$extensions": {
+      "com.figma.variableId": "VariableID:5481:9374",
+      "com.figma.hiddenFromPublishing": true,
+      "com.figma.scopes": [
+        "EFFECT_COLOR"
+      ]
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Light"
+  }
+}

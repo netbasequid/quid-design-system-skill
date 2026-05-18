@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quid Design System — example</title>
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link rel="stylesheet" href="./quid.css" />
+    <style>
+      .page { max-width: 880px; margin: 48px auto; padding: 0 24px; }
+      .stack > * + * { margin-top: 16px; }
+      .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+      .swatch { width: 56px; height: 56px; border-radius: var(--radius-rg); border: 1px solid var(--border); }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px; }
+    </style>
+  </head>
+  <body>
+    <main class="page stack">
+      <header class="stack">
+        <span class="quid-badge">Brief</span>
+        <h1 class="quid-h0">Quid Design System</h1>
+        <p class="quid-body-lg quid-muted">Tokens, type, color, and shadow — wired to shadcn/ui semantics.</p>
+      </header>
+
+      <section class="quid-card" style="padding: 20px;">
+        <h2 class="quid-h2">Cards & buttons</h2>
+        <p class="quid-body">Cards use <code>--card</code>, <code>--border</code>, <code>--radius-lg</code>, and <code>--shadow-sm-recipe</code>.</p>
+        <div class="row" style="margin-top: 12px;">
+          <button class="quid-button">Primary action</button>
+          <button class="quid-button" style="background: var(--secondary); color: var(--secondary-foreground);">Secondary</button>
+          <button class="quid-button" disabled>Disabled</button>
+        </div>
+      </section>
+
+      <section class="quid-card" style="padding: 20px;">
+        <h2 class="quid-h2">Type scale</h2>
+        <div class="stack">
+          <div class="quid-hero">Hero / H0 — 40 / 48</div>
+          <div class="quid-h1">Heading 1 — 28 / 34</div>
+          <div class="quid-h2">Heading 2 — 22 / 30</div>
+          <div class="quid-h3">Heading 3 — 18 / 26</div>
+          <div class="quid-body-lg">Body large — 16 / 24</div>
+          <div class="quid-body">Body — 14 / 20</div>
+          <div class="quid-caption">Caption — 12 / 16</div>
+        </div>
+      </section>
+
+      <section class="quid-card" style="padding: 20px;">
+        <h2 class="quid-h2">Color ramps</h2>
+        <p class="quid-caption">Inspect the <code>:root</code> for the full --color-*-100..1000 set.</p>
+        <div class="grid" style="margin-top: 12px;">
+          <div class="swatch" style="background: var(--color-red-500);" title="--color-red-500"></div>
+          <div class="swatch" style="background: var(--color-orange-500);" title="--color-orange-500"></div>
+          <div class="swatch" style="background: var(--color-yellow-500);" title="--color-yellow-500"></div>
+          <div class="swatch" style="background: var(--color-green-500);" title="--color-green-500"></div>
+          <div class="swatch" style="background: var(--color-blue-500);" title="--color-blue-500"></div>
+          <div class="swatch" style="background: var(--color-purple-500);" title="--color-purple-500"></div>
+          <div class="swatch" style="background: var(--color-pink-500);" title="--color-pink-500"></div>
+          <div class="swatch" style="background: var(--color-gray-500);" title="--color-gray-500"></div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

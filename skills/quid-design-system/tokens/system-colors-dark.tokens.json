@@ -1,0 +1,1183 @@
+{
+  "background": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.12939999997615814,
+        0.12939999997615814,
+        0.12939999997615814
+      ],
+      "alpha": 1,
+      "hex": "#212121"
+    },
+    "$description": "Default background colour of <body />, etc.",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1574",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--background)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:e3d73cc76a100fc9ed67e26f537c1d0fb902c2d7/-1:-1",
+        "targetVariableName": "Gray/1600",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "foreground": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.9607843160629272,
+        0.9607843160629272,
+        0.9607843160629272
+      ],
+      "alpha": 1,
+      "hex": "#F5F5F5"
+    },
+    "$description": "Text colour for background elements",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1575",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--foreground)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:e78627fe28bac2f0be78484937dc12a3be2a8151/-1:-1",
+        "targetVariableName": "Gray/200",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "muted": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.2353000044822693,
+        0.2353000044822693,
+        0.2353000044822693
+      ],
+      "alpha": 1,
+      "hex": "#3C3C3C"
+    },
+    "$description": "Muted backgrounds such as <TabsList />, <Skeleton /> and <Switch />",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1576",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--muted)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:f2cc0a0f85ff0efd00b4e4c2e0d79334dcdb99c4/-1:-1",
+        "targetVariableName": "Gray/1300",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "muted-foreground": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.7764706015586853,
+        0.7764706015586853,
+        0.7764706015586853
+      ],
+      "alpha": 1,
+      "hex": "#C6C6C6"
+    },
+    "$description": "Text colour for muted elements",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1577",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--muted-foreground)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:307ee982cec9226e26e057eef32c68f68d126dee/-1:-1",
+        "targetVariableName": "Gray/600",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "card": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.12939999997615814,
+        0.12939999997615814,
+        0.12939999997615814
+      ],
+      "alpha": 1,
+      "hex": "#212121"
+    },
+    "$description": "Background color for <Card />",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1578",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--card)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:e3d73cc76a100fc9ed67e26f537c1d0fb902c2d7/-1:-1",
+        "targetVariableName": "Gray/1600",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "card-foreground": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.9607843160629272,
+        0.9607843160629272,
+        0.9607843160629272
+      ],
+      "alpha": 1,
+      "hex": "#F5F5F5"
+    },
+    "$description": "Text colour for card element",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1579",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--card-foreground)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:e78627fe28bac2f0be78484937dc12a3be2a8151/-1:-1",
+        "targetVariableName": "Gray/200",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "popover": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.20389999449253082,
+        0.20389999449253082,
+        0.20389999449253082
+      ],
+      "alpha": 1,
+      "hex": "#343434"
+    },
+    "$description": "Background colour for popovers such as <DropdownMenu />, <HoverCard />, <Popover />",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1580",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--popover)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:be0096365f6498cb3b17ce50be011752c610e80e/-1:-1",
+        "targetVariableName": "Gray/1400",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "popover-foreground": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.9607843160629272,
+        0.9607843160629272,
+        0.9607843160629272
+      ],
+      "alpha": 1,
+      "hex": "#F5F5F5"
+    },
+    "$description": "Text colour for popover elements",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1581",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--popover-foreground)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:e78627fe28bac2f0be78484937dc12a3be2a8151/-1:-1",
+        "targetVariableName": "Gray/200",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "border": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.27450981736183167,
+        0.27450981736183167,
+        0.27450981736183167
+      ],
+      "alpha": 1,
+      "hex": "#464646"
+    },
+    "$description": "Default border colour",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1582",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--border)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:ad695ab17d8e34668231951b3615a3b6d6ae132c/-1:-1",
+        "targetVariableName": "Gray/1200",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "unselected-border": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.6274510025978088,
+        0.6274510025978088,
+        0.6274510025978088
+      ],
+      "alpha": 1,
+      "hex": "#A0A0A0"
+    },
+    "$description": "Default border colour",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:4820:17863",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--border)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:85865fa9a5180580f8e8374980847028dec34f3a/-1:-1",
+        "targetVariableName": "Gray/800",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "hover:border": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.5098000168800354,
+        0.5098000168800354,
+        0.5098000168800354
+      ],
+      "alpha": 1,
+      "hex": "#828282"
+    },
+    "$description": "Default border colour",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:4770:36232",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--border)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:cb003e9b161198eb3418cd2ee125291f6ab07d30/-1:-1",
+        "targetVariableName": "Gray/900",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "input": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.27450981736183167,
+        0.27450981736183167,
+        0.27450981736183167
+      ],
+      "alpha": 1,
+      "hex": "#464646"
+    },
+    "$description": "Border colour for inputs such as <Input />, <Select />, <Textarea />",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1583",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--input)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:ad695ab17d8e34668231951b3615a3b6d6ae132c/-1:-1",
+        "targetVariableName": "Gray/1200",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "primary": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.3215999901294708,
+        0.6118000149726868,
+        0.8863000273704529
+      ],
+      "alpha": 1,
+      "hex": "#529CE2"
+    },
+    "$description": "Primary colour for <Button />",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1584",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--primary)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:4fcd8a635b577b8a74d440e283ecf172cd03e389/-1:-1",
+        "targetVariableName": "Blue/600",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "primary-container-background": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.15690000355243683,
+        0.27059999108314514,
+        0.42750000953674316
+      ],
+      "alpha": 1,
+      "hex": "#28456D"
+    },
+    "$description": "Primary colour for <Button />",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:4854:7324",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--primary)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:e56d76901fe96c4c57c0ef7965289ea8da634b21/-1:-1",
+        "targetVariableName": "Blue/1000",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "primary-container-foreground": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.5293999910354614,
+        0.7608000040054321,
+        0.9843000173568726
+      ],
+      "alpha": 1,
+      "hex": "#87C2FB"
+    },
+    "$description": "Primary colour for <Button />",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:4854:7325",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--primary)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:72818527d659208b99172495536430773c28a9d4/-1:-1",
+        "targetVariableName": "Blue/400",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "primary-foreground": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.12939999997615814,
+        0.12939999997615814,
+        0.12939999997615814
+      ],
+      "alpha": 1,
+      "hex": "#212121"
+    },
+    "$description": "Primary text colour for <Button />",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1585",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--primary-foreground)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:e3d73cc76a100fc9ed67e26f537c1d0fb902c2d7/-1:-1",
+        "targetVariableName": "Gray/1600",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "hover:primary": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.3215999901294708,
+        0.6118000149726868,
+        0.8863000273704529
+      ],
+      "alpha": 0.8999999761581421,
+      "hex": "#529CE2"
+    },
+    "$description": "Placeholder colour of the primary button background on hover (because there is no HSLA or RGBA support in variables now)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:144:1601",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:d2a1c88a9cdf0f78dbaaf9bc3534d50454a2056e/-1:-1",
+        "targetVariableName": "Blue/alpha/600-a90",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "pressed:primary": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.3215999901294708,
+        0.6118000149726868,
+        0.8863000273704529
+      ],
+      "alpha": 0.800000011920929,
+      "hex": "#529CE2"
+    },
+    "$extensions": {
+      "com.figma.variableId": "VariableID:4985:15461",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ],
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:faac610f1a6be2019bc496b9c9d59a24e85a5571/-1:-1",
+        "targetVariableName": "Blue/alpha/600-a80",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "secondary": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.11999999731779099,
+      "hex": "#FFFFFF"
+    },
+    "$description": "Secondary colour for <Button />",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1586",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--secondary)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:b6a437d8a9d899b661298fd3c8cb204ab37ec92b/-1:-1",
+        "targetVariableName": "Gray/alpha/0-a12",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "secondary-foreground": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.9411764740943909,
+        0.9411764740943909,
+        0.9411764740943909
+      ],
+      "alpha": 1,
+      "hex": "#F0F0F0"
+    },
+    "$description": "Secondary text colour for <Button />",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1587",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--secondary-foreground)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:527ee982358b30ce344c417fdfbc6391ae9d022f/-1:-1",
+        "targetVariableName": "Gray/300",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "hover:secondary": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.09000000357627869,
+      "hex": "#FFFFFF"
+    },
+    "$description": "Placeholder colour of the secondary button background on hover",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:144:1602",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:cf39f28fc3d2a94d5dd1cd4d48c1ca0f5296af2c/-1:-1",
+        "targetVariableName": "Gray/alpha/0-a09",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "pressed:secondary": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.05000000074505806,
+      "hex": "#FFFFFF"
+    },
+    "$extensions": {
+      "com.figma.variableId": "VariableID:5077:26180",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ],
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:a0345550654a80121c4bc1075b627c8ef1efad99/-1:-1",
+        "targetVariableName": "Gray/alpha/0-a05",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "accent": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.11999999731779099,
+      "hex": "#FFFFFF"
+    },
+    "$description": "Accent colour for hover effects on <DropdownMenuItem>, <SelectItem>, etc.",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1588",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--accent)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:b6a437d8a9d899b661298fd3c8cb204ab37ec92b/-1:-1",
+        "targetVariableName": "Gray/alpha/0-a12",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "hover:accent": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.09000000357627869,
+      "hex": "#FFFFFF"
+    },
+    "$extensions": {
+      "com.figma.variableId": "VariableID:5077:27178",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ],
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:cf39f28fc3d2a94d5dd1cd4d48c1ca0f5296af2c/-1:-1",
+        "targetVariableName": "Gray/alpha/0-a09",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "pressed:accent": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.05000000074505806,
+      "hex": "#FFFFFF"
+    },
+    "$extensions": {
+      "com.figma.variableId": "VariableID:5077:27179",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ],
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:a0345550654a80121c4bc1075b627c8ef1efad99/-1:-1",
+        "targetVariableName": "Gray/alpha/0-a05",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "accent-foreground": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.9607843160629272,
+        0.9607843160629272,
+        0.9607843160629272
+      ],
+      "alpha": 1,
+      "hex": "#F5F5F5"
+    },
+    "$description": "Text colour for accent elements",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1589",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--accent-foreground)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:e78627fe28bac2f0be78484937dc12a3be2a8151/-1:-1",
+        "targetVariableName": "Gray/200",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "destructive": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.9843000173568726,
+        0.45879998803138733,
+        0.45879998803138733
+      ],
+      "alpha": 1,
+      "hex": "#FB7575"
+    },
+    "$description": "Used for destructive actions such as <Button variant=\"destructive\"> and <Toast variant=\"destructive\">",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1590",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--destructive)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:a2f18587a573a4a21c688a1cbd0ee47a009df7be/-1:-1",
+        "targetVariableName": "Red/500",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "destructive-foreground": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.12939999997615814,
+        0.12939999997615814,
+        0.12939999997615814
+      ],
+      "alpha": 1,
+      "hex": "#212121"
+    },
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1591",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--destructive-foreground)"
+      },
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:e3d73cc76a100fc9ed67e26f537c1d0fb902c2d7/-1:-1",
+        "targetVariableName": "Gray/1600",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "hover:destructive": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.9843000173568726,
+        0.45879998803138733,
+        0.45879998803138733
+      ],
+      "alpha": 0.8999999761581421,
+      "hex": "#FB7575"
+    },
+    "$extensions": {
+      "com.figma.variableId": "VariableID:144:1603",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:aebc0515eb944808568dd90ce678ac3f67fa1fd0/-1:-1",
+        "targetVariableName": "Red/alpha/500-a90",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "pressed:destructive": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.9843000173568726,
+        0.45879998803138733,
+        0.45879998803138733
+      ],
+      "alpha": 0.800000011920929,
+      "hex": "#FB7575"
+    },
+    "$extensions": {
+      "com.figma.variableId": "VariableID:5078:18523",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ],
+      "com.figma.aliasData": {
+        "targetVariableId": "VariableID:172a0e3fcaed00a8029f8e9752ef14fcf9cb575b/-1:-1",
+        "targetVariableName": "Red/alpha/500-a80",
+        "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+        "targetVariableSetName": "Terminal - Base Colors"
+      }
+    }
+  },
+  "ring": {
+    "$type": "color",
+    "$value": "{primary}",
+    "$description": "Ring colour used for focus state",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:137:1592",
+      "com.figma.scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "com.figma.codeSyntax": {
+        "WEB": "var(--focus)"
+      }
+    }
+  },
+  "sidebar": {
+    "background": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.12939999997615814,
+          0.12939999997615814,
+          0.12939999997615814
+        ],
+        "alpha": 1,
+        "hex": "#212121"
+      },
+      "$description": "Background for the sidebar",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:2845:1919",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE",
+          "EFFECT_COLOR"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--sidebar-background)"
+        },
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:e3d73cc76a100fc9ed67e26f537c1d0fb902c2d7/-1:-1",
+          "targetVariableName": "Gray/1600",
+          "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+          "targetVariableSetName": "Terminal - Base Colors"
+        }
+      }
+    },
+    "foreground": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9607843160629272,
+          0.9607843160629272,
+          0.9607843160629272
+        ],
+        "alpha": 1,
+        "hex": "#F5F5F5"
+      },
+      "$description": "Text colour for sidebar elements",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:2845:1953",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE",
+          "EFFECT_COLOR"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--sidebar-foreground)"
+        },
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:e78627fe28bac2f0be78484937dc12a3be2a8151/-1:-1",
+          "targetVariableName": "Gray/200",
+          "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+          "targetVariableSetName": "Terminal - Base Colors"
+        }
+      }
+    },
+    "foreground-70": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9607843160629272,
+          0.9607843160629272,
+          0.9607843160629272
+        ],
+        "alpha": 0.699999988079071,
+        "hex": "#F5F5F5"
+      },
+      "$description": "Secondary symbols in the sidebar",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:2845:9079",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE",
+          "EFFECT_COLOR"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--sidebar-foreground) / .7"
+        },
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:dd49fb306a6f2416f674c9a18cd2555f66accdfe/-1:-1",
+          "targetVariableName": "Gray/alpha/200-a70",
+          "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+          "targetVariableSetName": "Terminal - Base Colors"
+        }
+      }
+    },
+    "primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9607843160629272,
+          0.9607843160629272,
+          0.9607843160629272
+        ],
+        "alpha": 1,
+        "hex": "#F5F5F5"
+      },
+      "$description": "Color for the buttons and accent elements in the sidebar",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:2845:1955",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE",
+          "EFFECT_COLOR"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--sidebar-primary)"
+        },
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:e78627fe28bac2f0be78484937dc12a3be2a8151/-1:-1",
+          "targetVariableName": "Gray/200",
+          "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+          "targetVariableSetName": "Terminal - Base Colors"
+        }
+      }
+    },
+    "primary-foreground": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.12939999997615814,
+          0.12939999997615814,
+          0.12939999997615814
+        ],
+        "alpha": 1,
+        "hex": "#212121"
+      },
+      "$description": "Symbols color on the primary elements",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:2845:1956",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE",
+          "EFFECT_COLOR"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--sidebar-primary-foreground)"
+        },
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:e3d73cc76a100fc9ed67e26f537c1d0fb902c2d7/-1:-1",
+          "targetVariableName": "Gray/1600",
+          "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+          "targetVariableSetName": "Terminal - Base Colors"
+        }
+      }
+    },
+    "accent": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.20389999449253082,
+          0.20389999449253082,
+          0.20389999449253082
+        ],
+        "alpha": 1,
+        "hex": "#343434"
+      },
+      "$description": "Accent surfaces, hover and other interactions",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:2845:1957",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE",
+          "EFFECT_COLOR"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--sidebar-accent)"
+        },
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:be0096365f6498cb3b17ce50be011752c610e80e/-1:-1",
+          "targetVariableName": "Gray/1400",
+          "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+          "targetVariableSetName": "Terminal - Base Colors"
+        }
+      }
+    },
+    "accent-foreground": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9607843160629272,
+          0.9607843160629272,
+          0.9607843160629272
+        ],
+        "alpha": 1,
+        "hex": "#F5F5F5"
+      },
+      "$description": "Symbols on the accent surfaces in active state",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:2845:2030",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE",
+          "EFFECT_COLOR"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--sidebar-accent-foreground)"
+        },
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:e78627fe28bac2f0be78484937dc12a3be2a8151/-1:-1",
+          "targetVariableName": "Gray/200",
+          "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+          "targetVariableSetName": "Terminal - Base Colors"
+        }
+      }
+    },
+    "border": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.27450981736183167,
+          0.27450981736183167,
+          0.27450981736183167
+        ],
+        "alpha": 1,
+        "hex": "#464646"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:2845:2031",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE",
+          "EFFECT_COLOR"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--sidebar-border)"
+        },
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:ad695ab17d8e34668231951b3615a3b6d6ae132c/-1:-1",
+          "targetVariableName": "Gray/1200",
+          "targetVariableSetId": "VariableCollectionId:09bf38bd68f75217e9a123b75edf4a6a2d74566d/-1:-1",
+          "targetVariableSetName": "Terminal - Base Colors"
+        }
+      }
+    },
+    "ring": {
+      "$type": "color",
+      "$value": "{sidebar.primary}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:2845:2032",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE",
+          "EFFECT_COLOR"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--sidebar-ring)"
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "dark/default"
+  }
+}
