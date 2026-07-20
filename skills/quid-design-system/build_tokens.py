@@ -301,6 +301,45 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-headings); color: va
 """
     )
 
+    # ---- Example-post components ----
+    # Post cards for social/news evidence in briefs (image-top carousel).
+    # Markup contract + image-sourcing rules: SKILL.md "Example-post components";
+    # reference markup: example.html "Example posts" section.
+    parts.append(
+        """/* ---- Example-post components (image-top carousel) ---- */
+.sub-head { display: flex; align-items: center; gap: 10px; font-size: var(--font-size-h3); line-height: var(--font-line-height-h3); font-weight: var(--font-bold); margin: 26px 0 12px; }
+.sub-head:first-child { margin-top: 0; }
+.sub-head .count { font-size: var(--font-size-12); font-weight: var(--font-semibold); color: var(--muted-foreground); background: var(--muted); border-radius: var(--radius-full); padding: 2px 10px; }
+
+.sc-carousel { display: flex; gap: 12px; overflow-x: auto; margin: 12px 0; padding-bottom: 10px; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-color: var(--unselected-border) transparent; }
+.sc-carousel::-webkit-scrollbar { height: 8px; }
+.sc-carousel::-webkit-scrollbar-thumb { background: var(--unselected-border); border-radius: var(--radius-full); }
+.sc-carousel::-webkit-scrollbar-track { background: transparent; }
+
+.sc-card {
+  flex: 0 0 244px; scroll-snap-align: start;
+  display: flex; flex-direction: column;
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; box-shadow: var(--shadow-sm-recipe); text-decoration: none;
+  transition: box-shadow .15s, border-color .15s, transform .15s;
+}
+.sc-card:hover { box-shadow: var(--shadow-lg-recipe); border-color: var(--hover-border); transform: translateY(-2px); }
+
+.sc-thumb { aspect-ratio: 16 / 9; background: var(--muted); flex: none; overflow: hidden; }
+.sc-thumb img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+.sc-thumb-ph { display: flex; align-items: center; justify-content: center; text-align: center; padding: 14px; background: linear-gradient(135deg, var(--primary-container-background), var(--secondary)); }
+.sc-thumb-ph span { font-size: var(--font-size-13); font-weight: var(--font-semibold); color: var(--primary); word-break: break-word; }
+
+.sc-meta { display: flex; flex-direction: column; padding: 14px 16px; }
+.sc-who { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.sc-handle { font-size: var(--font-size-13); font-weight: var(--font-bold); color: var(--foreground); }
+.sc-plat { font-size: var(--font-size-12); color: var(--muted-foreground); }
+.sc-quote { font-size: var(--font-size-13); line-height: var(--font-line-height-15); color: var(--card-foreground); margin: 0 0 12px; font-style: italic; }
+.sc-link { margin-top: auto; font-size: var(--font-size-12); font-weight: var(--font-semibold); color: var(--primary); }
+.sc-card:hover .sc-link { text-decoration: underline; }
+"""
+    )
+
     return "\n".join(parts).rstrip() + "\n"
 
 

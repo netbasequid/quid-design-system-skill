@@ -4,10 +4,12 @@ description: >
   Apply the Quid (Terminal) design aesthetic to any HTML artifact before generation.
   Inlines a single stylesheet that exposes all Figma tokens (colors, typography, radius,
   shadows) as CSS custom properties wired to shadcn/ui semantics, plus a small set of
-  Quid-branded utility classes. Use BEFORE creating an HTML brief, dashboard, report,
-  or any other Quid-branded artifact so the output inherits correct fonts, colors,
-  radius, and spacing. Triggers: "make this Quid-branded", "apply Quid styling",
-  "use our design system", "Quid look and feel", any HTML brief generation, push-brief.
+  Quid-branded utility classes and example-post components (post cards with images,
+  per-platform image sourcing, live social embeds). Use BEFORE creating an HTML brief,
+  dashboard, report, or any other Quid-branded artifact so the output inherits correct
+  fonts, colors, radius, and spacing. Triggers: "make this Quid-branded", "apply Quid
+  styling", "use our design system", "Quid look and feel", "show example posts in the
+  brief", "embed the posts", any HTML brief generation, push-brief.
 ---
 
 # Quid Design System
@@ -67,6 +69,52 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 - **Typography** — `--font-sans` (Inter), `--font-size-12 / 13 / 14 / 15 / 16 / h0..h3 / hero / subtitle / pull-quote / blob-caption / code-large`, matching `--font-line-height-*`, weights `--font-light / regular / medium / semibold / bold / headings / h0`. A `@media (max-width: 768px)` block automatically swaps in the mobile size scale.
 - **Shadows** — `--shadow-sm`, `--shadow-rg`, `--shadow-lg`, `--shadow-sm-hover`, `--shadow-rg-hover` (raw rgba), and ready-to-use recipes `--shadow-sm-recipe`, `--shadow-rg-recipe`, `--shadow-lg-recipe`.
 - **Utility classes** — `.quid-hero`, `.quid-h0`, `.quid-h1`, `.quid-h2`, `.quid-h3`, `.quid-subtitle`, `.quid-pull-quote`, `.quid-body`, `.quid-body-lg`, `.quid-caption`, `.quid-muted`, `.quid-card`, `.quid-button`, `.quid-badge`.
+- **Example-post components** — `.sc-carousel`, `.sc-card`, `.sc-thumb`, `.sc-thumb-ph`, `.sc-meta`, `.sc-who`, `.sc-handle`, `.sc-plat`, `.sc-quote`, `.sc-link` (see the dedicated section below).
+
+## Example-post components
+
+Use when a brief shows real social or news posts as evidence — top posts, example posts per theme, quote cards. The `.sc-*` styles ship inside `quid.css`, so inlining `quid.css` is all the setup needed; copy the markup shape from the "Example posts" section of `example.html`.
+
+Card contract (each card is one post):
+
+```html
+<a class="sc-card" href="{post URL}" target="_blank" rel="noopener">
+  <div class="sc-thumb"><img src="{image URL}" loading="lazy" alt="" referrerpolicy="no-referrer"
+    onerror="this.parentElement.classList.add('sc-thumb-ph'); this.parentElement.innerHTML='<span>{domain}</span>'"></div>
+  <div class="sc-meta">
+    <div class="sc-who"><span class="sc-handle">{@handle}</span> <span class="sc-plat">{platform}</span></div>
+    <p class="sc-quote">"{the post's own text, verbatim}"</p>
+    <span class="sc-link">View post ↗</span>
+  </div>
+</a>
+```
+
+Quotes are the post's real text — never paraphrase or invent. `.sc-plat` is the platform name only.
+
+### Image policy: hotlink-only
+
+Put the platform's own image URL in `src` — no local files, no base64 — so the brief stays a single self-contained file. Some platform URLs expire; that is accepted, with two rules making it safe:
+
+1. **Every post `<img>` carries `referrerpolicy="no-referrer"` and the `onerror` handler** shown above. `no-referrer` is load-bearing: Instagram/Facebook/TikTok CDNs reject hotlinks that send a Referer header, and pass them without one. `onerror` makes an expired or dead image degrade to the domain gradient tile (`.sc-thumb-ph`) instead of a broken-image icon.
+2. **A post with no image at all** (deleted, or the source exposes none) renders `.sc-thumb-ph` with its domain from the start. Never leave the slot empty and never substitute an unrelated image.
+
+Where the image URL comes from — these are platform traits, not tool instructions, and none of them depends on any other skill existing:
+
+| URL trait | Platforms (as of 2026) | What to do |
+| --- | --- | --- |
+| Stable public image CDN | YouTube (`i.ytimg.com/vi/{id}/hqdefault.jpg`), X media (`pbs.twimg.com`), Bluesky (`cdn.bsky.app`), many news CDNs (e.g. espncdn) | Hotlink; effectively durable |
+| Signed, expiring URL | Instagram & Facebook `og:image` (fetch the post page server-side to read it), TikTok covers (oEmbed `thumbnail_url`) | Hotlink anyway; dies in days — rule 1 covers it |
+| Blocked front door | Reddit (`www.reddit.com` pages and JSON API reject plain fetches; `old.reddit.com` still serves full HTML with `og:image` / `i.redd.it` links) | Use the alternate route |
+| Nothing to fetch | Deleted posts; text-only posts | Rule 2: domain tile |
+
+If the workspace has a data-collection skill for the platform, prefer its response over scraping — e.g. X search results typically already include media URLs — but the table above works without any of them.
+
+### Live embeds (optional upgrade)
+
+When the brief should show the living post itself (playable video, live like counts) instead of a card: YouTube and Facebook embed via plain iframes; Instagram and Threads embed via a direct iframe with `/embed/` appended to the post URL (do **not** use blockquote+embed.js — its handshake fails on static pages); X, TikTok, Reddit, and Bluesky use their official script-processed blockquotes. Two hard rules:
+
+- Instagram/Facebook iframes must carry `sandbox="allow-scripts allow-same-origin allow-popups"` — a login-walled or deleted post can otherwise frame-bust and navigate the whole brief away.
+- Only public, still-live posts render; a deleted post leaves the embed blank with no fallback. Prefer cards when durability matters, or pair each embed with a card as backup.
 
 ## Theming
 
@@ -88,7 +136,7 @@ Light mode is the default. To activate dark mode, add `class="dark"` (or `data-t
 │   ├── shadow-colors-dark.tokens.json
 │   ├── typography-desktop.tokens.json
 │   └── typography-mobile.tokens.json
-└── example.html        ← reference markup for type scale, cards, buttons, swatches
+└── example.html        ← reference markup for type scale, cards, buttons, swatches, example-post carousel
 ```
 
 ## Updating after a Figma change
