@@ -67,6 +67,68 @@
       </section>
 
       <section class="quid-card" style="padding: 20px;">
+        <h2 class="quid-h2">Large cards (creative in the wild)</h2>
+        <p class="quid-body quid-muted">Image-top cards in a 3-up grid — the whole card is the click target. Works across platforms (TikTok, Instagram, YouTube, Reddit…). Here each card is an anchor opening the post; in a brief with a post-detail modal, use a div with data-url instead. The first five cards are real posts covering each media pattern (video with platform logo + play, image with platform logo, stable vs. signed/expiring thumbnails); the last shows the domain fallback for a deleted post.</p>
+        <div class="large-cards" style="margin-top: 12px;">
+          <!-- Pattern 1 · Video, signed expiring cover — TikTok oEmbed thumbnail_url dies in days; onerror degrades to the domain tile. Video posts get .lc-logo + .lc-play. -->
+          <a class="large-card" href="https://www.tiktok.com/@lifeofbradz/video/7619322080344984854" target="_blank" rel="noopener">
+            <div class="lc-media"><img class="lc-thumb" src="https://p16-common-sign.tiktokcdn.com/tos-no1a-p-0037-no/oESH3BVIaE0BCRbCi0qwjKByiKfAABRACIu9A0~tplv-tiktokx-dmt-logom:tos-no1a-i-0068-no/oMcMABKE8AiqCaKfCw69xS0RRCIg3AvdiI6BAX.image?dr=14573&amp;x-expires=1784707200&amp;x-signature=gW7xIqnT%2FDm2Ov7yqsPmbf9HO14%3D&amp;t=4d5b0474&amp;ps=13740610&amp;shp=81f88b70&amp;shcp=43f4a2f9&amp;idc=my2" loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('sc-thumb-ph'); this.parentElement.innerHTML='<span>tiktok.com</span>'">
+              <span class="lc-logo" title="TikTok"><svg viewBox="0 0 24 24" fill="#111" aria-hidden="true"><path d="M16.5 3c.3 2 1.6 3.5 3.5 3.8v2.4c-1.3 0-2.5-.4-3.5-1.1v5.9c0 3-2.4 5-5 5s-5-2-5-4.7c0-2.8 2.3-4.8 5.2-4.6v2.5c-.4-.1-.9-.2-1.3-.1-1.1.2-1.9 1-1.8 2.2.1 1.1 1 1.9 2.1 1.8 1.2 0 2-1 2-2.3V3h3.1z"/></svg></span>
+              <span class="lc-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <div class="lc-meta">
+              <div class="lc-head"><span class="lc-author">Bradz ⚡️</span><span class="lc-src">TikTok</span></div>
+              <p class="lc-text">World Cup 2026 kits are HERE! #football #futbol #Soccer #worldcup #kits #ronaldo #portugal #messi #argentina #lamineyamal</p>
+            </div>
+          </a>
+          <!-- Pattern 2 · Image, signed expiring URL — Instagram scontent og:image; fetch the post page (or /embed/) to read it, hotlink, accept the days-scale expiry. -->
+          <a class="large-card" href="https://www.instagram.com/p/DYA14KxlUQQ/" target="_blank" rel="noopener">
+            <div class="lc-media"><img class="lc-thumb" src="https://scontent-tpe1-1.cdninstagram.com/v/t39.30808-6/689012408_1512422737106722_1614770168017262563_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=109&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=Mzg5MTM0NjkwMTI1NDM4MzAxMA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=A54D-R-Bq8sQ7kNvwHjLZgO&amp;_nc_oc=AdpQ2i0IBASj5zyUdyLWTUdpApGqWHP12No8sUeZZPzU-_oFws-ZU1W9Y20hVz2y3O8&amp;_nc_zt=23&amp;_nc_ht=scontent-tpe1-1.cdninstagram.com&amp;_nc_gid=8-cBYD72hwSff2Cf8nyfMA&amp;_nc_ss=79289&amp;oh=00_AQAP1zl8AHwXqH49J8LgDnqvdLUrWRvCTC_SeWV0h0e04w&amp;oe=6A63AF3D" loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('sc-thumb-ph'); this.parentElement.innerHTML='<span>instagram.com</span>'">
+              <span class="lc-logo" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#E1306C" stroke="none"/></svg></span></div>
+            <div class="lc-meta">
+              <div class="lc-head"><span class="lc-author">Being Latino</span><span class="lc-src">Instagram</span></div>
+              <p class="lc-text">Adidas just fired the first massive shot of the 2026 World Cup season, and the lineup is actually insane.</p>
+            </div>
+          </a>
+          <!-- Pattern 3 · Video, stable derivable thumb — YouTube: i.ytimg.com/vi/{id}/hqdefault.jpg from the video id alone. -->
+          <a class="large-card" href="https://www.youtube.com/watch?v=N6O1srBSTHc" target="_blank" rel="noopener">
+            <div class="lc-media"><img class="lc-thumb" src="https://i.ytimg.com/vi/N6O1srBSTHc/hqdefault.jpg" loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('sc-thumb-ph'); this.parentElement.innerHTML='<span>youtube.com</span>'">
+              <span class="lc-logo" title="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23 7.5a3 3 0 0 0-2.1-2.1C19 5 12 5 12 5s-7 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C5 19 12 19 12 19s7 0 8.9-.4a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.5 12 31 31 0 0 0 23 7.5z"/><path fill="#fff" d="M10 15l5-3-5-3z"/></svg></span>
+              <span class="lc-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <div class="lc-meta">
+              <div class="lc-head"><span class="lc-author">@xa07_Editx</span><span class="lc-src">YouTube</span></div>
+              <p class="lc-text">New Nike Worldcup Ad🥶☠️ #shorts #nike #adidas #fifaworldcup #cr7 #messi #neymar #mbappe</p>
+            </div>
+          </a>
+          <!-- Pattern 4 · Image, stable i.redd.it — read og:image from old.reddit.com (www rejects plain fetches), then hotlink the full-size i.redd.it file; preview.redd.it needs a signature and 403s without it. -->
+          <a class="large-card" href="https://www.reddit.com/r/repbudgesoccer/comments/1thllv0/brazil_neymar_2026_home_jersey_from_spkiv/" target="_blank" rel="noopener">
+            <div class="lc-media"><img class="lc-thumb" src="https://i.redd.it/mc1v6y3e932h1.jpg" loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('sc-thumb-ph'); this.parentElement.innerHTML='<span>reddit.com</span>'">
+              <span class="lc-logo" title="Reddit"><svg viewBox="0 0 24 24" fill="#FF4500" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm5.9 10.6c0 .2.1.4.1.6 0 2.3-2.7 4.1-6 4.1s-6-1.8-6-4.1c0-.2 0-.4.1-.6a1.3 1.3 0 1 1 1.6-1.9 6.6 6.6 0 0 1 3.6-1.1l.7-3.1 2.2.5a1 1 0 1 1-.1.6l-1.9-.4-.6 2.7a6.6 6.6 0 0 1 3.5 1.2 1.3 1.3 0 1 1 1.2 2zm-8.4.2a1 1 0 1 0 2 0 1 1 0 0 0-2 0zm5.4 2.3c-.7.5-2.1.6-2.9.6-.8 0-2.2-.1-2.9-.6a.3.3 0 0 0-.4.4c.8.8 2.4.9 3.3.9.9 0 2.5-.1 3.3-.9a.3.3 0 1 0-.4-.4zm-.5-1.3a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></span></div>
+            <div class="lc-meta">
+              <div class="lc-head"><span class="lc-author">u/saraivao</span><span class="lc-src">Reddit</span></div>
+              <p class="lc-text">Just found out Neymar Jr will play for Brazil at the 2026 World Cup, and I couldn’t be more excited to show my support with this new home jersey.</p>
+            </div>
+          </a>
+          <!-- Pattern 5 · Image, stable pbs.twimg.com — X media URLs come with search/API results and outlive most signed CDNs. -->
+          <a class="large-card" href="https://twitter.com/iyke_fc/status/2062882262790640084" target="_blank" rel="noopener">
+            <div class="lc-media"><img class="lc-thumb" src="https://pbs.twimg.com/media/HKDUevTWMAA16JI.jpg" loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('sc-thumb-ph'); this.parentElement.innerHTML='<span>twitter.com</span>'">
+              <span class="lc-logo" title="X"><svg viewBox="0 0 24 24" fill="#111" aria-hidden="true"><path d="M17.8 3h2.9l-6.4 7.3L21.8 21h-5.9l-4.6-6-5.3 6H3.1l6.8-7.8L2.6 3h6l4.2 5.5L17.8 3zm-1 16.2h1.6L8 4.7H6.3l10.5 14.5z"/></svg></span></div>
+            <div class="lc-meta">
+              <div class="lc-head"><span class="lc-author">@iyke_fc</span><span class="lc-src">X</span></div>
+              <p class="lc-text">Leo Messi boot from Adidas for the world cup 2026. Branded "el ultimo tango" (last tango)</p>
+            </div>
+          </a>
+          <!-- Pattern 6 · Deleted post — nothing to fetch anywhere; render the domain tile (.lc-media.sc-thumb-ph) from the start. Keep the text, author, and link. -->
+          <a class="large-card" href="https://twitter.com/GroKfacts1/status/2039760313898471458" target="_blank" rel="noopener">
+            <div class="lc-media sc-thumb-ph"><span>twitter.com</span></div>
+            <div class="lc-meta">
+              <div class="lc-head"><span class="lc-author">@GroKfacts1</span><span class="lc-src">X</span></div>
+              <p class="lc-text">Lionel Messi's special boots for the World Cup 2026 have been revealed!</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="quid-card" style="padding: 20px;">
         <h2 class="quid-h2">Color ramps</h2>
         <p class="quid-caption">Inspect the <code>:root</code> for the full --color-*-100..1000 set.</p>
         <div class="grid" style="margin-top: 12px;">

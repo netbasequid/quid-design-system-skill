@@ -340,6 +340,39 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-headings); color: va
 """
     )
 
+    # ---- Large cards (creative in the wild) ----
+    # Image-top post cards in a 3-up grid; the whole card is the click target.
+    # Markup contract + sourcing rules: SKILL.md "Large cards (creative in the wild)";
+    # reference markup: example.html "Large cards" section.
+    parts.append(
+        """/* ---- Large cards (creative in the wild) — image-top, whole card is the click target ---- */
+.large-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 12px 0; }
+@media (max-width: 900px) { .large-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .large-cards { grid-template-columns: 1fr; } }
+.large-card { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm-recipe); text-decoration: none; color: inherit; cursor: pointer; transition: box-shadow .15s ease, transform .15s ease; }
+.large-card:hover { box-shadow: var(--shadow-lg-recipe); transform: translateY(-2px); }
+.large-card:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.large-card .lc-thumb { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: var(--muted); display: block; }
+.large-card .lc-meta { padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.large-card .lc-head { display: flex; align-items: center; gap: 8px; }
+.large-card .lc-author { font-size: var(--font-size-13); font-weight: var(--font-semibold); color: var(--card-foreground); }
+.large-card .lc-src { font-size: var(--font-size-12); color: var(--muted-foreground); margin-left: auto; }
+.large-card .lc-text { font-size: var(--font-size-13); line-height: var(--font-line-height-15); color: var(--muted-foreground); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.large-card .lc-stats { margin-top: auto; display: flex; gap: 14px; font-size: var(--font-size-12); color: var(--muted-foreground); padding-top: 4px; }
+.large-card .lc-stats b { color: var(--foreground); font-weight: var(--font-semibold); }
+/* video variant — thumbnail with channel/platform logo overlay + play affordance */
+.large-card .lc-media { position: relative; aspect-ratio: 1 / 1; background: var(--muted); overflow: hidden; }
+.large-card .lc-media .lc-thumb { width: 100%; height: 100%; aspect-ratio: auto; }
+.large-card .lc-logo { position: absolute; top: 8px; left: 8px; width: 30px; height: 30px; border-radius: 50%; background: #fff; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(0,0,0,.28); }
+.large-card .lc-logo svg { width: 18px; height: 18px; display: block; }
+.large-card .lc-play { position: absolute; inset: 0; margin: auto; width: 52px; height: 52px; border-radius: 50%; background: rgba(17,17,17,.55); display: flex; align-items: center; justify-content: center; transition: background .15s ease, transform .15s ease; }
+.large-card:hover .lc-play { background: var(--primary); transform: scale(1.06); }
+.large-card .lc-play svg { width: 20px; height: 20px; fill: #fff; margin-left: 2px; }
+/* dead/absent image → shared domain tile; compound selector so the gradient outranks .lc-media's muted bg */
+.large-card .lc-media.sc-thumb-ph { background: linear-gradient(135deg, var(--primary-container-background), var(--secondary)); }
+"""
+    )
+
     return "\n".join(parts).rstrip() + "\n"
 
 
