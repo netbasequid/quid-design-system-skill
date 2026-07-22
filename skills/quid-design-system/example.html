@@ -129,6 +129,54 @@
       </section>
 
       <section class="quid-card" style="padding: 20px;">
+        <h2 class="quid-h2">Social embeds (native)</h2>
+        <p class="quid-caption">One tile per platform using its official embed method. iframe (no script): YouTube, Facebook, Instagram + Threads (direct <code>/embed/</code> iframe — NOT blockquote+embed.js). Script-processed blockquotes: X, TikTok, Reddit, Bluesky. View over http (not <code>file://</code>); only public, still-live posts render. Swap the USERNAME/POST_ID/AT-URI placeholders (Threads, Bluesky) for real posts.</p>
+        <div class="embed-grid" style="margin-top: 12px;">
+          <!-- Pattern 1 · iframe, no script · YouTube — plain /embed/ iframe in a 16:9 .yt wrapper. Renders live. -->
+          <div class="embed-tile">
+            <div class="embed-plat"><span class="dot" style="background:#FF0000"></span>YouTube</div>
+            <div class="embed-body"><div class="yt"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+          </div>
+          <!-- Pattern 2 · script blockquote · X / Twitter — widgets.js rehydrates .twitter-tweet. Renders live. -->
+          <div class="embed-tile">
+            <div class="embed-plat"><span class="dot" style="background:#111"></span>X / Twitter</div>
+            <div class="embed-body"><blockquote class="twitter-tweet"><a href="https://twitter.com/jack/status/20"></a></blockquote></div>
+          </div>
+          <!-- Pattern 3 · iframe, no script · Instagram — direct /embed/ iframe (append /embed/ to the post URL); NOT blockquote+embed.js, whose postMessage handshake fails on a static page. -->
+          <div class="embed-tile">
+            <div class="embed-plat"><span class="dot" style="background:#E1306C"></span>Instagram</div>
+            <div class="embed-body"><iframe src="https://www.instagram.com/p/DW_7b0djpLl/embed/" width="100%" height="560" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div>
+          </div>
+          <!-- Pattern 4 · script blockquote · TikTok — embed.js rehydrates .tiktok-embed via data-video-id. -->
+          <div class="embed-tile">
+            <div class="embed-plat"><span class="dot" style="background:#111"></span>TikTok</div>
+            <div class="embed-body"><blockquote class="tiktok-embed" cite="https://www.tiktok.com/@espn/video/7652542819512487198" data-video-id="7652542819512487198"><section></section></blockquote></div>
+          </div>
+          <!-- Pattern 5 · script blockquote · Reddit — widgets.js rehydrates .reddit-embed-bq; set data-embed-height. -->
+          <div class="embed-tile">
+            <div class="embed-plat"><span class="dot" style="background:#FF4500"></span>Reddit</div>
+            <div class="embed-body"><blockquote class="reddit-embed-bq" style="height:500px" data-embed-height="500"><a href="https://www.reddit.com/r/IAmA/comments/z1c9z/i_am_barack_obama_president_of_the_united_states/">I am Barack Obama, President of the United States — AMA</a><br>by <a href="https://www.reddit.com/r/IAmA/">r/IAmA</a></blockquote></div>
+          </div>
+          <!-- Pattern 6 · iframe, no script · Facebook — plugins/post.php iframe with URL-encoded href. -->
+          <div class="embed-tile">
+            <div class="embed-plat"><span class="dot" style="background:#1877F2"></span>Facebook</div>
+            <div class="embed-body"><iframe src="https://www.facebook.com/plugins/post.php?href=http%3A%2F%2Fwww.facebook.com%2F623937346435212%2Fposts%2F1388838723278400&show_text=true&width=300" width="100%" height="480" scrolling="no" frameborder="0" allow="encrypted-media; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
+          </div>
+          <!-- Pattern 7 · iframe, no script · Threads — Meta product, same direct /embed/ iframe as Instagram. Placeholder URL: swap USERNAME/POST_ID for a real post. -->
+          <div class="embed-tile">
+            <div class="embed-plat"><span class="dot" style="background:#000"></span>Threads</div>
+            <div class="embed-body"><iframe src="https://www.threads.com/@USERNAME/post/POST_ID/embed" width="100%" height="560" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div>
+          </div>
+          <!-- Pattern 8 · script blockquote · Bluesky — embed.bsky.app rehydrates .bluesky-embed. Placeholder AT-URI + CID: swap for a real post. -->
+          <div class="embed-tile">
+            <div class="embed-plat"><span class="dot" style="background:#1185FE"></span>Bluesky</div>
+            <div class="embed-body"><blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:EXAMPLE/app.bsky.feed.post/POST_ID" data-bluesky-cid="EXAMPLE_CID"></blockquote></div>
+          </div>
+        </div>
+        <p class="embed-note">These are the platforms' native embed snippets. This page loads the required widget scripts (Twitter, TikTok, Reddit, Bluesky); YouTube, Instagram, Facebook, and Threads are plain iframes. The YouTube and X examples render live; the others show the exact markup — drop in a real post URL/ID and they'll render too.</p>
+      </section>
+
+      <section class="quid-card" style="padding: 20px;">
         <h2 class="quid-h2">Color ramps</h2>
         <p class="quid-caption">Inspect the <code>:root</code> for the full --color-*-100..1000 set.</p>
         <div class="grid" style="margin-top: 12px;">
@@ -143,5 +191,18 @@
         </div>
       </section>
     </main>
+
+    <!-- Native embed widget scripts for the "Social embeds (native)" section.
+         YouTube, Instagram, Facebook, Threads are plain iframes and need no script. -->
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="https://www.tiktok.com/embed.js"></script>
+    <script async src="https://embed.reddit.com/widgets.js" charset="UTF-8"></script>
+    <script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+    <script>
+      // Rehydrate any .twitter-tweet blockquotes once the page and widgets.js are ready.
+      window.addEventListener('load', function () {
+        try { if (window.twttr && window.twttr.widgets) window.twttr.widgets.load(); } catch (e) {}
+      });
+    </script>
   </body>
 </html>

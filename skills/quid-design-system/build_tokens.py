@@ -373,6 +373,26 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-headings); color: va
 """
     )
 
+    # ---- Social embeds (native) ----
+    # Markup contract + per-platform embed method: SKILL.md "Social embeds (native)";
+    # reference markup: example.html "Social embeds (native)" section.
+    parts.append(
+        """/* ---- Social embeds (native) — one tile per platform, platform's own embed snippet ---- */
+.embed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; align-items: start; margin: 12px 0; }
+.embed-tile { border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow-sm-recipe); overflow: hidden; }
+.embed-tile .embed-plat { display: flex; align-items: center; gap: 7px; padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: var(--font-size-12); font-weight: var(--font-bold); text-transform: uppercase; letter-spacing: .02em; color: var(--muted-foreground); }
+.embed-tile .embed-plat .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.embed-tile .embed-body { padding: 12px; }
+.embed-tile .embed-body iframe { width: 100%; border: 0; display: block; }
+/* 16:9 responsive wrapper for YouTube (aspect-ratio iframes) */
+.embed-tile .yt { position: relative; width: 100%; padding-top: 56.25%; border-radius: var(--radius-sm); overflow: hidden; }
+.embed-tile .yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* script-processed blockquotes centre themselves once the platform widget rehydrates them */
+.embed-tile .instagram-media, .embed-tile .tiktok-embed, .embed-tile .twitter-tweet { margin: 0 auto !important; }
+.embed-note { font-size: var(--font-size-13); line-height: var(--font-line-height-15); color: var(--muted-foreground); margin-top: 16px; max-width: 70ch; }
+"""
+    )
+
     return "\n".join(parts).rstrip() + "\n"
 
 
