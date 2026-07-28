@@ -4,12 +4,15 @@ description: >
   Apply the Quid (Terminal) design aesthetic to any HTML artifact before generation.
   Inlines a single stylesheet that exposes all Figma tokens (colors, typography, radius,
   shadows) as CSS custom properties wired to shadcn/ui semantics, plus a small set of
-  Quid-branded utility classes and example-post components (post cards with images,
-  per-platform image sourcing, large creative-showcase cards in a 3-up grid, live
-  social embeds). Use BEFORE creating an HTML brief, dashboard, report, or any other
-  Quid-branded artifact so the output inherits correct fonts, colors, radius, and
+  Quid-branded utility classes, a full-page shell container (side-nav rail with
+  scroll-spy, hero, section primitives, and methodology footer — the frame a
+  multi-section brief is built on), and example-post components (post cards with
+  images, per-platform image sourcing, large creative-showcase cards in a 3-up grid,
+  live social embeds). Use BEFORE creating an HTML brief, dashboard, report, or any
+  other Quid-branded artifact so the output inherits correct fonts, colors, radius, and
   spacing. Triggers: "make this Quid-branded", "apply Quid styling", "use our design
-  system", "Quid look and feel", "show example posts in the brief", "embed the posts",
+  system", "Quid look and feel", "add a side nav", "on-this-page rail", "shell layout",
+  "multi-section brief", "show example posts in the brief", "embed the posts",
   "creative in the wild", "showcase the top creatives", any HTML brief generation,
   push-brief.
 ---
@@ -71,9 +74,97 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 - **Typography** — `--font-sans` (Inter), `--font-size-12 / 13 / 14 / 15 / 16 / h0..h3 / hero / subtitle / pull-quote / blob-caption / code-large`, matching `--font-line-height-*`, weights `--font-light / regular / medium / semibold / bold / headings / h0`. A `@media (max-width: 768px)` block automatically swaps in the mobile size scale.
 - **Shadows** — `--shadow-sm`, `--shadow-rg`, `--shadow-lg`, `--shadow-sm-hover`, `--shadow-rg-hover` (raw rgba), and ready-to-use recipes `--shadow-sm-recipe`, `--shadow-rg-recipe`, `--shadow-lg-recipe`.
 - **Utility classes** — `.quid-hero`, `.quid-h0`, `.quid-h1`, `.quid-h2`, `.quid-h3`, `.quid-subtitle`, `.quid-pull-quote`, `.quid-body`, `.quid-body-lg`, `.quid-caption`, `.quid-muted`, `.quid-card`, `.quid-button`, `.quid-badge`.
+- **Shell (page container)** — layout: `.with-sidenav` (toggle), `.body-layout`, `.container-brief`, `.main`, `.brief-body`; rail: `.sidenav`, `.sidenav-title`, `.sidenav a` / `:hover` / `.active`; hero: `.hero`, `.hero-card` (`.has-img`), `.eyebrow`, `.lede`; section primitives: `.section`, `.section-label`, `.section-sub`, `.divider`, `.section-divider`, `.prose`; footer: `.methodology`. Hero-gradient brand tokens `--hero-overlay` / `--hero-img` / `--grad-*`. The page container every multi-section brief starts from (see the dedicated section below).
 - **Example-post components** — `.sc-carousel`, `.sc-card`, `.sc-thumb`, `.sc-thumb-ph`, `.sc-meta`, `.sc-who`, `.sc-handle`, `.sc-plat`, `.sc-quote`, `.sc-link` (see the dedicated section below).
 - **Large cards (creative in the wild)** — `.large-cards`, `.large-card`, `.lc-media`, `.lc-thumb`, `.lc-logo`, `.lc-play`, `.lc-meta`, `.lc-head`, `.lc-author`, `.lc-src`, `.lc-text`, `.lc-stats` (see the dedicated section below).
 - **Social embeds (native)** — `.embed-grid`, `.embed-tile`, `.embed-plat`, `.dot`, `.embed-body`, `.yt`, `.embed-note` — chrome for the platforms' own embed snippets (iframe or script blockquote), one tile per platform (see the dedicated section below).
+
+## The Shell (page container)
+
+The Shell is the **page container** every multi-section brief starts from — not a widget you drop in. It is the frame; the catalog components (KPI strips, charts, `.sc-carousel`, `.large-cards`, `.embed-*`, tables, pull-quotes) are the content that composes **inside** its sections. Reach for it whenever a brief has enough parts to be worth a structure and an "on this page" rail.
+
+The container is four fixed regions plus one slot:
+
+1. **Side-nav rail** (`.sidenav`) — sticky "on this page" list, one link per section, with a scroll-spy that tracks the section in view.
+2. **Hero** (`.hero` / `.hero-card`) — eyebrow + title + lede; add `has-img` and set `--hero-img` for a dark photo hero, or omit it for the light primary-container hero.
+3. **The slot** (`.brief-body`) — the ONLY flexible region: any number of `<section class="section" id="…">` blocks, each composing catalog components based on what the data needs. There is no fixed section layout.
+4. **Methodology footer** — a final `.section` with source, window, and caveats.
+
+It all ships in `quid.css`, so inlining `quid.css` is the only CSS setup; the rail also wants the small scroll-spy script below. Section primitives (`.section`, `.section-label`, `.section-sub`, `.divider`, `.section-divider`, `.prose`) come with the shell.
+
+Container contract:
+
+```html
+<body class="with-sidenav">
+  <div class="body-layout">
+
+    <aside class="sidenav">                          <!-- rail: one <a> per section id -->
+      <p class="sidenav-title">On this page</p>
+      <nav>
+        <a href="#section-1">{Section 1 eyebrow}</a>
+        <a href="#section-2">{Section 2 eyebrow}</a>
+        <a href="#section-methodology">Methodology</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="hero">                           <!-- hero -->
+        <div class="container-brief">
+          <div class="hero-card has-img" style="--hero-img: url('{image}');">
+            <span class="eyebrow">{Client · Scope · Period}</span>
+            <h1 class="quid-hero">{Title}</h1>
+            <p class="lede">{One-sentence lede.}</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="container-brief">
+        <div class="brief-body">                       <!-- THE SLOT: compose components in here -->
+          <section class="section" id="section-1">
+            <p class="section-label">{Section 1 eyebrow}</p>
+            <h2 class="quid-h2">{Heading}</h2>
+            <!-- KPI cards / chart / .sc-carousel / table / prose … -->
+          </section>
+          <section class="section" id="section-2"> … </section>
+        </div>
+
+        <section class="section" id="section-methodology">   <!-- methodology footer -->
+          <p class="section-label">Methodology</p>
+          <div class="methodology"><p>{Source, window, caveats.}</p></div>
+        </section>
+      </div>
+    </main>
+
+  </div>
+</body>
+```
+
+Scroll-spy — highlights the section in view (put near `</body>`; a no-op when there's no rail):
+
+```html
+<script>
+  (function () {
+    const links = document.querySelectorAll('.sidenav a'); if (!links.length) return;
+    const byId = new Map([...links].map(a => [a.getAttribute('href').slice(1), a]));
+    const obs = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { links.forEach(a => a.classList.remove('active')); const l = byId.get(e.target.id); if (l) l.classList.add('active'); }
+    }), { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+    document.querySelectorAll('.section[id], .section-divider[id]').forEach(s => obs.observe(s));
+  })();
+</script>
+```
+
+Rules the markup can't show:
+
+- **The shell is the frame; components live in the slot.** Keep the four fixed regions as-is and compose everything data-specific into `.brief-body` sections — don't restructure the hero, rail, or footer per brief.
+- **Each nav link's text is the target section's blue eyebrow (`.section-label`), verbatim** — the rail mirrors the section labels, not the `<h2>` headings, so the two always read the same. Methodology is conventionally the last entry.
+- **Every rail `<a href="#id">` must match a real `id`** on a `.section` (or `.section-divider`) in the slot; each section already carries `scroll-margin-top` so the sticky offset doesn't hide its top on jump.
+- **The rail is desktop-only by design.** `.sidenav` is `display:none` until `min-width:1024px`; below that the main column goes full-width and the rail drops out — no hamburger, nothing to wire. Intended, not a gap.
+- **The rail is optional and removable in one move.** Drop `class="with-sidenav"` (and delete the `<aside>`) and the same page renders as a single full-width column — so add it only when there are enough sections to be worth navigating.
+- **Hero image:** set `--hero-img` inline on `.hero-card.has-img`; the shell multiplies the dark `--hero-overlay` gradient over it (both are brand tokens, overridable per client). Omit `has-img`/`--hero-img` for the light hero. Never hand-pick hero hex — restyle via the tokens.
+- The active rail link uses `--primary-container-foreground` / `--primary-container-background` with a `--primary` left border; hover uses `--secondary`. All from tokens — no raw hex.
+
+Full-page reference (hero + rail + real components composed into sections + methodology + working scroll-spy): **`shell-example.html`**. Open it over http — it is a complete brief, the honest picture of the shell as a page container, unlike the boxed component tiles in `example.html`.
 
 ## Example-post components
 
@@ -216,14 +307,15 @@ Light mode is the default. To activate dark mode, add `class="dark"` (or `data-t
 │   ├── shadow-colors-dark.tokens.json
 │   ├── typography-desktop.tokens.json
 │   └── typography-mobile.tokens.json
-└── example.html        ← reference markup for type scale, cards, buttons, swatches, example-post carousel, large cards
+├── example.html        ← component reference: type scale, cards, buttons, swatches, example-post carousel, large cards, social embeds
+└── shell-example.html  ← full-page reference: the Shell as a page container (hero + rail + sections + methodology)
 ```
 
 ## Updating after a Figma change
 
 1. Replace the relevant file(s) in `tokens/` with the new Figma export.
 2. From this directory, run `python3 build_tokens.py` to regenerate `quid.css`.
-3. Spot-check `example.html` in a browser before using the skill on a real brief.
+3. Spot-check `example.html` and `shell-example.html` in a browser before using the skill on a real brief.
 
 ## Authoring conventions
 

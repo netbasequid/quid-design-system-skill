@@ -458,3 +458,65 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-headings); color: va
 /* script-processed blockquotes centre themselves once the platform widget rehydrates them */
 .embed-tile .instagram-media, .embed-tile .tiktok-embed, .embed-tile .twitter-tweet { margin: 0 auto !important; }
 .embed-note { font-size: var(--font-size-13); line-height: var(--font-line-height-15); color: var(--muted-foreground); margin-top: 16px; max-width: 70ch; }
+
+/* ---- Shell brand tokens (hero gradient; overridable per client) ---- */
+:root {
+  --grad-navy: #0A1B33; --grad-blue: #13315C; --grad-teal: #1A8A8A;
+  --hero-overlay: linear-gradient(135deg, rgba(10,27,51,.92) 0%, rgba(19,49,92,.72) 55%, rgba(26,138,138,.45) 130%);
+}
+
+/* ---- Shell: layout + side-nav ---- */
+/* Toggle the whole scaffold with class="with-sidenav" on an ancestor (the brief <body>);
+   remove it (and the <aside>) to fall back to a single full-width column. */
+.container-brief { max-width: 1200px; margin: 24px auto 0; padding: 0 32px; }
+.main { padding: 0 0 64px; }
+.brief-body { min-width: 0; }
+.sidenav { display: none; }                 /* hidden by default; the rail is desktop-only */
+.with-sidenav .body-layout { display: flex; align-items: flex-start; min-height: 100vh; }
+.with-sidenav .main { flex: 1; min-width: 0; }
+@media (min-width: 1024px) {
+  .with-sidenav .sidenav { display: block; width: 240px; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; border-right: 1px solid var(--border); background: var(--card); padding: 26px 14px; }
+}
+.sidenav-title { font-size: var(--font-size-12); font-weight: var(--font-bold); letter-spacing: 0.02em; color: var(--muted-foreground); margin-bottom: 12px; padding: 0 12px; }
+.sidenav nav { display: flex; flex-direction: column; gap: 2px; }
+.sidenav a { display: block; padding: 8px 12px; border-left: 2px solid transparent; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: var(--font-size-14); line-height: var(--font-line-height-14); font-weight: var(--font-medium); color: var(--foreground); text-decoration: none; transition: color .15s, border-color .15s, background-color .15s; }
+.sidenav a:hover { color: var(--primary); background: var(--secondary); }
+.sidenav a.active { color: var(--primary-container-foreground); border-left-color: var(--primary); font-weight: var(--font-semibold); background: var(--primary-container-background); }
+
+/* ---- Shell: hero / lede ---- */
+.hero { padding: 32px 0 0; text-align: left; }
+.hero-card { background: var(--primary-container-background); color: var(--foreground); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px 32px; }
+/* dark hero with background imagery: dark gradient multiplied over --hero-img (set inline per brief; falls back to a dark fill) */
+.hero-card.has-img { background-image: var(--hero-overlay), var(--hero-img, linear-gradient(#0E1421, #0E1421)); background-size: cover; background-position: center; color: #fff; border-color: transparent; display: flex; flex-direction: column; justify-content: center; }
+.hero-card.has-img h1 { color: #fff; }
+.hero-card.has-img .lede { color: #fff; opacity: .92; }
+.hero-card.has-img .eyebrow { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.28); color: #fff; align-self: flex-start; }
+.hero .eyebrow { display: inline-block; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 4px 14px; font-size: var(--font-size-12); font-weight: var(--font-semibold); letter-spacing: 0.02em; color: var(--muted-foreground); margin-bottom: 20px; }
+.hero h1 { margin-bottom: 14px; }
+.hero .lede { font-size: var(--font-size-16); line-height: var(--font-line-height-16); color: var(--foreground); opacity: .82; max-width: 680px; margin: 0; }
+
+/* ---- Shell: section primitives (structure the .brief-body slot) ---- */
+.section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm-recipe); padding: 32px; margin-bottom: 24px; scroll-margin-top: 24px; }
+.section-label { font-size: var(--font-size-12); font-weight: var(--font-bold); text-transform: uppercase; letter-spacing: 0.02em; color: var(--primary); margin-bottom: 6px; }
+.section > h2 { margin-bottom: 6px; }
+.section > .section-sub { font-size: var(--font-size-15); color: var(--muted-foreground); margin-bottom: 24px; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+/* section divider band (between parts) */
+.section-divider { background: var(--muted); color: var(--foreground); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 32px; margin-bottom: 24px; }
+.section-divider .divider-num { font-size: var(--font-size-13); font-weight: var(--font-bold); text-transform: uppercase; letter-spacing: 0.02em; color: var(--muted-foreground); margin-bottom: 4px; }
+.section-divider h2 { color: var(--foreground); }
+.section-divider p { font-size: var(--font-size-15); line-height: var(--font-line-height-15); margin-top: 6px; color: var(--muted-foreground); }
+/* free-text prose block inside a section */
+.prose p { font-size: var(--font-size-15); line-height: var(--font-line-height-15); color: var(--card-foreground); margin: 0 0 12px; }
+.prose p:last-child { margin-bottom: 0; }
+.prose ul { margin: 0 0 12px; padding-left: 18px; list-style: disc; }
+.prose li { font-size: var(--font-size-15); line-height: var(--font-line-height-15); margin: 0 0 8px; }
+.prose strong { font-weight: var(--font-semibold); }
+/* plain content links inside a section (classed links keep their own style; side-nav unaffected) */
+.section a:not([class]) { color: var(--primary); text-decoration: none; }
+.section a:not([class]):hover { text-decoration: underline; }
+
+/* ---- Shell: methodology footer ---- */
+.methodology { max-width: 900px; }
+.methodology p { font-size: var(--font-size-13); color: var(--muted-foreground); line-height: var(--font-line-height-15); }
+.methodology p + p { margin-top: 8px; }

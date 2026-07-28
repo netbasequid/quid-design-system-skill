@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quid Design System — shell example</title>
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link rel="stylesheet" href="./quid.css" />
+    <!--
+      FULL-PAGE SHELL REFERENCE.
+      The shell is the page CONTAINER, not a widget: <body class="with-sidenav"> →
+      .body-layout → [ .sidenav rail | .main( hero + .container-brief( .brief-body slot
+      + methodology footer ) ) ]. Catalog components (here: stat cards + the .sc-carousel
+      of real posts; elsewhere KPI strips, charts, tables, embeds) compose INSIDE the
+      .brief-body <section> blocks. Everything below uses classes shipped in quid.css.
+      Rail rule: each nav link's text is the target section's blue eyebrow (.section-label),
+      verbatim. The scroll-spy script near </body> lights up the section in view.
+      Real posts are reused from example.html (verified alive); swap for your own.
+    -->
+  </head>
+  <body class="with-sidenav">
+    <div class="body-layout">
+
+      <!-- ════ SHELL · side-nav rail (one <a> per section id; text = section eyebrow) ════ -->
+      <aside class="sidenav">
+        <p class="sidenav-title">On this page</p>
+        <nav>
+          <a href="#section-summary" class="active">Executive summary</a>
+          <a href="#section-sharing">What people are sharing</a>
+          <a href="#section-signals">Signals to watch</a>
+          <a href="#section-methodology">Methodology</a>
+        </nav>
+      </aside>
+
+      <main class="main">
+
+        <!-- ════ SHELL · hero / lede (dark photo hero: set --hero-img inline) ════ -->
+        <header class="hero">
+          <div class="container-brief">
+            <div class="hero-card has-img" style="--hero-img: url('https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2024%2F0710%2Fr1356880_1296x729_16%2D9.jpg');">
+              <span class="eyebrow">World Cup 2026 · Global buzz · Jul 2026</span>
+              <h1 class="quid-hero">Momentum builds behind the 2026 squad</h1>
+              <p class="lede">A kit-and-boot reveal week pushed conversation to its highest volume of the cycle, with fans and press both leaning optimistic.</p>
+            </div>
+          </div>
+        </header>
+
+        <div class="container-brief">
+          <!-- ════ SLOT · compose sections here ════ -->
+          <div class="brief-body">
+
+            <!-- Section 1 · prose + a row of stat cards (built from shipped .quid-card) -->
+            <section class="section" id="section-summary">
+              <p class="section-label">Executive summary</p>
+              <h2 class="quid-h2">Coverage doubled as the boot drop landed</h2>
+              <p class="section-sub">The week's reveal was the single biggest driver of the spike.</p>
+              <div class="prose">
+                <p>Volume climbed sharply through the reveal window, led by the adidas boot launch and the new home kit. Sentiment ran positive across both press and social, with the sharpest lift among younger fans reacting to the creative rather than to results.</p>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:20px;">
+                <div class="quid-card" style="padding:20px; text-align:center;">
+                  <div class="quid-h1">18.4K</div>
+                  <div class="quid-caption">Posts in window</div>
+                </div>
+                <div class="quid-card" style="padding:20px; text-align:center;">
+                  <div class="quid-h1">+112%</div>
+                  <div class="quid-caption">WoW volume</div>
+                </div>
+                <div class="quid-card" style="padding:20px; text-align:center;">
+                  <div class="quid-h1">71%</div>
+                  <div class="quid-caption">Positive sentiment</div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 2 · a shipped component composed inside a section: .sc-carousel of real posts -->
+            <section class="section" id="section-sharing">
+              <p class="section-label">What people are sharing</p>
+              <h2 class="quid-h2">The kit and boot reveal drove the conversation</h2>
+              <p class="section-sub">Example posts across news, video, and social — the design system's example-post carousel.</p>
+              <div class="sc-carousel">
+                <a class="sc-card" href="https://www.espn.com/soccer/story/_/id/40532807/lionel-messi-baby-lamine-yamal-barcelona-spain-argentina-world-cup-final" target="_blank" rel="noopener"><div class="sc-thumb"><img src="https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2024%2F0710%2Fr1356880_1296x729_16%2D9.jpg" loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('sc-thumb-ph'); this.parentElement.innerHTML='<span>espn.com</span>'"></div><div class="sc-meta"><div class="sc-who"><span class="sc-handle">ESPN</span> <span class="sc-plat">News</span></div><p class="sc-quote">"Messi first met Yamal as a baby. The World Cup final will be their next meeting."</p><span class="sc-link">View post ↗</span></div></a>
+                <a class="sc-card" href="https://www.youtube.com/watch?v=_nIlhjc-EkI" target="_blank" rel="noopener"><div class="sc-thumb"><img src="https://i.ytimg.com/vi/_nIlhjc-EkI/hqdefault.jpg" loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('sc-thumb-ph'); this.parentElement.innerHTML='<span>youtube.com</span>'"></div><div class="sc-meta"><div class="sc-who"><span class="sc-handle">YouTube</span> <span class="sc-plat">YouTube</span></div><p class="sc-quote">"In this video, we explore the latest jersey concept featuring Argentina's iconic blue and white colors with a modern twist."</p><span class="sc-link">View post ↗</span></div></a>
+                <a class="sc-card" href="https://twitter.com/iyke_fc/status/2062882262790640084" target="_blank" rel="noopener"><div class="sc-thumb"><img src="https://pbs.twimg.com/media/HKDUevTWMAA16JI.jpg" loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('sc-thumb-ph'); this.parentElement.innerHTML='<span>twitter.com</span>'"></div><div class="sc-meta"><div class="sc-who"><span class="sc-handle">@iyke_fc</span> <span class="sc-plat">X</span></div><p class="sc-quote">"Leo Messi boot from Adidas for the world cup 2026. Branded 'el ultimo tango' (last tango)."</p><span class="sc-link">View post ↗</span></div></a>
+                <a class="sc-card" href="https://bsky.app/profile/did:plc:k73k3wkkunsadgixuc42ro6d/post/3mnjy2c5i7c2z" target="_blank" rel="noopener"><div class="sc-thumb"><img src="https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:k73k3wkkunsadgixuc42ro6d/bafkreiboufly7jljn5lpjyowhre6hc6cibflpsmnahfzuomewq5h4tn4mu" loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('sc-thumb-ph'); this.parentElement.innerHTML='<span>bsky.app</span>'"></div><div class="sc-meta"><div class="sc-who"><span class="sc-handle">bsky.app</span> <span class="sc-plat">Bluesky</span></div><p class="sc-quote">"Lionel Messi and Adidas have unveiled the official 2026 World Cup boots."</p><span class="sc-link">View post ↗</span></div></a>
+              </div>
+            </section>
+
+            <!-- Section 3 · prose + a plain content link -->
+            <section class="section" id="section-signals">
+              <p class="section-label">Signals to watch</p>
+              <h2 class="quid-h2">Where the next lift could come from</h2>
+              <div class="prose">
+                <p>Two threads are worth tracking into the next window:</p>
+                <ul>
+                  <li><strong>Creative-led spikes.</strong> Product reveals outperformed match news this cycle — the merchandise calendar is a leading indicator of volume.</li>
+                  <li><strong>Platform mix.</strong> Video (YouTube, TikTok) carried reach while X carried debate; a split worth watching if sentiment softens.</li>
+                </ul>
+                <p>See the full <a href="https://terminal.quid.com/">Terminal workspace</a> for the underlying posts.</p>
+              </div>
+            </section>
+
+          </div><!-- /brief-body (end SLOT) -->
+
+          <!-- ════ SHELL · methodology footer (always last) ════ -->
+          <section class="section" id="section-methodology">
+            <p class="section-label">Methodology</p>
+            <div class="methodology">
+              <p>Source: illustrative sample for the design-system shell reference. Window: Jul 2026. Example posts are real, public posts reused from the component reference; metrics shown are placeholders to demonstrate the layout.</p>
+              <p>This page exists to show the shell as a page container; swap the hero image, sections, and posts for real analysis output.</p>
+            </div>
+          </section>
+
+        </div><!-- /container-brief -->
+      </main>
+    </div><!-- /body-layout -->
+
+    <!-- ── Side-nav scroll-spy: highlights the section in view (no-op without a rail) ── -->
+    <script>
+      (function () {
+        const links = document.querySelectorAll('.sidenav a'); if (!links.length) return;
+        const byId = new Map([...links].map(a => [a.getAttribute('href').slice(1), a]));
+        const obs = new IntersectionObserver((es) => es.forEach((e) => {
+          if (e.isIntersecting) { links.forEach(a => a.classList.remove('active')); const l = byId.get(e.target.id); if (l) l.classList.add('active'); }
+        }), { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+        document.querySelectorAll('.section[id], .section-divider[id]').forEach(s => obs.observe(s));
+      })();
+    </script>
+  </body>
+</html>
