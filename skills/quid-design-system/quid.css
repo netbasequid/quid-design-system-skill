@@ -459,15 +459,23 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-headings); color: va
 .embed-tile .instagram-media, .embed-tile .tiktok-embed, .embed-tile .twitter-tweet { margin: 0 auto !important; }
 .embed-note { font-size: var(--font-size-13); line-height: var(--font-line-height-15); color: var(--muted-foreground); margin-top: 16px; max-width: 70ch; }
 
-/* ---- Shell brand tokens (hero gradient; overridable per client) ---- */
+/* ---- Shell brand tokens (hero gradient + page canvas; overridable per client) ---- */
 :root {
   --grad-navy: #0A1B33; --grad-blue: #13315C; --grad-teal: #1A8A8A;
+  --hero-gradient: linear-gradient(135deg, var(--grad-navy) 0%, var(--grad-blue) 55%, var(--grad-teal) 130%);
   --hero-overlay: linear-gradient(135deg, rgba(10,27,51,.92) 0%, rgba(19,49,92,.72) 55%, rgba(26,138,138,.45) 130%);
+  /* soft tinted canvas the brief cards float over (peach / mint / lavender) */
+  --shell-canvas:
+    radial-gradient(60% 55% at 14% 16%, rgba(252,227,206,.55) 0%, rgba(252,227,206,0) 60%),
+    radial-gradient(55% 45% at 50% 82%, rgba(196,233,228,.55) 0%, rgba(196,233,228,0) 62%),
+    radial-gradient(50% 60% at 90% 26%, rgba(228,223,246,.60) 0%, rgba(228,223,246,0) 60%);
 }
 
 /* ---- Shell: layout + side-nav ---- */
 /* Toggle the whole scaffold with class="with-sidenav" on an ancestor (the brief <body>);
    remove it (and the <aside>) to fall back to a single full-width column. */
+html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (each .section carries scroll-margin-top) */
+.body-layout { min-height: 100vh; background-image: var(--shell-canvas); background-attachment: fixed; }
 .container-brief { max-width: 1200px; margin: 24px auto 0; padding: 0 32px; }
 .main { padding: 0 0 64px; }
 .brief-body { min-width: 0; }
@@ -484,16 +492,24 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-headings); color: va
 .sidenav a.active { color: var(--primary-container-foreground); border-left-color: var(--primary); font-weight: var(--font-semibold); background: var(--primary-container-background); }
 
 /* ---- Shell: hero / lede ---- */
+/* DEFAULT hero is the dark Quid gradient with white text. Add class="has-img" and set
+   --hero-img inline to layer a photo behind the dark overlay. Add class="light" for the
+   pale primary-container hero instead. */
 .hero { padding: 32px 0 0; text-align: left; }
-.hero-card { background: var(--primary-container-background); color: var(--foreground); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px 32px; }
-/* dark hero with background imagery: dark gradient multiplied over --hero-img (set inline per brief; falls back to a dark fill) */
-.hero-card.has-img { background-image: var(--hero-overlay), var(--hero-img, linear-gradient(#0E1421, #0E1421)); background-size: cover; background-position: center; color: #fff; border-color: transparent; display: flex; flex-direction: column; justify-content: center; }
-.hero-card.has-img h1 { color: #fff; }
-.hero-card.has-img .lede { color: #fff; opacity: .92; }
-.hero-card.has-img .eyebrow { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.28); color: #fff; align-self: flex-start; }
-.hero .eyebrow { display: inline-block; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 4px 14px; font-size: var(--font-size-12); font-weight: var(--font-semibold); letter-spacing: 0.02em; color: var(--muted-foreground); margin-bottom: 20px; }
+.hero-card { background-color: var(--grad-navy); background-image: var(--hero-gradient); color: #fff; border: 1px solid transparent; border-radius: var(--radius-lg); padding: 36px 32px; display: flex; flex-direction: column; justify-content: center; }
+.hero-card h1 { color: #fff; }
+.hero-card .lede { color: #fff; opacity: .92; }
+/* photo hero: dark overlay multiplied over --hero-img (falls back to the dark gradient) */
+.hero-card.has-img { background-image: var(--hero-overlay), var(--hero-img, var(--hero-gradient)); background-size: cover; background-position: center; }
+/* light hero variant (opt-in): pale primary-container surface, dark text */
+.hero-card.light { background-color: var(--primary-container-background); background-image: none; color: var(--foreground); border-color: var(--border); }
+.hero-card.light h1 { color: var(--foreground); }
+.hero-card.light .lede { color: var(--foreground); opacity: .82; }
+/* eyebrow: translucent light pill by default (on dark); pale card pill on the light hero */
+.hero .eyebrow { display: inline-block; align-self: flex-start; border-radius: var(--radius-full); padding: 4px 14px; font-size: var(--font-size-12); font-weight: var(--font-semibold); letter-spacing: 0.02em; margin-bottom: 20px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.28); color: #fff; }
+.hero-card.light .eyebrow { background: var(--card); border-color: var(--border); color: var(--muted-foreground); }
 .hero h1 { margin-bottom: 14px; }
-.hero .lede { font-size: var(--font-size-16); line-height: var(--font-line-height-16); color: var(--foreground); opacity: .82; max-width: 680px; margin: 0; }
+.hero .lede { font-size: var(--font-size-16); line-height: var(--font-line-height-16); max-width: 680px; margin: 0; }
 
 /* ---- Shell: section primitives (structure the .brief-body slot) ---- */
 .section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm-recipe); padding: 32px; margin-bottom: 24px; scroll-margin-top: 24px; }

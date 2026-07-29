@@ -6,7 +6,8 @@ description: >
   shadows) as CSS custom properties wired to shadcn/ui semantics, plus a small set of
   Quid-branded utility classes, a full-page shell container (side-nav rail with
   scroll-spy, hero, section primitives, and methodology footer — the frame a
-  multi-section brief is built on), and example-post components (post cards with
+  multi-section brief is built on), and example-post
+  components (post cards with
   images, per-platform image sourcing, large creative-showcase cards in a 3-up grid,
   live social embeds). Use BEFORE creating an HTML brief, dashboard, report, or any
   other Quid-branded artifact so the output inherits correct fonts, colors, radius, and
@@ -74,7 +75,7 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 - **Typography** — `--font-sans` (Inter), `--font-size-12 / 13 / 14 / 15 / 16 / h0..h3 / hero / subtitle / pull-quote / blob-caption / code-large`, matching `--font-line-height-*`, weights `--font-light / regular / medium / semibold / bold / headings / h0`. A `@media (max-width: 768px)` block automatically swaps in the mobile size scale.
 - **Shadows** — `--shadow-sm`, `--shadow-rg`, `--shadow-lg`, `--shadow-sm-hover`, `--shadow-rg-hover` (raw rgba), and ready-to-use recipes `--shadow-sm-recipe`, `--shadow-rg-recipe`, `--shadow-lg-recipe`.
 - **Utility classes** — `.quid-hero`, `.quid-h0`, `.quid-h1`, `.quid-h2`, `.quid-h3`, `.quid-subtitle`, `.quid-pull-quote`, `.quid-body`, `.quid-body-lg`, `.quid-caption`, `.quid-muted`, `.quid-card`, `.quid-button`, `.quid-badge`.
-- **Shell (page container)** — layout: `.with-sidenav` (toggle), `.body-layout`, `.container-brief`, `.main`, `.brief-body`; rail: `.sidenav`, `.sidenav-title`, `.sidenav a` / `:hover` / `.active`; hero: `.hero`, `.hero-card` (`.has-img`), `.eyebrow`, `.lede`; section primitives: `.section`, `.section-label`, `.section-sub`, `.divider`, `.section-divider`, `.prose`; footer: `.methodology`. Hero-gradient brand tokens `--hero-overlay` / `--hero-img` / `--grad-*`. The page container every multi-section brief starts from (see the dedicated section below).
+- **Shell (page container)** — layout: `.with-sidenav` (toggle), `.body-layout`, `.container-brief`, `.main`, `.brief-body`; rail: `.sidenav`, `.sidenav-title`, `.sidenav a` / `:hover` / `.active`; hero: `.hero`, `.hero-card` (`.has-img` photo, `.light` opt-in), `.eyebrow`, `.lede`; section primitives: `.section`, `.section-label`, `.section-sub`, `.divider`, `.section-divider`, `.prose`; footer: `.methodology`. Brand tokens `--hero-gradient` (dark hero default) / `--hero-overlay` / `--hero-img` / `--grad-*` / `--shell-canvas` (page tint). The page container every multi-section brief starts from (see the dedicated section below).
 - **Example-post components** — `.sc-carousel`, `.sc-card`, `.sc-thumb`, `.sc-thumb-ph`, `.sc-meta`, `.sc-who`, `.sc-handle`, `.sc-plat`, `.sc-quote`, `.sc-link` (see the dedicated section below).
 - **Large cards (creative in the wild)** — `.large-cards`, `.large-card`, `.lc-media`, `.lc-thumb`, `.lc-logo`, `.lc-play`, `.lc-meta`, `.lc-head`, `.lc-author`, `.lc-src`, `.lc-text`, `.lc-stats` (see the dedicated section below).
 - **Social embeds (native)** — `.embed-grid`, `.embed-tile`, `.embed-plat`, `.dot`, `.embed-body`, `.yt`, `.embed-note` — chrome for the platforms' own embed snippets (iframe or script blockquote), one tile per platform (see the dedicated section below).
@@ -86,7 +87,7 @@ The Shell is the **page container** every multi-section brief starts from — no
 The container is four fixed regions plus one slot:
 
 1. **Side-nav rail** (`.sidenav`) — sticky "on this page" list, one link per section, with a scroll-spy that tracks the section in view.
-2. **Hero** (`.hero` / `.hero-card`) — eyebrow + title + lede; add `has-img` and set `--hero-img` for a dark photo hero, or omit it for the light primary-container hero.
+2. **Hero** (`.hero` / `.hero-card`) — eyebrow + title + lede. Dark Quid gradient by default; add `has-img` + set `--hero-img` for a photo hero, or `.hero-card.light` for the pale primary-container hero.
 3. **The slot** (`.brief-body`) — the ONLY flexible region: any number of `<section class="section" id="…">` blocks, each composing catalog components based on what the data needs. There is no fixed section layout.
 4. **Methodology footer** — a final `.section` with source, window, and caveats.
 
@@ -161,7 +162,8 @@ Rules the markup can't show:
 - **Every rail `<a href="#id">` must match a real `id`** on a `.section` (or `.section-divider`) in the slot; each section already carries `scroll-margin-top` so the sticky offset doesn't hide its top on jump.
 - **The rail is desktop-only by design.** `.sidenav` is `display:none` until `min-width:1024px`; below that the main column goes full-width and the rail drops out — no hamburger, nothing to wire. Intended, not a gap.
 - **The rail is optional and removable in one move.** Drop `class="with-sidenav"` (and delete the `<aside>`) and the same page renders as a single full-width column — so add it only when there are enough sections to be worth navigating.
-- **Hero image:** set `--hero-img` inline on `.hero-card.has-img`; the shell multiplies the dark `--hero-overlay` gradient over it (both are brand tokens, overridable per client). Omit `has-img`/`--hero-img` for the light hero. Never hand-pick hero hex — restyle via the tokens.
+- **Hero:** the default `.hero-card` is the dark `--hero-gradient` (navy→teal, white text). Add `has-img` + set `--hero-img` inline for a photo (the shell multiplies the dark `--hero-overlay` over it); add `.hero-card.light` for the pale primary-container hero. All brand tokens, overridable per client — never hand-pick hero hex.
+- **Smooth-scroll and the page canvas ship with the shell.** Side-nav anchor clicks smooth-scroll (`html { scroll-behavior: smooth }`), and the page sits on the soft `--shell-canvas` tint behind the white section cards. Both are automatic — nothing to wire.
 - The active rail link uses `--primary-container-foreground` / `--primary-container-background` with a `--primary` left border; hover uses `--secondary`. All from tokens — no raw hex.
 
 Full-page reference (hero + rail + real components composed into sections + methodology + working scroll-spy): **`shell-example.html`**. Open it over http — it is a complete brief, the honest picture of the shell as a page container, unlike the boxed component tiles in `example.html`.
