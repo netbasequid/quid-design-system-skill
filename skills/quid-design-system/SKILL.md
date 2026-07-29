@@ -6,8 +6,7 @@ description: >
   shadows) as CSS custom properties wired to shadcn/ui semantics, plus a small set of
   Quid-branded utility classes, a full-page shell container (side-nav rail with
   scroll-spy, hero, section primitives, and methodology footer — the frame a
-  multi-section brief is built on), and example-post
-  components (post cards with
+  multi-section brief is built on), an optional KPI metric strip, and example-post components (post cards with
   images, per-platform image sourcing, large creative-showcase cards in a 3-up grid,
   live social embeds). Use BEFORE creating an HTML brief, dashboard, report, or any
   other Quid-branded artifact so the output inherits correct fonts, colors, radius, and
@@ -75,7 +74,8 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 - **Typography** — `--font-sans` (Inter), `--font-size-12 / 13 / 14 / 15 / 16 / h0..h3 / hero / subtitle / pull-quote / blob-caption / code-large`, matching `--font-line-height-*`, weights `--font-light / regular / medium / semibold / bold / headings / h0`. A `@media (max-width: 768px)` block automatically swaps in the mobile size scale.
 - **Shadows** — `--shadow-sm`, `--shadow-rg`, `--shadow-lg`, `--shadow-sm-hover`, `--shadow-rg-hover` (raw rgba), and ready-to-use recipes `--shadow-sm-recipe`, `--shadow-rg-recipe`, `--shadow-lg-recipe`.
 - **Utility classes** — `.quid-hero`, `.quid-h0`, `.quid-h1`, `.quid-h2`, `.quid-h3`, `.quid-subtitle`, `.quid-pull-quote`, `.quid-body`, `.quid-body-lg`, `.quid-caption`, `.quid-muted`, `.quid-card`, `.quid-button`, `.quid-badge`.
-- **Shell (page container)** — layout: `.with-sidenav` (toggle), `.body-layout`, `.container-brief`, `.main`, `.brief-body`; rail: `.sidenav`, `.sidenav-title`, `.sidenav a` / `:hover` / `.active`; hero: `.hero`, `.hero-card` (`.has-img` photo, `.light` opt-in), `.eyebrow`, `.lede`; section primitives: `.section`, `.section-label`, `.section-sub`, `.divider`, `.section-divider`, `.prose`; footer: `.methodology`. Brand tokens `--hero-gradient` (dark hero default) / `--hero-overlay` / `--hero-img` / `--grad-*` / `--shell-canvas` (page tint). The page container every multi-section brief starts from (see the dedicated section below).
+- **Shell (page container)** — layout: `.with-sidenav` (toggle), `.body-layout`, `.container-brief`, `.main`, `.brief-body`; rail: `.sidenav`, `.sidenav-title`, `.sidenav a` / `:hover` / `.active`; hero: `.hero`, `.hero-card` (`.has-img`), `.eyebrow`, `.lede`; section primitives: `.section`, `.section-label`, `.section-sub`, `.divider`, `.section-divider`, `.prose`; footer: `.methodology`. Hero-gradient brand tokens `--hero-overlay` / `--hero-img` / `--grad-*`. The page container every multi-section brief starts from (see the dedicated section below).
+- **KPI strip** — `.kpi-grid`, `.kpi-card`, `.kpi-card .label` / `.value` / `.delta` (`.up` / `.down`) / `.period` — optional top-accent metric cards (see the dedicated section below).
 - **Example-post components** — `.sc-carousel`, `.sc-card`, `.sc-thumb`, `.sc-thumb-ph`, `.sc-meta`, `.sc-who`, `.sc-handle`, `.sc-plat`, `.sc-quote`, `.sc-link` (see the dedicated section below).
 - **Large cards (creative in the wild)** — `.large-cards`, `.large-card`, `.lc-media`, `.lc-thumb`, `.lc-logo`, `.lc-play`, `.lc-meta`, `.lc-head`, `.lc-author`, `.lc-src`, `.lc-text`, `.lc-stats` (see the dedicated section below).
 - **Social embeds (native)** — `.embed-grid`, `.embed-tile`, `.embed-plat`, `.dot`, `.embed-body`, `.yt`, `.embed-note` — chrome for the platforms' own embed snippets (iframe or script blockquote), one tile per platform (see the dedicated section below).
@@ -167,6 +167,32 @@ Rules the markup can't show:
 - The active rail link uses `--primary-container-foreground` / `--primary-container-background` with a `--primary` left border; hover uses `--secondary`. All from tokens — no raw hex.
 
 Full-page reference (hero + rail + real components composed into sections + methodology + working scroll-spy): **`shell-example.html`**. Open it over http — it is a complete brief, the honest picture of the shell as a page container, unlike the boxed component tiles in `example.html`.
+
+## KPI strip
+
+Optional summary metrics that sit above the slot (inside `.container-brief`, or inside any `.section`). Primary top-accent cards: a `.label` over a big `.value`, with an optional directional `.delta`. Auto-fits 3–4 cards; omit it when a brief has no headline numbers.
+
+Contract (one `.kpi-card` per metric):
+
+```html
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="label">{Metric name}</div>
+    <div class="value">{Number}</div>
+    <div class="delta up">+31% <span class="period">vs last month</span></div>
+  </div>
+  <!-- …3–4 cards… -->
+</div>
+```
+
+Rules the markup can't show:
+
+- **Label first, value second** — the eyebrow-style `.label` sits *above* the big `.value`; don't invert them.
+- **`.delta` is optional and directional** — `.up` renders a green ▲, `.down` a red ▼ (the arrow is a `::before`, so put only the number in the text). The `.period` span is the comparison window ("vs last month"), muted and inline.
+- **Only show a delta you can source.** A delta implies a real prior-window comparison — omit the `.delta` row entirely for a snapshot metric with no baseline (a value-only card is valid). Never invent a percentage.
+- Use **3 or 4 cards**; the grid auto-fits and wraps below ~160px per card.
+
+Reference markup (up, down, and value-only cards): the "KPI strip" section of `example.html`.
 
 ## Example-post components
 
@@ -309,7 +335,7 @@ Light mode is the default. To activate dark mode, add `class="dark"` (or `data-t
 │   ├── shadow-colors-dark.tokens.json
 │   ├── typography-desktop.tokens.json
 │   └── typography-mobile.tokens.json
-├── example.html        ← component reference: type scale, cards, buttons, swatches, example-post carousel, large cards, social embeds
+├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, example-post carousel, large cards, social embeds
 └── shell-example.html  ← full-page reference: the Shell as a page container (hero + rail + sections + methodology)
 ```
 

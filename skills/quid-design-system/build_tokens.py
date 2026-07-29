@@ -482,6 +482,24 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 """
     )
 
+    # ---- KPI strip (optional metric cards) ----
+    # Primary top-accent metric cards: label over big value, optional up/down delta
+    # with a comparison-window period. Ported verbatim from the Component Gallery.
+    # Markup contract + rules: SKILL.md "KPI strip"; reference: example.html "KPI strip".
+    parts.append(
+        r"""/* ---- KPI strip (optional; primary top-accent metric cards) ---- */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 16px; margin: 24px 0; }
+.kpi-card { background: var(--card); color: var(--card-foreground); border: 1px solid var(--border); border-top: 3px solid var(--primary); border-radius: var(--radius); padding: 20px 16px; text-align: center; box-shadow: var(--shadow-sm-recipe); }
+.kpi-card .label { font-size: var(--font-size-12); font-weight: var(--font-semibold); text-transform: uppercase; letter-spacing: 0.02em; color: var(--muted-foreground); margin-bottom: 8px; }
+.kpi-card .value { font-size: var(--font-size-h1); font-weight: var(--font-bold); line-height: 1.1; }
+.kpi-card .delta { display: inline-flex; align-items: center; gap: 4px; font-size: var(--font-size-13); font-weight: var(--font-regular); margin-top: 2px; }
+.kpi-card .delta::before { font-size: 0.8em; line-height: 1; }   /* directional triangle */
+.kpi-card .delta.up { color: var(--color-green-700); } .kpi-card .delta.up::before { content: "\25B2"; }   /* up */
+.kpi-card .delta.down { color: var(--destructive); } .kpi-card .delta.down::before { content: "\25BC"; }   /* down */
+.kpi-card .delta .period { color: var(--muted-foreground); }   /* optional "vs ..." window, inline after the delta */
+"""
+    )
+
     return "\n".join(parts).rstrip() + "\n"
 
 

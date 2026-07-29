@@ -47,6 +47,20 @@
       </section>
 
       <section class="quid-card" style="padding: 20px;">
+        <h2 class="quid-h2">KPI strip</h2>
+        <p class="quid-body quid-muted">Optional primary top-accent metric cards. Each card is a <code>.label</code> over a big <code>.value</code>, with an optional <code>.delta</code> row — <code>.up</code> (green ▲) or <code>.down</code> (red ▼) — and an optional <code>.period</code> span naming the comparison window. Auto-fits 3–4 cards; omit it entirely if the brief doesn't need summary metrics.</p>
+        <div class="kpi-grid" style="margin-top: 12px;">
+          <!-- up delta with comparison window -->
+          <div class="kpi-card"><div class="label">Total posts</div><div class="value">431K</div><div class="delta up">+31% <span class="period">vs last month</span></div></div>
+          <div class="kpi-card"><div class="label">Active authors</div><div class="value">76K</div><div class="delta up">+24% <span class="period">vs last month</span></div></div>
+          <!-- down delta -->
+          <div class="kpi-card"><div class="label">Engagements</div><div class="value">70.3M</div><div class="delta down">-16% <span class="period">vs last month</span></div></div>
+          <!-- value only (no delta when there's no prior-window comparison) -->
+          <div class="kpi-card"><div class="label">Net sentiment</div><div class="value">+71</div></div>
+        </div>
+      </section>
+
+      <section class="quid-card" style="padding: 20px;">
         <h2 class="quid-h2">Example posts — image-top carousel</h2>
         <p class="quid-body quid-muted">Horizontal scroll of example posts with the image on top. Each card uses the linked post's og:image; when a source exposes no usable image (X, Reddit, Instagram, or a placeholder), the thumb falls back to a gradient tile showing the source domain. Handle · platform, caption, then a View post link. The first five cards are real posts covering each image-sourcing pattern (news og:image, YouTube, X, Bluesky, signed/expiring URL); the last shows the domain fallback for a deleted post.</p>
         <h3 class="sub-head" style="margin-top: 12px;">Example posts</h3>
