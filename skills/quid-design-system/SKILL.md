@@ -35,7 +35,7 @@ The skill is a single static stylesheet (`quid.css`) plus the source Figma token
 
 ### A. Standalone HTML brief (default)
 
-Inline `quid.css` in `<head>` so the brief is self-contained — push-brief uploads need a single file.
+Inline `quid.css` in `<head>` so the brief stays **one HTML file with no sibling asset files** — push-brief uploads a single file. External URLs are expected and fine: the Inter stylesheet below, post images (see "Image policy: hotlink-only"), and platform embed scripts all load over the network. The requirement is one file to upload, not zero network requests.
 
 ```html
 <!doctype html>
@@ -216,7 +216,7 @@ Quotes are the post's real text — never paraphrase or invent. `.sc-plat` is th
 
 ### Image policy: hotlink-only
 
-Put the platform's own image URL in `src` — no local files, no base64 — so the brief stays a single self-contained file. Some platform URLs expire; that is accepted, with two rules making it safe:
+Put the platform's own image URL in `src` — no local files, no base64 — so the brief stays one file with no sibling assets. Some platform URLs expire; that is accepted, with two rules making it safe:
 
 1. **Every post `<img>` carries `referrerpolicy="no-referrer"` and the `onerror` handler** shown above. `no-referrer` is load-bearing: Instagram/Facebook/TikTok CDNs reject hotlinks that send a Referer header, and pass them without one. `onerror` makes an expired or dead image degrade to the domain gradient tile (`.sc-thumb-ph`) instead of a broken-image icon.
 2. **A post with no image at all** (deleted, or the source exposes none) renders `.sc-thumb-ph` with its domain from the start. Never leave the slot empty and never substitute an unrelated image.
@@ -308,7 +308,7 @@ The tile chrome is identical across platforms; only the `.embed-body` payload di
 Rules the markup can't show:
 
 - **Instagram/Threads use the direct `/embed/` iframe, never blockquote+embed.js.** The blockquote path needs a `postMessage` handshake with the parent page that never completes on a static, script-less brief, so the embed stays blank. Appending `/embed/` to the post URL is the path that renders.
-- **Script-processed platforms need their widget script loaded once per page** (the four `<script async>` tags above, near `</body>`). Add `window.twttr.widgets.load()` on `window.load` so late-injected `.twitter-tweet` nodes rehydrate. In a single self-contained brief for `push-brief`, these scripts run only when the file is viewed over http — never `file://`.
+- **Script-processed platforms need their widget script loaded once per page** (the four `<script async>` tags above, near `</body>`). Add `window.twttr.widgets.load()` on `window.load` so late-injected `.twitter-tweet` nodes rehydrate. In a single-file brief for `push-brief`, these scripts run only when the file is viewed over http — never `file://`.
 - **Sandbox the cross-origin iframes.** Instagram/Facebook/Threads iframes should carry `sandbox="allow-scripts allow-same-origin allow-popups"` — a login-walled or deleted post can otherwise frame-bust and navigate the whole brief away.
 - **Only public, still-live posts render; there is no fallback.** A deleted or private post leaves the tile blank. When durability matters, use a card (sections above) instead, or pair each embed with a card as backup.
 - `.embed-plat` is the platform name plus a brand-colored `.dot`; keep the label to the platform only. `.embed-note` is an optional caption under the grid.
