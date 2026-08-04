@@ -587,6 +587,27 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 """
     )
 
+    # ---- Ranked theme — with media ----
+    # The .with-media variant of the ranked-theme card: text left, thumbnail top-right,
+    # and a full-width example-posts carousel below. Extends the base .theme-* classes
+    # (ranked-theme with quotes) and composes .sc-carousel. Ported from the Component
+    # Gallery. Markup contract: SKILL.md "Ranked theme — with media".
+    parts.append(
+        """/* ---- Ranked theme — with media (text left, thumbnail right, carousel below) ---- */
+.theme-main { flex: 1; min-width: 0; }
+.theme-card.with-media { display: grid; grid-template-columns: minmax(0, 1fr) 200px; grid-template-areas: "text img" "cols cols"; gap: 0 24px; }
+.theme-card.with-media .theme-text { grid-area: text; min-width: 0; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.theme-card.with-media .theme-thumb { grid-area: img; width: 200px; height: 140px; align-self: start; border-radius: var(--radius-md); object-fit: cover; background: var(--muted); }
+.theme-card.with-media .theme-cols { grid-area: cols; margin-top: 14px; min-width: 0; }
+@media (max-width: 760px) {
+  .theme-card.with-media { grid-template-columns: minmax(0, 1fr); grid-template-areas: "text" "img" "cols"; }
+  .theme-card.with-media .theme-text { border-bottom: none; padding-bottom: 0; }
+  .theme-card.with-media .theme-thumb { width: 100%; height: 160px; margin-top: 14px; }
+  .theme-card.with-media .theme-cols { padding-top: 14px; border-top: 1px solid var(--border); }
+}
+"""
+    )
+
     return "\n".join(parts).rstrip() + "\n"
 
 

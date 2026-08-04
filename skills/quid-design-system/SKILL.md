@@ -6,7 +6,7 @@ description: >
   shadows) as CSS custom properties wired to shadcn/ui semantics, plus a small set of
   Quid-branded utility classes, a full-page shell container (side-nav rail with
   scroll-spy, hero, section primitives, and methodology footer — the frame a
-  multi-section brief is built on), an optional KPI metric strip, colored tag badges, a ranked-theme list (rank + badge + metrics + verbatim quotes), chart-series color tokens, a data table, an accordion, and example-post components (post cards with
+  multi-section brief is built on), an optional KPI metric strip, colored tag badges, a ranked-theme list (rank + badge + metrics + verbatim quotes), chart-series color tokens, a data table, an accordion, a media-beside ranked-theme variant, and example-post components (post cards with
   images, per-platform image sourcing, large creative-showcase cards in a 3-up grid,
   live social embeds). Use BEFORE creating an HTML brief, dashboard, report, or any
   other Quid-branded artifact so the output inherits correct fonts, colors, radius, and
@@ -81,6 +81,7 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 - **Chart palette & convention** — series-color tokens `--chart-1…14` (categorical), `--sentiment-positive` / `-neutral` / `-negative`, `--citrus-1…6` (wordcloud). Read by charts via `getComputedStyle` (see the dedicated section below).
 - **Table** — `.table-wrap` (+ `.clickable`) wrapping a `<table>`; `.num` right-aligns numeric cells (see the dedicated section below).
 - **Accordion** — `.accordion` wrapping native `<details>` / `<summary>` (+ `.acc-meta`, `.acc-body`) — expandable stacked rows (see the dedicated section below).
+- **Ranked theme — with media** — `.theme-card.with-media` + `.theme-text` / `.theme-thumb` / `.theme-cols` (extends the ranked-theme base; composes `.sc-carousel`) — text left, thumbnail right, carousel below (see the dedicated section below).
 - **Example-post components** — `.sc-carousel`, `.sc-card`, `.sc-thumb`, `.sc-thumb-ph`, `.sc-meta`, `.sc-who`, `.sc-handle`, `.sc-plat`, `.sc-quote`, `.sc-link` (see the dedicated section below).
 - **Large cards (creative in the wild)** — `.large-cards`, `.large-card`, `.lc-media`, `.lc-thumb`, `.lc-logo`, `.lc-play`, `.lc-meta`, `.lc-head`, `.lc-author`, `.lc-src`, `.lc-text`, `.lc-stats` (see the dedicated section below).
 - **Social embeds (native)** — `.embed-grid`, `.embed-tile`, `.embed-plat`, `.dot`, `.embed-body`, `.yt`, `.embed-note` — chrome for the platforms' own embed snippets (iframe or script blockquote), one tile per platform (see the dedicated section below).
@@ -317,6 +318,38 @@ Rules the markup can't show:
 
 Reference markup (three real subtopic rows): the "Accordion" section of `example.html`.
 
+## Ranked theme — with media
+
+The **media-beside** variant of the ranked theme (see "Ranked theme — with quotes" for the base). Same boxless ranked list, but each item is a grid: title/metrics/description on the left, a thumbnail top-right, and a full-width example-posts carousel below. Reach for it when the themes have a representative image and you want to show example posts inline rather than a couple of pull-quotes.
+
+Contract (add `with-media` to `.theme-card`):
+
+```html
+<div class="theme-list">
+  <div class="theme-card with-media">
+    <div class="theme-text">
+      <div class="theme-head"><span class="theme-rank">1</span><span class="theme-name">{Title}</span><span class="tag tag-trend">{Category}</span><span class="theme-metrics"><span class="theme-metric">SoV <b>{n}%</b></span></span></div>
+      <p class="theme-desc">{Description.} <em>{Opportunity/signal.}</em></p>
+    </div>
+    <img class="theme-thumb" src="{coverage image}" alt="" referrerpolicy="no-referrer">
+    <!-- …or, when the theme has no image: <div class="theme-thumb"></div> (gray placeholder) -->
+    <div class="theme-cols">
+      <p class="theme-examples-label">Example posts</p>
+      <div class="sc-carousel"><!-- .sc-card items (see Example-post components) --></div>
+    </div>
+  </div>
+</div>
+```
+
+Rules the markup can't show:
+
+- **Three regions, fixed grid**: `.theme-text` (left), `.theme-thumb` (top-right, 200×140 → full-width under 760px), `.theme-cols` (carousel, full width). Keep that order; the grid areas place them.
+- **`.theme-thumb` is the image *element*, not a wrapper** — for a real theme image use `<img class="theme-thumb" src="…" referrerpolicy="no-referrer">`; it fills the 200×140 box via `object-fit: cover`. When the theme has no image, use an empty `<div class="theme-thumb"></div>` — that renders the gray `--muted` box (a deliberate placeholder, not a missing asset). Use a real coverage image for the theme (same sourcing as example posts); never stretch an unrelated stock image.
+- **The carousel is the standard `.sc-carousel`** — same `.sc-card` contract and image rules as "Example-post components" (verbatim quotes, `referrerpolicy="no-referrer"`, domain-tile fallback).
+- Everything from the base ranked theme still holds (verbatim quotes, `.tag` badge, sourced trend only, boxless hairline between items).
+
+Reference markup (two real themes with example-post carousels): the "Ranked theme — with media" section of `example.html`.
+
 ## Example-post components
 
 Use when a brief shows real social or news posts as evidence — top posts, example posts per theme, quote cards. The `.sc-*` styles ship inside `quid.css`, so inlining `quid.css` is all the setup needed; copy the markup shape from the "Example posts" section of `example.html`.
@@ -458,7 +491,7 @@ Light mode is the default. To activate dark mode, add `class="dark"` (or `data-t
 │   ├── shadow-colors-dark.tokens.json
 │   ├── typography-desktop.tokens.json
 │   └── typography-mobile.tokens.json
-├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, ranked theme (with quotes), chart palette, table, accordion, example-post carousel, large cards, social embeds
+├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, ranked theme (with quotes + with media), chart palette, table, accordion, example-post carousel, large cards, social embeds
 └── shell-example.html  ← full-page reference: the Shell as a page container (hero + rail + sections + methodology)
 ```
 

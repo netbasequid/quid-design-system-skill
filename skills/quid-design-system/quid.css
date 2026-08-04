@@ -598,3 +598,16 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 .accordion details[open] summary { background: var(--muted); }
 .accordion summary .acc-meta { margin-left: auto; font-size: var(--font-size-12); font-weight: var(--font-semibold); color: var(--muted-foreground); }
 .accordion .acc-body { padding: 2px 18px 18px; color: var(--card-foreground); }
+
+/* ---- Ranked theme — with media (text left, thumbnail right, carousel below) ---- */
+.theme-main { flex: 1; min-width: 0; }
+.theme-card.with-media { display: grid; grid-template-columns: minmax(0, 1fr) 200px; grid-template-areas: "text img" "cols cols"; gap: 0 24px; }
+.theme-card.with-media .theme-text { grid-area: text; min-width: 0; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.theme-card.with-media .theme-thumb { grid-area: img; width: 200px; height: 140px; align-self: start; border-radius: var(--radius-md); object-fit: cover; background: var(--muted); }
+.theme-card.with-media .theme-cols { grid-area: cols; margin-top: 14px; min-width: 0; }
+@media (max-width: 760px) {
+  .theme-card.with-media { grid-template-columns: minmax(0, 1fr); grid-template-areas: "text" "img" "cols"; }
+  .theme-card.with-media .theme-text { border-bottom: none; padding-bottom: 0; }
+  .theme-card.with-media .theme-thumb { width: 100%; height: 160px; margin-top: 14px; }
+  .theme-card.with-media .theme-cols { padding-top: 14px; border-top: 1px solid var(--border); }
+}
