@@ -553,6 +553,21 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 """
     )
 
+    # ---- Table ----
+    # Metrics / comparison table. .num right-aligns numeric cells (tabular figures);
+    # add class="clickable" on .table-wrap for a row-hover state on interactive rows.
+    # Ported from the Component Gallery. Markup contract: SKILL.md "Table".
+    parts.append(
+        """/* ---- Table (metrics / comparisons) ---- */
+.table-wrap { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin: 20px 0; }
+.table-wrap table { width: 100%; border-collapse: collapse; font-size: var(--font-size-13); }
+.table-wrap thead th { background: var(--muted); color: var(--muted-foreground); padding: 10px 14px; text-align: left; font-size: var(--font-size-12); font-weight: var(--font-bold); text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--border); }
+.table-wrap tbody td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--card-foreground); } .table-wrap tbody tr:last-child td { border-bottom: none; }
+.table-wrap.clickable tbody tr { cursor: pointer; } .table-wrap.clickable tbody tr:hover { background: var(--secondary); }
+.table-wrap .num { text-align: right; font-variant-numeric: tabular-nums; }
+"""
+    )
+
     return "\n".join(parts).rstrip() + "\n"
 
 

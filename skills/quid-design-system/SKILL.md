@@ -6,7 +6,7 @@ description: >
   shadows) as CSS custom properties wired to shadcn/ui semantics, plus a small set of
   Quid-branded utility classes, a full-page shell container (side-nav rail with
   scroll-spy, hero, section primitives, and methodology footer — the frame a
-  multi-section brief is built on), an optional KPI metric strip, colored tag badges, a ranked-theme list (rank + badge + metrics + verbatim quotes), chart-series color tokens, and example-post components (post cards with
+  multi-section brief is built on), an optional KPI metric strip, colored tag badges, a ranked-theme list (rank + badge + metrics + verbatim quotes), chart-series color tokens, a data table, and example-post components (post cards with
   images, per-platform image sourcing, large creative-showcase cards in a 3-up grid,
   live social embeds). Use BEFORE creating an HTML brief, dashboard, report, or any
   other Quid-branded artifact so the output inherits correct fonts, colors, radius, and
@@ -79,6 +79,7 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 - **Tags / badges** — `.tag` + `.tag-opportunity` / `-risk` / `-trend` / `-signal` / `-watch` / `-neutral` — colored pill labels (see the dedicated section below).
 - **Ranked theme — with quotes** — `.theme-list`, `.theme-card`, `.theme-head`, `.theme-rank`, `.theme-name`, `.theme-metrics` / `.theme-metric` (`.up` / `.down`), `.theme-desc`, `.theme-quote` / `.q-src`, `.theme-examples-label` (uses the shared `.tag` badge). Boxless ranked list with inline verbatim quotes (see the dedicated section below).
 - **Chart palette & convention** — series-color tokens `--chart-1…14` (categorical), `--sentiment-positive` / `-neutral` / `-negative`, `--citrus-1…6` (wordcloud). Read by charts via `getComputedStyle` (see the dedicated section below).
+- **Table** — `.table-wrap` (+ `.clickable`) wrapping a `<table>`; `.num` right-aligns numeric cells (see the dedicated section below).
 - **Example-post components** — `.sc-carousel`, `.sc-card`, `.sc-thumb`, `.sc-thumb-ph`, `.sc-meta`, `.sc-who`, `.sc-handle`, `.sc-plat`, `.sc-quote`, `.sc-link` (see the dedicated section below).
 - **Large cards (creative in the wild)** — `.large-cards`, `.large-card`, `.lc-media`, `.lc-thumb`, `.lc-logo`, `.lc-play`, `.lc-meta`, `.lc-head`, `.lc-author`, `.lc-src`, `.lc-text`, `.lc-stats` (see the dedicated section below).
 - **Social embeds (native)** — `.embed-grid`, `.embed-tile`, `.embed-plat`, `.dot`, `.embed-body`, `.yt`, `.embed-note` — chrome for the platforms' own embed snippets (iframe or script blockquote), one tile per platform (see the dedicated section below).
@@ -267,6 +268,29 @@ Charts (e.g. Chart.js) should read these at runtime via `getComputedStyle(docume
 
 Reference swatches (all three sets): the "Chart palette & convention" section of `example.html`.
 
+## Table
+
+For metrics and comparisons. Wrap a plain `<table>` in `.table-wrap` (which supplies the surface, top/bottom rules, and header styling):
+
+```html
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Layer</th><th class="num">Posts</th><th class="num">Net</th></tr></thead>
+    <tbody>
+      <tr><td>UGC</td><td class="num">303K</td><td class="num">+72</td></tr>
+    </tbody>
+  </table>
+</div>
+```
+
+Rules the markup can't show:
+
+- **`.num` on every numeric cell** — both the `<th>` and the `<td>` — right-aligns and turns on tabular figures so columns line up. Text cells stay left-aligned.
+- **No row hover by default.** Add `class="clickable"` to `.table-wrap` only when rows are actually interactive (then wire the click yourself); otherwise leave it off so a static table doesn't imply clickability.
+- Keep it a real `<table>` (thead/tbody) for semantics — don't fake rows with divs.
+
+Reference markup (a real platform breakdown): the "Table" section of `example.html`.
+
 ## Example-post components
 
 Use when a brief shows real social or news posts as evidence — top posts, example posts per theme, quote cards. The `.sc-*` styles ship inside `quid.css`, so inlining `quid.css` is all the setup needed; copy the markup shape from the "Example posts" section of `example.html`.
@@ -408,7 +432,7 @@ Light mode is the default. To activate dark mode, add `class="dark"` (or `data-t
 │   ├── shadow-colors-dark.tokens.json
 │   ├── typography-desktop.tokens.json
 │   └── typography-mobile.tokens.json
-├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, ranked theme (with quotes), chart palette, example-post carousel, large cards, social embeds
+├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, ranked theme (with quotes), chart palette, table, example-post carousel, large cards, social embeds
 └── shell-example.html  ← full-page reference: the Shell as a page container (hero + rail + sections + methodology)
 ```
 

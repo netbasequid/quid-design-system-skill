@@ -578,3 +578,11 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
   --sentiment-positive: #2E964B; --sentiment-neutral: #A0A0A0; --sentiment-negative: #C91616;
   --citrus-1: #158287; --citrus-2: #1B959A; --citrus-3: #37A1A5; --citrus-4: #B88B00; --citrus-5: #CA5010; --citrus-6: #B94103;
 }
+
+/* ---- Table (metrics / comparisons) ---- */
+.table-wrap { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin: 20px 0; }
+.table-wrap table { width: 100%; border-collapse: collapse; font-size: var(--font-size-13); }
+.table-wrap thead th { background: var(--muted); color: var(--muted-foreground); padding: 10px 14px; text-align: left; font-size: var(--font-size-12); font-weight: var(--font-bold); text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--border); }
+.table-wrap tbody td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--card-foreground); } .table-wrap tbody tr:last-child td { border-bottom: none; }
+.table-wrap.clickable tbody tr { cursor: pointer; } .table-wrap.clickable tbody tr:hover { background: var(--secondary); }
+.table-wrap .num { text-align: right; font-variant-numeric: tabular-nums; }
