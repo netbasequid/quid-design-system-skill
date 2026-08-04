@@ -568,6 +568,25 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 """
     )
 
+    # ---- Accordion ----
+    # Native <details>/<summary> expandable rows for FAQs / per-item comparisons. Add
+    # `open` to expand by default; optional .acc-meta right-aligns a label in the summary.
+    # Ported from the Component Gallery. Markup contract: SKILL.md "Accordion".
+    parts.append(
+        r"""/* ---- Accordion (native <details> rows) ---- */
+.accordion { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--card); margin: 12px 0; }
+.accordion details { border-bottom: 1px solid var(--border); } .accordion details:last-child { border-bottom: none; }
+.accordion summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 10px; padding: 14px 18px; font-size: var(--font-size-15); font-weight: var(--font-semibold); color: var(--foreground); }
+.accordion summary::-webkit-details-marker { display: none; }
+.accordion summary::before { content: "\25B8"; color: var(--primary); font-size: var(--font-size-h2); line-height: 1; transition: transform .15s ease; }
+.accordion details[open] summary::before { transform: rotate(90deg); }
+.accordion summary:hover { background: var(--secondary); }
+.accordion details[open] summary { background: var(--muted); }
+.accordion summary .acc-meta { margin-left: auto; font-size: var(--font-size-12); font-weight: var(--font-semibold); color: var(--muted-foreground); }
+.accordion .acc-body { padding: 2px 18px 18px; color: var(--card-foreground); }
+"""
+    )
+
     return "\n".join(parts).rstrip() + "\n"
 
 
