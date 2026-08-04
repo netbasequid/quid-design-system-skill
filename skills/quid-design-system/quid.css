@@ -547,3 +547,9 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 .kpi-card .delta.up { color: var(--color-green-700); } .kpi-card .delta.up::before { content: "\25B2"; }   /* up */
 .kpi-card .delta.down { color: var(--destructive); } .kpi-card .delta.down::before { content: "\25BC"; }   /* down */
 .kpi-card .delta .period { color: var(--muted-foreground); }   /* optional "vs ..." window, inline after the delta */
+
+/* ---- Tag / badge (colored pill label) ---- */
+.tag { display: inline-flex; align-items: center; border: 1px solid transparent; padding: .125rem .625rem; border-radius: var(--radius-full); font-size: var(--font-size-12); line-height: 1rem; font-weight: var(--font-semibold); margin-bottom: 8px; margin-right: 4px; }
+.tag-opportunity { background: var(--color-blue-100); color: var(--color-blue-900); } .tag-risk { background: var(--color-red-100); color: var(--color-red-700); }
+.tag-trend { background: var(--color-purple-100); color: var(--color-purple-700); } .tag-signal { background: var(--color-green-100); color: var(--color-green-900); }
+.tag-watch { background: var(--color-orange-100); color: var(--color-orange-900); } .tag-neutral { background: var(--muted); color: var(--muted-foreground); }

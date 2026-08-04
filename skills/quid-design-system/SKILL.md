@@ -6,7 +6,7 @@ description: >
   shadows) as CSS custom properties wired to shadcn/ui semantics, plus a small set of
   Quid-branded utility classes, a full-page shell container (side-nav rail with
   scroll-spy, hero, section primitives, and methodology footer — the frame a
-  multi-section brief is built on), an optional KPI metric strip, and example-post components (post cards with
+  multi-section brief is built on), an optional KPI metric strip, colored tag badges, and example-post components (post cards with
   images, per-platform image sourcing, large creative-showcase cards in a 3-up grid,
   live social embeds). Use BEFORE creating an HTML brief, dashboard, report, or any
   other Quid-branded artifact so the output inherits correct fonts, colors, radius, and
@@ -76,6 +76,7 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 - **Utility classes** — `.quid-hero`, `.quid-h0`, `.quid-h1`, `.quid-h2`, `.quid-h3`, `.quid-subtitle`, `.quid-pull-quote`, `.quid-body`, `.quid-body-lg`, `.quid-caption`, `.quid-muted`, `.quid-card`, `.quid-button`, `.quid-badge`.
 - **Shell (page container)** — layout: `.with-sidenav` (toggle), `.body-layout`, `.container-brief`, `.main`, `.brief-body`; rail: `.sidenav`, `.sidenav-title`, `.sidenav a` / `:hover` / `.active`; hero: `.hero`, `.hero-card` (`.has-img`), `.eyebrow`, `.lede`; section primitives: `.section`, `.section-label`, `.section-sub`, `.divider`, `.section-divider`, `.prose`; footer: `.methodology`. Hero-gradient brand tokens `--hero-overlay` / `--hero-img` / `--grad-*`. The page container every multi-section brief starts from (see the dedicated section below).
 - **KPI strip** — `.kpi-grid`, `.kpi-card`, `.kpi-card .label` / `.value` / `.delta` (`.up` / `.down`) / `.period` — optional top-accent metric cards (see the dedicated section below).
+- **Tags / badges** — `.tag` + `.tag-opportunity` / `-risk` / `-trend` / `-signal` / `-watch` / `-neutral` — colored pill labels (see the dedicated section below).
 - **Example-post components** — `.sc-carousel`, `.sc-card`, `.sc-thumb`, `.sc-thumb-ph`, `.sc-meta`, `.sc-who`, `.sc-handle`, `.sc-plat`, `.sc-quote`, `.sc-link` (see the dedicated section below).
 - **Large cards (creative in the wild)** — `.large-cards`, `.large-card`, `.lc-media`, `.lc-thumb`, `.lc-logo`, `.lc-play`, `.lc-meta`, `.lc-head`, `.lc-author`, `.lc-src`, `.lc-text`, `.lc-stats` (see the dedicated section below).
 - **Social embeds (native)** — `.embed-grid`, `.embed-tile`, `.embed-plat`, `.dot`, `.embed-body`, `.yt`, `.embed-note` — chrome for the platforms' own embed snippets (iframe or script blockquote), one tile per platform (see the dedicated section below).
@@ -193,6 +194,27 @@ Rules the markup can't show:
 - Use **3 or 4 cards**; the grid auto-fits and wraps below ~160px per card.
 
 Reference markup (up, down, and value-only cards): the "KPI strip" section of `example.html`.
+
+## Tags / badges
+
+Small colored pill labels for tagging a theme, post, or insight with a category. Six semantic variants, each an intent-colored fill:
+
+```html
+<span class="tag tag-opportunity">Opportunity</span>   <!-- blue -->
+<span class="tag tag-risk">Risk</span>                 <!-- red -->
+<span class="tag tag-trend">Trend</span>               <!-- purple -->
+<span class="tag tag-signal">Signal</span>             <!-- green -->
+<span class="tag tag-watch">Watch</span>               <!-- orange -->
+<span class="tag tag-neutral">Neutral</span>           <!-- gray -->
+```
+
+Rules the markup can't show:
+
+- **Pick the variant by meaning, not by color** — `opportunity`/`signal` read positive, `risk`/`watch` read cautionary, `trend` is neutral-notable, `neutral` is unweighted. The colors come from the ramp tokens; don't restyle with raw hex.
+- **`.tag` is the base class** — always pair it with exactly one `.tag-*` variant. Keep the label short (1–2 words).
+- Distinct from `.quid-badge` (a plain gray count/meta chip); reach for `.tag-*` when the label carries a category or sentiment.
+
+Reference markup (all six variants): the "Tags / badges" section of `example.html`.
 
 ## Example-post components
 
@@ -335,7 +357,7 @@ Light mode is the default. To activate dark mode, add `class="dark"` (or `data-t
 │   ├── shadow-colors-dark.tokens.json
 │   ├── typography-desktop.tokens.json
 │   └── typography-mobile.tokens.json
-├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, example-post carousel, large cards, social embeds
+├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, example-post carousel, large cards, social embeds
 └── shell-example.html  ← full-page reference: the Shell as a page container (hero + rail + sections + methodology)
 ```
 

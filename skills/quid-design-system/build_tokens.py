@@ -500,6 +500,19 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 """
     )
 
+    # ---- Tag / badge ----
+    # Colored pill labels (opportunity/risk/trend/signal/watch/neutral) for tagging a
+    # theme, post, or insight. Ported from the Component Gallery.
+    # Markup contract + rules: SKILL.md "Tags / badges"; reference: example.html "Tags / badges".
+    parts.append(
+        """/* ---- Tag / badge (colored pill label) ---- */
+.tag { display: inline-flex; align-items: center; border: 1px solid transparent; padding: .125rem .625rem; border-radius: var(--radius-full); font-size: var(--font-size-12); line-height: 1rem; font-weight: var(--font-semibold); margin-bottom: 8px; margin-right: 4px; }
+.tag-opportunity { background: var(--color-blue-100); color: var(--color-blue-900); } .tag-risk { background: var(--color-red-100); color: var(--color-red-700); }
+.tag-trend { background: var(--color-purple-100); color: var(--color-purple-700); } .tag-signal { background: var(--color-green-100); color: var(--color-green-900); }
+.tag-watch { background: var(--color-orange-100); color: var(--color-orange-900); } .tag-neutral { background: var(--muted); color: var(--muted-foreground); }
+"""
+    )
+
     return "\n".join(parts).rstrip() + "\n"
 
 
