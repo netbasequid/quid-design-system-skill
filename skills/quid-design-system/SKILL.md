@@ -6,7 +6,7 @@ description: >
   shadows) as CSS custom properties wired to shadcn/ui semantics, plus a small set of
   Quid-branded utility classes, a full-page shell container (side-nav rail with
   scroll-spy, hero, section primitives, and methodology footer — the frame a
-  multi-section brief is built on), an optional KPI metric strip, colored tag badges, a ranked-theme list (rank + badge + metrics + verbatim quotes), chart-series color tokens, a data table, an accordion, a media-beside ranked-theme variant, and example-post components (post cards with
+  multi-section brief is built on), an optional KPI metric strip, colored tag badges, a ranked-theme list (rank + badge + metrics + verbatim quotes), chart-series color tokens, a data table, an accordion, a media-beside ranked-theme variant, featured-post cards, and example-post components (post cards with
   images, per-platform image sourcing, large creative-showcase cards in a 3-up grid,
   live social embeds). Use BEFORE creating an HTML brief, dashboard, report, or any
   other Quid-branded artifact so the output inherits correct fonts, colors, radius, and
@@ -82,6 +82,7 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 - **Table** — `.table-wrap` (+ `.clickable`) wrapping a `<table>`; `.num` right-aligns numeric cells (see the dedicated section below).
 - **Accordion** — `.accordion` wrapping native `<details>` / `<summary>` (+ `.acc-meta`, `.acc-body`) — expandable stacked rows (see the dedicated section below).
 - **Ranked theme — with media** — `.theme-card.with-media` + `.theme-text` / `.theme-thumb` / `.theme-cols` (extends the ranked-theme base; composes `.sc-carousel`) — text left, thumbnail right, carousel below (see the dedicated section below).
+- **Featured posts** — `.posts-featured`, `.post`, `.post-thumb`, `.post-rank`, `.post-body`, `.post-author` (`.handle` / `.src`), `.post-text`, `.post-foot` (`.stat`) — 2-up rich cards for standout posts (see the dedicated section below).
 - **Example-post components** — `.sc-carousel`, `.sc-card`, `.sc-thumb`, `.sc-thumb-ph`, `.sc-meta`, `.sc-who`, `.sc-handle`, `.sc-plat`, `.sc-quote`, `.sc-link` (see the dedicated section below).
 - **Large cards (creative in the wild)** — `.large-cards`, `.large-card`, `.lc-media`, `.lc-thumb`, `.lc-logo`, `.lc-play`, `.lc-meta`, `.lc-head`, `.lc-author`, `.lc-src`, `.lc-text`, `.lc-stats` (see the dedicated section below).
 - **Social embeds (native)** — `.embed-grid`, `.embed-tile`, `.embed-plat`, `.dot`, `.embed-body`, `.yt`, `.embed-note` — chrome for the platforms' own embed snippets (iframe or script blockquote), one tile per platform (see the dedicated section below).
@@ -350,6 +351,34 @@ Rules the markup can't show:
 
 Reference markup (two real themes with example-post carousels): the "Ranked theme — with media" section of `example.html`.
 
+## Featured posts
+
+A 2-up grid of rich cards for a handful of standout posts — bigger than the `.sc-carousel` tiles, with a thumbnail, author, a few lines of text, and a footer. Use it for "top posts of the week" / a few flagship posts; use `.sc-carousel` when the point is *many* posts to scan.
+
+```html
+<h3 class="sub-head">Featured posts <span class="count">6</span></h3>
+<div class="posts-featured">
+  <article class="post">
+    <div class="post-thumb"><span class="post-rank">1</span><!-- optional <img> --></div>
+    <div class="post-body">
+      <div class="post-author"><span class="handle">@espn</span><span class="src">Instagram</span></div>
+      <p class="post-text">{the post's own text, verbatim}</p>
+      <div class="post-foot"><span class="stat"><b>184K</b> likes</span><span class="stat"><b>3.2K</b> comments</span></div>
+    </div>
+  </article>
+  <!-- …one <article class="post"> per featured post… -->
+</div>
+```
+
+Rules the markup can't show:
+
+- **`.post-text` is the post's own text, verbatim** (it clamps to 3 lines). `.handle` is the author/handle as shown; `.src` is the platform name only.
+- **`.post-rank` is optional** — a small badge pinned inside `.post-thumb` (so the thumb is present even as a gray placeholder). Put a real coverage `<img>` in `.post-thumb` when you have one (same hotlink/`no-referrer` rules as example-post cards), else leave it as the gray box.
+- **`.post-foot` is engagement stats *or* a category tag — not invented numbers.** Use `.stat` (`<b>{n}</b> likes`) **only** when the counts come verbatim from the data source; otherwise use a `.tag-*` badge (category/sentiment) and omit stats. Never estimate engagement.
+- **Cards are static by default.** To make a card open the post-detail modal, add `tabindex="0" role="button" data-url="{url}"` and wire the modal (a separate component) — the CSS styles both the same.
+
+Reference markup (two real featured posts): the "Featured posts" section of `example.html`.
+
 ## Example-post components
 
 Use when a brief shows real social or news posts as evidence — top posts, example posts per theme, quote cards. The `.sc-*` styles ship inside `quid.css`, so inlining `quid.css` is all the setup needed; copy the markup shape from the "Example posts" section of `example.html`.
@@ -491,7 +520,7 @@ Light mode is the default. To activate dark mode, add `class="dark"` (or `data-t
 │   ├── shadow-colors-dark.tokens.json
 │   ├── typography-desktop.tokens.json
 │   └── typography-mobile.tokens.json
-├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, ranked theme (with quotes + with media), chart palette, table, accordion, example-post carousel, large cards, social embeds
+├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, ranked theme (with quotes + with media), chart palette, table, accordion, featured posts, example-post carousel, large cards, social embeds
 └── shell-example.html  ← full-page reference: the Shell as a page container (hero + rail + sections + methodology)
 ```
 
