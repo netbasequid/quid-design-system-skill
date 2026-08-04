@@ -84,7 +84,7 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 - **Ranked theme — with media** — `.theme-card.with-media` + `.theme-text` / `.theme-thumb` / `.theme-cols` (extends the ranked-theme base; composes `.sc-carousel`) — text left, thumbnail right, carousel below (see the dedicated section below).
 - **Featured posts** — `.posts-featured`, `.post`, `.post-thumb`, `.post-rank`, `.post-body`, `.post-author` (`.handle` / `.src`), `.post-text`, `.post-foot` (`.stat`) — 2-up rich cards for standout posts (see the dedicated section below).
 - **Ranked theme — caption-insight** — `.ci-list`, `.ci-card`, `.ci-num`, `.ci-body`, `.ci-head`, `.ci-name`, `.ci-text`, `.ci-quotes`, `.ci-quote` / `.cq-handle` / `.cq-text` / `.cq-more`. A third presentation option for ranked themes (alongside with-quotes and with-media): ghost number + caption read + quote cards that open the shared **post-detail modal** (see the dedicated section below).
-- **Post-detail modal** — `.post-modal-overlay` / `.post-modal` / `.post-modal-head` / `.post-modal-body` / `.pm-media` / `.pm-tabs` / `.pm-tab` / `.pm-panel` / `.pm-section` / `.pm-highlights` / `.pm-caption` / `.post-modal-foot`. A shared page singleton (markup + JS go in the brief once) opened by `.ci-quote`, `.post`, `.post-tile`, `.large-card` (see the dedicated section below).
+- **Post-detail modal** — `.post-modal-overlay` / `.post-modal` / `.post-modal-head` / `.post-modal-body` / `.pm-media` / `.pm-tabs` / `.pm-tab` / `.pm-panel` / `.pm-section` / `.pm-highlights` / `.pm-caption` / `.post-modal-foot`. A shared page singleton (markup + JS go in the brief once) opened by `.ci-quote`, `.post`, `.post-tile`, `.large-card`, and example-post `.sc-card[data-modal]` (see the dedicated section below).
 - **Example-post components** — `.sc-carousel`, `.sc-card`, `.sc-thumb`, `.sc-thumb-ph`, `.sc-meta`, `.sc-who`, `.sc-handle`, `.sc-plat`, `.sc-quote`, `.sc-link` (see the dedicated section below).
 - **Large cards (creative in the wild)** — `.large-cards`, `.large-card`, `.lc-media`, `.lc-thumb`, `.lc-logo`, `.lc-play`, `.lc-meta`, `.lc-head`, `.lc-author`, `.lc-src`, `.lc-text`, `.lc-stats` (see the dedicated section below).
 - **Social embeds (native)** — `.embed-grid`, `.embed-tile`, `.embed-plat`, `.dot`, `.embed-body`, `.yt`, `.embed-note` — chrome for the platforms' own embed snippets (iframe or script blockquote), one tile per platform (see the dedicated section below).
@@ -426,7 +426,9 @@ Reference markup (two real Taiwan themes with clickable quotes): the "Caption-in
 
 ## Post-detail modal
 
-A shared **page singleton** — one overlay + one script per brief — that any clickable card opens to show a post's fuller detail (media, tabbed Summary / Highlights / Caption, and an "Open on {platform}" link). Openers are `.ci-quote`, `.post`, `.post-tile`, and `.large-card`; the CSS ships in `quid.css`, but the **markup and JS live in the brief** (they can't ship in a stylesheet).
+A shared **page singleton** — one overlay + one script per brief — that any clickable card opens to show a post's fuller detail (media, tabbed Summary / Highlights / Caption, and an "Open on {platform}" link). Openers are `.ci-quote`, `.post`, `.post-tile`, `.large-card`, and — opt-in — example-post `.sc-card[data-modal]`; the CSS ships in `quid.css`, but the **markup and JS live in the brief** (they can't ship in a stylesheet).
+
+**Example posts ↔ caption-insight are interchangeable, and both feed this modal.** A theme's supporting posts can be shown as an example-post carousel (`.sc-carousel`, image-forward, links out by default) or as a caption-insight quote grid (`.ci-quotes`, quote-forward, opens the modal) — swap one for the other freely. To give example-post cards the same drilldown, add `data-modal` to the `.sc-card` (it then opens the modal, populated from its `.sc-handle` / `.sc-quote` / `.sc-thumb` image / `href`, instead of linking out). Add a `post-data` blob to any opener for the richer tabbed view.
 
 Wire-up (once per brief, near `</body>`):
 
@@ -456,6 +458,8 @@ Reference: the overlay markup + script at the end of `example.html`, opened by t
 ## Example-post components
 
 Use when a brief shows real social or news posts as evidence — top posts, example posts per theme, quote cards. The `.sc-*` styles ship inside `quid.css`, so inlining `quid.css` is all the setup needed; copy the markup shape from the "Example posts" section of `example.html`.
+
+**Interchangeable with the caption-insight quote grid** (`.ci-quotes`): both present a theme's supporting posts, so you can swap this carousel for that grid (or vice versa) depending on whether images or quotes should lead. By default `.sc-card` links out to the post; add `data-modal` to open the shared **post-detail modal** instead (same drilldown the caption-insight cards use).
 
 Card contract (each card is one post):
 

@@ -292,11 +292,12 @@
 
       <section class="quid-card" style="padding: 20px;">
         <h2 class="quid-h2">Example posts — image-top carousel</h2>
-        <p class="quid-body quid-muted">Horizontal scroll of example posts with the image on top. Each card uses the linked post's og:image; when a source exposes no usable image (X, Reddit, Instagram, or a placeholder), the thumb falls back to a gradient tile showing the source domain. Handle · platform, caption, then a View post link. The first five cards are real posts covering each image-sourcing pattern (news og:image, YouTube, X, Bluesky, signed/expiring URL); the last shows the domain fallback for a deleted post.</p>
+        <p class="quid-body quid-muted">Horizontal scroll of example posts with the image on top. Each card uses the linked post's og:image; when a source exposes no usable image (X, Reddit, Instagram, or a placeholder), the thumb falls back to a gradient tile showing the source domain. Handle · platform, caption, then a View post link. The first five cards are real posts covering each image-sourcing pattern (news og:image, YouTube, X, Bluesky, signed/expiring URL); the last shows the domain fallback for a deleted post. <strong>Interchangeable with the caption-insight quote grid:</strong> both present a theme's supporting posts, and either can open the post-detail modal — add <code>data-modal</code> to an <code>.sc-card</code> to open the modal instead of linking out (the first card below does).</p>
         <h3 class="sub-head" style="margin-top: 12px;">Example posts</h3>
         <div class="sc-carousel">
-          <!-- Pattern 1 · News og:image — most news CDNs are stable and hotlink-safe (espncdn here). Read og:image from the article page. -->
-          <a class="sc-card" href="https://www.espn.com/soccer/story/_/id/40532807/lionel-messi-baby-lamine-yamal-barcelona-spain-argentina-world-cup-final" target="_blank" rel="noopener"><div class="sc-thumb"><img src="https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2024%2F0710%2Fr1356880_1296x729_16%2D9.jpg" loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('sc-thumb-ph'); this.parentElement.innerHTML='<span>espn.com</span>'"></div><div class="sc-meta"><div class="sc-who"><span class="sc-handle">ESPN</span> <span class="sc-plat">News</span></div><p class="sc-quote">"Messi first met Yamal as a baby. The World Cup final will be their next meeting."</p><span class="sc-link">View post ↗</span></div></a>
+          <!-- Pattern 1 · News og:image — most news CDNs are stable and hotlink-safe (espncdn here). Read og:image from the article page.
+               data-modal → this card opens the post-detail modal (populated from its .sc-handle/.sc-quote/.sc-thumb/href) instead of linking out. -->
+          <a class="sc-card" data-modal href="https://www.espn.com/soccer/story/_/id/40532807/lionel-messi-baby-lamine-yamal-barcelona-spain-argentina-world-cup-final" target="_blank" rel="noopener"><div class="sc-thumb"><img src="https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2024%2F0710%2Fr1356880_1296x729_16%2D9.jpg" loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('sc-thumb-ph'); this.parentElement.innerHTML='<span>espn.com</span>'"></div><div class="sc-meta"><div class="sc-who"><span class="sc-handle">ESPN</span> <span class="sc-plat">News</span></div><p class="sc-quote">"Messi first met Yamal as a baby. The World Cup final will be their next meeting."</p><span class="sc-link">View post ↗</span></div></a>
           <!-- Pattern 2 · YouTube — the thumbnail is derivable from the video id alone: i.ytimg.com/vi/{id}/hqdefault.jpg. Stable. -->
           <a class="sc-card" href="https://www.youtube.com/watch?v=_nIlhjc-EkI" target="_blank" rel="noopener"><div class="sc-thumb"><img src="https://i.ytimg.com/vi/_nIlhjc-EkI/hqdefault.jpg" loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('sc-thumb-ph'); this.parentElement.innerHTML='<span>youtube.com</span>'"></div><div class="sc-meta"><div class="sc-who"><span class="sc-handle">YouTube</span> <span class="sc-plat">YouTube</span></div><p class="sc-quote">"In this video, we explore the latest jersey concept featuring Argentina's iconic blue and white colors with a modern twist."</p><span class="sc-link">View post ↗</span></div></a>
           <!-- Pattern 3 · X — media URLs (pbs.twimg.com) come with search/API results; stable and hotlink-safe. Deleted tweets have no image (see last card). -->
@@ -478,16 +479,16 @@
         let d = {};
         if (blob) { try { d = JSON.parse(blob.textContent); } catch (e) { d = {}; } }
         const q = (sel) => card.querySelector(sel);
-        const img = q('.post-thumb img, .tile-thumb img, img.lc-thumb');
+        const img = q('.post-thumb img, .tile-thumb img, img.lc-thumb, .sc-thumb img');
         const href = card.getAttribute('href');
         return {
-          handle: d.handle || (q('.handle, .tile-handle, .cq-handle, .lc-author')||{}).textContent || '',
-          source: d.source || (q('.src, .lc-src')||{}).textContent || '',
+          handle: d.handle || (q('.handle, .tile-handle, .cq-handle, .lc-author, .sc-handle')||{}).textContent || '',
+          source: d.source || (q('.src, .lc-src, .sc-plat')||{}).textContent || '',
           url: d.url || ((href && href !== '#') ? href : (card.dataset.url || '')),
           thumb: d.thumb || (img ? img.getAttribute('src') : ''),
           summary: d.summary || null,
           highlights: d.highlights || null,
-          caption: d.caption || (q('.post-text, .cq-text, .lc-text')||{}).textContent || ''
+          caption: d.caption || (q('.post-text, .cq-text, .lc-text, .sc-quote')||{}).textContent || ''
         };
       }
 
@@ -523,12 +524,12 @@
       }
       function close() { overlay.classList.remove('open'); document.body.classList.remove('modal-open'); }
       document.addEventListener('click', (e) => {
-        const card = e.target.closest('.post, .post-tile, .ci-quote, .large-card');
+        const card = e.target.closest('.post, .post-tile, .ci-quote, .large-card, .sc-card[data-modal]');
         if (card && !overlay.contains(card)) { e.preventDefault(); openFrom(card); }
       });
       document.addEventListener('keydown', (e) => {
         if ((e.key === 'Enter' || e.key === ' ') && document.activeElement) {
-          const card = document.activeElement.closest && document.activeElement.closest('.post, .post-tile, .ci-quote, .large-card');
+          const card = document.activeElement.closest && document.activeElement.closest('.post, .post-tile, .ci-quote, .large-card, .sc-card[data-modal]');
           if (card) { e.preventDefault(); openFrom(card); }
         }
         if (e.key === 'Escape' && overlay.classList.contains('open')) close();
