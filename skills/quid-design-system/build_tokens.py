@@ -513,6 +513,30 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 """
     )
 
+    # ---- Ranked theme — with quotes ----
+    # Boxless ranked list: rank + title + tag badge + Mentions/YoY metrics + description,
+    # then inline verbatim quotes. Items separated by a bottom hairline. Ported from the
+    # Component Gallery. The badge uses the shared .tag classes (see the Tag / badge block).
+    # Markup contract + rules: SKILL.md "Ranked theme — with quotes"; reference: example.html.
+    parts.append(
+        """/* ---- Ranked theme — with quotes (boxless ranked list, hairline between items) ---- */
+.theme-list { display: flex; flex-direction: column; gap: 0; margin: 12px 0; }
+.theme-card { border: 0; border-radius: 0; background: transparent; box-shadow: none; padding: 20px 0; border-bottom: 1px solid var(--border); }
+.theme-card:last-child { border-bottom: none; }
+.theme-head { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
+.theme-rank { flex: none; width: 26px; height: 26px; border-radius: var(--radius-full); background: var(--primary-container-background); color: var(--primary-container-foreground); font-size: var(--font-size-13); font-weight: var(--font-bold); display: inline-flex; align-items: center; justify-content: center; }
+.theme-name { font-size: var(--font-size-h3); font-weight: var(--font-bold); color: var(--foreground); }
+.theme-head .tag { margin: 0; }
+.theme-metrics { margin-left: auto; display: flex; gap: 18px; align-items: baseline; }
+.theme-metric { font-size: var(--font-size-13); color: var(--muted-foreground); } .theme-metric b { color: var(--foreground); font-weight: var(--font-bold); }
+.theme-metric .up { color: var(--color-green-700); font-weight: var(--font-semibold); } .theme-metric .down { color: var(--destructive); font-weight: var(--font-semibold); }
+.theme-desc { font-size: var(--font-size-14); line-height: var(--font-line-height-15); color: var(--card-foreground); margin: 10px 0 0; } .theme-desc em { font-style: italic; }
+.theme-quote { border-left: 3px solid var(--primary); padding: 2px 0 2px 14px; margin: 12px 0 0; font-size: var(--font-size-14); line-height: var(--font-line-height-15); font-style: italic; color: var(--foreground); }
+.theme-quote .q-src { font-style: normal; font-weight: var(--font-semibold); color: var(--primary); text-decoration: none; white-space: nowrap; margin-left: 4px; } .theme-quote .q-src:hover { text-decoration: underline; }
+.theme-examples-label { font-size: var(--font-size-12); font-weight: var(--font-bold); text-transform: uppercase; letter-spacing: .02em; color: var(--muted-foreground); margin-top: 16px; }
+"""
+    )
+
     return "\n".join(parts).rstrip() + "\n"
 
 

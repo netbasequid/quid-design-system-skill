@@ -6,7 +6,7 @@ description: >
   shadows) as CSS custom properties wired to shadcn/ui semantics, plus a small set of
   Quid-branded utility classes, a full-page shell container (side-nav rail with
   scroll-spy, hero, section primitives, and methodology footer — the frame a
-  multi-section brief is built on), an optional KPI metric strip, colored tag badges, and example-post components (post cards with
+  multi-section brief is built on), an optional KPI metric strip, colored tag badges, a ranked-theme list (rank + badge + metrics + verbatim quotes), and example-post components (post cards with
   images, per-platform image sourcing, large creative-showcase cards in a 3-up grid,
   live social embeds). Use BEFORE creating an HTML brief, dashboard, report, or any
   other Quid-branded artifact so the output inherits correct fonts, colors, radius, and
@@ -77,6 +77,7 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 - **Shell (page container)** — layout: `.with-sidenav` (toggle), `.body-layout`, `.container-brief`, `.main`, `.brief-body`; rail: `.sidenav`, `.sidenav-title`, `.sidenav a` / `:hover` / `.active`; hero: `.hero`, `.hero-card` (`.has-img`), `.eyebrow`, `.lede`; section primitives: `.section`, `.section-label`, `.section-sub`, `.divider`, `.section-divider`, `.prose`; footer: `.methodology`. Hero-gradient brand tokens `--hero-overlay` / `--hero-img` / `--grad-*`. The page container every multi-section brief starts from (see the dedicated section below).
 - **KPI strip** — `.kpi-grid`, `.kpi-card`, `.kpi-card .label` / `.value` / `.delta` (`.up` / `.down`) / `.period` — optional top-accent metric cards (see the dedicated section below).
 - **Tags / badges** — `.tag` + `.tag-opportunity` / `-risk` / `-trend` / `-signal` / `-watch` / `-neutral` — colored pill labels (see the dedicated section below).
+- **Ranked theme — with quotes** — `.theme-list`, `.theme-card`, `.theme-head`, `.theme-rank`, `.theme-name`, `.theme-metrics` / `.theme-metric` (`.up` / `.down`), `.theme-desc`, `.theme-quote` / `.q-src`, `.theme-examples-label` (uses the shared `.tag` badge). Boxless ranked list with inline verbatim quotes (see the dedicated section below).
 - **Example-post components** — `.sc-carousel`, `.sc-card`, `.sc-thumb`, `.sc-thumb-ph`, `.sc-meta`, `.sc-who`, `.sc-handle`, `.sc-plat`, `.sc-quote`, `.sc-link` (see the dedicated section below).
 - **Large cards (creative in the wild)** — `.large-cards`, `.large-card`, `.lc-media`, `.lc-thumb`, `.lc-logo`, `.lc-play`, `.lc-meta`, `.lc-head`, `.lc-author`, `.lc-src`, `.lc-text`, `.lc-stats` (see the dedicated section below).
 - **Social embeds (native)** — `.embed-grid`, `.embed-tile`, `.embed-plat`, `.dot`, `.embed-body`, `.yt`, `.embed-note` — chrome for the platforms' own embed snippets (iframe or script blockquote), one tile per platform (see the dedicated section below).
@@ -215,6 +216,42 @@ Rules the markup can't show:
 - Distinct from `.quid-badge` (a plain gray count/meta chip); reach for `.tag-*` when the label carries a category or sentiment.
 
 Reference markup (all six variants): the "Tags / badges" section of `example.html`.
+
+## Ranked theme — with quotes
+
+Use to present the top themes of a conversation as a ranked list — rank + title + a category badge + metrics + a short description, then a couple of **verbatim** quotes as evidence. It is **boxless**: ranked items sit directly on the section surface, separated by a bottom hairline (no card chrome), so several themes read as one ordered list.
+
+Contract (one `.theme-card` per ranked theme, inside a `.theme-list`):
+
+```html
+<div class="theme-list">
+  <div class="theme-card">
+    <div class="theme-head">
+      <span class="theme-rank">1</span>
+      <span class="theme-name">{Theme title}</span>
+      <span class="tag tag-trend">{Category}</span>
+      <span class="theme-metrics">
+        <span class="theme-metric">Mentions <b>{n}</b></span>
+        <span class="theme-metric">YoY <span class="up">+{n}%</span></span>
+      </span>
+    </div>
+    <p class="theme-desc">{1–2 sentence description.} <em>{optional emphasis}</em></p>
+    <blockquote class="theme-quote">"{verbatim quote}" <a class="q-src" href="{url}">{Source} →</a></blockquote>
+    <!-- …1–3 quotes… -->
+  </div>
+  <!-- …more ranked .theme-card items… -->
+</div>
+```
+
+Rules the markup can't show:
+
+- **Quotes are verbatim.** `.theme-quote` text is the post's own words, in quotation marks, with a `.q-src` link to the source — never paraphrase or invent, and don't strip a quote of its attribution.
+- **The badge is a shared `.tag`** (see "Tags / badges") — pick the variant by meaning; one badge per theme.
+- **Metrics are flexible slots** (`.theme-metric` with a bold `<b>` value). Use whatever you actually have — Mentions, Authors, Share, YoY. Wrap a trend figure in `.up` (green) or `.down` (red); **only show a trend you can source** — omit it for a snapshot with no prior-window baseline (don't invent a YoY).
+- **Boxless is the point** — don't wrap `.theme-card`s in `.quid-card`/`.section` boxes each; the hairline divider between items carries the ranking. The whole `.theme-list` goes inside one `.section`.
+- `.theme-examples-label` ("Example posts") is an optional lead-in when you follow the quotes with an example-post carousel.
+
+Reference markup (three ranked themes with real verbatim quotes + source links): the "Ranked theme — with quotes" section of `example.html`.
 
 ## Example-post components
 
@@ -357,7 +394,7 @@ Light mode is the default. To activate dark mode, add `class="dark"` (or `data-t
 │   ├── shadow-colors-dark.tokens.json
 │   ├── typography-desktop.tokens.json
 │   └── typography-mobile.tokens.json
-├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, example-post carousel, large cards, social embeds
+├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, ranked theme (with quotes), example-post carousel, large cards, social embeds
 └── shell-example.html  ← full-page reference: the Shell as a page container (hero + rail + sections + methodology)
 ```
 
