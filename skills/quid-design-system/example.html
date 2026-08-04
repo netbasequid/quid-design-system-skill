@@ -254,6 +254,43 @@
       </section>
 
       <section class="quid-card" style="padding: 20px;">
+        <h2 class="quid-h2">Ranked theme — caption-insight</h2>
+        <p class="quid-body quid-muted">A third presentation option for ranked themes (alongside <em>with quotes</em> and <em>with media</em>): big ghost number + name/tag + a caption <em>read</em> (what the captions collectively say), then a 2-up grid of quote cards. Each quote card opens the shared <strong>post-detail modal</strong> (click one). Real Taiwan-news themes and verbatim quotes.</p>
+        <div class="ci-list" style="margin-top:12px;">
+          <div class="ci-card">
+            <div class="ci-num">1</div>
+            <div class="ci-body">
+              <div class="ci-head"><span class="ci-name">China-attack narrative</span><span class="tag tag-trend">Top theme</span></div>
+              <p class="ci-text">Captions overwhelmingly <strong>assert intent</strong> — framing Taiwan as a flashpoint and China as likely to attack, rather than debating whether it will.</p>
+              <div class="ci-quotes">
+                <div class="ci-quote" tabindex="0" role="button" data-url="http://twitter.com/jan64tan/statuses/2082113462042579065">
+                  <script type="application/json" class="post-data">{"handle":"@jan64tan","source":"X","url":"http://twitter.com/jan64tan/statuses/2082113462042579065","summary":[{"label":"Overall","text":"Ties a Japanese leadership change to the fastest post-WWII military expansion, in the context of a Taiwan contingency."}],"caption":"The woman who said those words now sits in the Kantei, pushing the fastest military expansion Japan has seen since the Second World War."}</script>
+                  <span class="cq-handle">@jan64tan</span><span class="cq-text">"The woman who said those words now sits in the Kantei, pushing the fastest military expansion Japan has seen since the Second World War."</span><span class="cq-more">Post detail →</span></div>
+                <div class="ci-quote" tabindex="0" role="button" data-url="https://www.whatreallyhappened.com/NEW/stories/us-surges-production-capacity-b-21-next-generation-bombers-fleet-200-expected-pacific-war">
+                  <script type="application/json" class="post-data">{"handle":"whatreallyhappened.com","source":"Blog","url":"https://www.whatreallyhappened.com/NEW/stories/us-surges-production-capacity-b-21-next-generation-bombers-fleet-200-expected-pacific-war","caption":"Fleet of 200 Expected for Pacific War with China"}</script>
+                  <span class="cq-handle">whatreallyhappened.com</span><span class="cq-text">"Fleet of 200 Expected for Pacific War with China"</span><span class="cq-more">Post detail →</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="ci-card">
+            <div class="ci-num">2</div>
+            <div class="ci-body">
+              <div class="ci-head"><span class="ci-name">Semiconductor economic role</span><span class="tag tag-opportunity">Economic angle</span></div>
+              <p class="ci-text">Captions stress Taiwan's <strong>disproportionate weight</strong> in the global chip economy — a few firms outweighing whole emerging markets.</p>
+              <div class="ci-quotes">
+                <div class="ci-quote" tabindex="0" role="button" data-url="http://twitter.com/danmikulskis/statuses/2082094309570941076">
+                  <script type="application/json" class="post-data">{"handle":"@danmikulskis","source":"X","url":"http://twitter.com/danmikulskis/statuses/2082094309570941076","caption":"Three companies now carry more weight in the emerging markets equities universe than the combined equity markets of India, Brazil, South Africa, Saudi Arabia, Mexico, and the UAE."}</script>
+                  <span class="cq-handle">@danmikulskis</span><span class="cq-text">"Three companies now carry more weight in the emerging markets equities universe than the combined equity markets of..."</span><span class="cq-more">Post detail →</span></div>
+                <div class="ci-quote" tabindex="0" role="button" data-url="http://twitter.com/hihn137350/statuses/2082099901031452867">
+                  <script type="application/json" class="post-data">{"handle":"@hihn137350","source":"X","url":"http://twitter.com/hihn137350/statuses/2082099901031452867","caption":"Chip sector equity collapse drove global equities to one-month lows."}</script>
+                  <span class="cq-handle">@hihn137350</span><span class="cq-text">"Chip sector equity collapse drove global equities to one-month lows."</span><span class="cq-more">Post detail →</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="quid-card" style="padding: 20px;">
         <h2 class="quid-h2">Example posts — image-top carousel</h2>
         <p class="quid-body quid-muted">Horizontal scroll of example posts with the image on top. Each card uses the linked post's og:image; when a source exposes no usable image (X, Reddit, Instagram, or a placeholder), the thumb falls back to a gradient tile showing the source domain. Handle · platform, caption, then a View post link. The first five cards are real posts covering each image-sourcing pattern (news og:image, YouTube, X, Bluesky, signed/expiring URL); the last shows the domain fallback for a deleted post.</p>
         <h3 class="sub-head" style="margin-top: 12px;">Example posts</h3>
@@ -411,5 +448,94 @@
         try { if (window.twttr && window.twttr.widgets) window.twttr.widgets.load(); } catch (e) {}
       });
     </script>
+  <div class="post-modal-overlay" id="postModal" role="dialog" aria-modal="true" aria-label="Post detail">
+    <div class="post-modal">
+      <div class="post-modal-head">
+        <div><span class="pm-eyebrow">Post detail</span><span class="handle" id="pmHandle"></span></div>
+        <button class="post-modal-close" id="pmClose" type="button" aria-label="Close">&times;</button>
+      </div>
+      <div class="post-modal-body">
+        <div class="pm-media" id="pmMedia"></div>
+        <div class="pm-content">
+          <div class="pm-tabs" id="pmTabs" role="tablist"></div>
+          <div id="pmPanels"></div>
+        </div>
+      </div>
+      <div class="post-modal-foot" id="pmFoot"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const overlay = document.getElementById('postModal');
+      if (!overlay) return;
+      const esc = (s) => String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const PH_ICON = '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h.01M9 16h.01"/></svg>';
+      const PLAT = { tiktok:'TikTok', instagram:'Instagram', youtube:'YouTube', facebook:'Facebook', reddit:'Reddit', x:'X', twitter:'X', bluesky:'Bluesky' };
+      function linkLabel(source) { const k = (source||'').toLowerCase(); for (const p in PLAT) if (k.includes(p)) return 'Open on ' + PLAT[p]; return 'View post'; }
+
+      function readData(card) {
+        const blob = card.querySelector('script.post-data');
+        let d = {};
+        if (blob) { try { d = JSON.parse(blob.textContent); } catch (e) { d = {}; } }
+        const q = (sel) => card.querySelector(sel);
+        const img = q('.post-thumb img, .tile-thumb img, img.lc-thumb');
+        const href = card.getAttribute('href');
+        return {
+          handle: d.handle || (q('.handle, .tile-handle, .cq-handle, .lc-author')||{}).textContent || '',
+          source: d.source || (q('.src, .lc-src')||{}).textContent || '',
+          url: d.url || ((href && href !== '#') ? href : (card.dataset.url || '')),
+          thumb: d.thumb || (img ? img.getAttribute('src') : ''),
+          summary: d.summary || null,
+          highlights: d.highlights || null,
+          caption: d.caption || (q('.post-text, .cq-text, .lc-text')||{}).textContent || ''
+        };
+      }
+
+      function openFrom(card) {
+        const d = readData(card);
+        pmHandle.textContent = d.handle;
+        pmMedia.innerHTML = d.thumb ? '<img src="'+esc(d.thumb)+'" alt="">' : '<div class="pm-media-ph">'+PH_ICON+'</div>';
+
+        const tabs = [];
+        if (d.summary && d.summary.length) tabs.push({ label:'Summary',
+          body: d.summary.map(s => '<div class="pm-section"><div class="pm-label">'+esc(s.label)+'</div><p>'+esc(s.text)+'</p></div>').join('') });
+        if (d.highlights && d.highlights.length) tabs.push({ label:'Highlights', count: d.highlights.length,
+          body: '<ul class="pm-highlights">'+ d.highlights.map(h => '<li>'+esc(h)+'</li>').join('') +'</ul>' });
+        if (d.caption) tabs.push({ label:'Caption', body: '<div class="pm-caption">'+esc(d.caption)+'</div>' });
+        if (!tabs.length) tabs.push({ label:'Detail', body: '<p class="pm-caption" style="color:var(--muted-foreground)">No further detail for this post.</p>' });
+
+        pmTabs.innerHTML = tabs.map((t,i) =>
+          '<button class="pm-tab'+(i===0?' active':'')+'" type="button" data-tab="'+i+'">'+esc(t.label)+
+          (t.count!=null ? ' <span class="tab-count">'+t.count+'</span>' : '')+'</button>').join('');
+        document.getElementById('pmPanels').innerHTML = tabs.map((t,i) =>
+          '<div class="pm-panel'+(i===0?' active':'')+'" data-panel="'+i+'">'+t.body+'</div>').join('');
+        pmTabs.style.display = tabs.length > 1 ? '' : 'none';
+
+        pmTabs.querySelectorAll('.pm-tab').forEach(btn => btn.addEventListener('click', () => {
+          const i = btn.dataset.tab;
+          pmTabs.querySelectorAll('.pm-tab').forEach(b => b.classList.toggle('active', b === btn));
+          document.querySelectorAll('#pmPanels .pm-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === i));
+        }));
+
+        pmFoot.innerHTML = d.url ? '<a class="post-modal-link" href="'+esc(d.url)+'" target="_blank" rel="noopener">'+linkLabel(d.source)+' →</a>' : '';
+        pmFoot.style.display = d.url ? '' : 'none';
+        overlay.classList.add('open'); document.body.classList.add('modal-open');
+      }
+      function close() { overlay.classList.remove('open'); document.body.classList.remove('modal-open'); }
+      document.addEventListener('click', (e) => {
+        const card = e.target.closest('.post, .post-tile, .ci-quote, .large-card');
+        if (card && !overlay.contains(card)) { e.preventDefault(); openFrom(card); }
+      });
+      document.addEventListener('keydown', (e) => {
+        if ((e.key === 'Enter' || e.key === ' ') && document.activeElement) {
+          const card = document.activeElement.closest && document.activeElement.closest('.post, .post-tile, .ci-quote, .large-card');
+          if (card) { e.preventDefault(); openFrom(card); }
+        }
+        if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+      });
+      document.getElementById('pmClose').addEventListener('click', close);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+    })();
+  </script>
   </body>
 </html>

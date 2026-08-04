@@ -6,7 +6,7 @@ description: >
   shadows) as CSS custom properties wired to shadcn/ui semantics, plus a small set of
   Quid-branded utility classes, a full-page shell container (side-nav rail with
   scroll-spy, hero, section primitives, and methodology footer — the frame a
-  multi-section brief is built on), an optional KPI metric strip, colored tag badges, a ranked-theme list (rank + badge + metrics + verbatim quotes), chart-series color tokens, a data table, an accordion, a media-beside ranked-theme variant, featured-post cards, and example-post components (post cards with
+  multi-section brief is built on), an optional KPI metric strip, colored tag badges, a ranked-theme list (rank + badge + metrics + verbatim quotes), chart-series color tokens, a data table, an accordion, a media-beside ranked-theme variant, featured-post cards, a caption-insight presentation for ranked themes (with a shared post-detail modal), and example-post components (post cards with
   images, per-platform image sourcing, large creative-showcase cards in a 3-up grid,
   live social embeds). Use BEFORE creating an HTML brief, dashboard, report, or any
   other Quid-branded artifact so the output inherits correct fonts, colors, radius, and
@@ -83,6 +83,8 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 - **Accordion** — `.accordion` wrapping native `<details>` / `<summary>` (+ `.acc-meta`, `.acc-body`) — expandable stacked rows (see the dedicated section below).
 - **Ranked theme — with media** — `.theme-card.with-media` + `.theme-text` / `.theme-thumb` / `.theme-cols` (extends the ranked-theme base; composes `.sc-carousel`) — text left, thumbnail right, carousel below (see the dedicated section below).
 - **Featured posts** — `.posts-featured`, `.post`, `.post-thumb`, `.post-rank`, `.post-body`, `.post-author` (`.handle` / `.src`), `.post-text`, `.post-foot` (`.stat`) — 2-up rich cards for standout posts (see the dedicated section below).
+- **Ranked theme — caption-insight** — `.ci-list`, `.ci-card`, `.ci-num`, `.ci-body`, `.ci-head`, `.ci-name`, `.ci-text`, `.ci-quotes`, `.ci-quote` / `.cq-handle` / `.cq-text` / `.cq-more`. A third presentation option for ranked themes (alongside with-quotes and with-media): ghost number + caption read + quote cards that open the shared **post-detail modal** (see the dedicated section below).
+- **Post-detail modal** — `.post-modal-overlay` / `.post-modal` / `.post-modal-head` / `.post-modal-body` / `.pm-media` / `.pm-tabs` / `.pm-tab` / `.pm-panel` / `.pm-section` / `.pm-highlights` / `.pm-caption` / `.post-modal-foot`. A shared page singleton (markup + JS go in the brief once) opened by `.ci-quote`, `.post`, `.post-tile`, `.large-card` (see the dedicated section below).
 - **Example-post components** — `.sc-carousel`, `.sc-card`, `.sc-thumb`, `.sc-thumb-ph`, `.sc-meta`, `.sc-who`, `.sc-handle`, `.sc-plat`, `.sc-quote`, `.sc-link` (see the dedicated section below).
 - **Large cards (creative in the wild)** — `.large-cards`, `.large-card`, `.lc-media`, `.lc-thumb`, `.lc-logo`, `.lc-play`, `.lc-meta`, `.lc-head`, `.lc-author`, `.lc-src`, `.lc-text`, `.lc-stats` (see the dedicated section below).
 - **Social embeds (native)** — `.embed-grid`, `.embed-tile`, `.embed-plat`, `.dot`, `.embed-body`, `.yt`, `.embed-note` — chrome for the platforms' own embed snippets (iframe or script blockquote), one tile per platform (see the dedicated section below).
@@ -221,6 +223,16 @@ Rules the markup can't show:
 - Distinct from `.quid-badge` (a plain gray count/meta chip); reach for `.tag-*` when the label carries a category or sentiment.
 
 Reference markup (all six variants): the "Tags / badges" section of `example.html`.
+
+## Ranked themes — choosing a presentation
+
+Ranked themes have **three interchangeable presentations** — same ordered set of themes, different emphasis. Pick one per section:
+
+- **With quotes** (this section) — rank + badge + metrics + description + inline verbatim pull-quotes. The default; best when the *quotes themselves* are the evidence.
+- **With media** (`.theme-card.with-media`) — text left, a thumbnail top-right, and a full-width example-post carousel below. Best when a hero image or several example posts per theme carry the story.
+- **Caption-insight** (`.ci-*`) — a big ghost number + name/tag + a one-line caption **read**, then a 2-up grid of clickable quote cards that open the post-detail modal. Best when the *interpretation* leads and readers drill into individual posts.
+
+Each is documented below.
 
 ## Ranked theme — with quotes
 
@@ -379,6 +391,68 @@ Rules the markup can't show:
 
 Reference markup (two real featured posts): the "Featured posts" section of `example.html`.
 
+## Ranked theme — caption-insight
+
+The **caption-insight** presentation of ranked themes (the third option — see "Ranked themes — choosing a presentation" above): each theme is a big **ghost number** + name/tag + a caption **read** (a sentence on what the captions *collectively* say), then a 2-up grid of quote cards. Each quote card is clickable and opens the shared **post-detail modal** with that post's fuller detail. Reach for it when the interpretation should lead and readers drill into individual posts.
+
+Contract (one `.ci-card` per theme, inside a `.ci-list`):
+
+```html
+<div class="ci-list">
+  <div class="ci-card">
+    <div class="ci-num">1</div>
+    <div class="ci-body">
+      <div class="ci-head"><span class="ci-name">{Theme}</span><span class="tag tag-trend">{Category}</span></div>
+      <p class="ci-text">{The caption read — what the captions collectively say.} <strong>{emphasis}</strong></p>
+      <div class="ci-quotes">
+        <div class="ci-quote" tabindex="0" role="button" data-url="{post URL}">
+          <script type="application/json" class="post-data">{"handle":"@x","source":"X","url":"{post URL}","caption":"{verbatim quote}"}</script>
+          <span class="cq-handle">@x</span><span class="cq-text">"{verbatim quote}"</span><span class="cq-more">Post detail →</span>
+        </div>
+        <!-- …quote cards (2-up grid)… -->
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+Rules the markup can't show:
+
+- **The `.ci-text` is an interpretation** — it summarizes what the captions collectively convey. It's editorial, so keep it faithful to the set; the **`.cq-text` quotes stay verbatim**.
+- **Each `.ci-quote` opens the post-detail modal** — it needs `tabindex="0" role="button"` and a `data-url`, plus an inline `<script type="application/json" class="post-data">` blob for the modal to read (falls back to `.cq-handle`/`.cq-text` if the blob is absent). See "Post-detail modal" below — the modal singleton + its script must be present once in the brief for clicks to do anything.
+- The badge is the shared `.tag`; one per theme (optional). Ghost number is decorative (`--border`-colored) — keep the list short so the numbers stay meaningful.
+
+Reference markup (two real Taiwan themes with clickable quotes): the "Caption-insight themes" section of `example.html`.
+
+## Post-detail modal
+
+A shared **page singleton** — one overlay + one script per brief — that any clickable card opens to show a post's fuller detail (media, tabbed Summary / Highlights / Caption, and an "Open on {platform}" link). Openers are `.ci-quote`, `.post`, `.post-tile`, and `.large-card`; the CSS ships in `quid.css`, but the **markup and JS live in the brief** (they can't ship in a stylesheet).
+
+Wire-up (once per brief, near `</body>`):
+
+1. **The overlay markup** — copy the `<div class="post-modal-overlay" id="postModal">…</div>` block from the end of `example.html` verbatim (it has the fixed ids the script binds to: `pmHandle`, `pmMedia`, `pmTabs`, `pmPanels`, `pmFoot`, `pmClose`).
+2. **The opener script** — copy the `<script>` that follows it. It delegates clicks/Enter on any opener, reads the card's `post-data` blob (or falls back to the card's handle/text/thumb/href), builds the tabs, and toggles `body.modal-open`.
+
+Each openable card carries an inline data blob for the richer view:
+
+```html
+<script type="application/json" class="post-data">{
+  "handle":"@x", "source":"TikTok", "url":"…", "thumb":"…",
+  "summary":[{"label":"Overall","text":"…"}],
+  "highlights":["…","…"],
+  "caption":"…"
+}</script>
+```
+
+Rules the markup can't show:
+
+- **One modal per page.** Include the overlay + script exactly once, even with many openers — the handler is delegated, so new cards work without re-wiring.
+- **Tabs appear only for the fields you provide.** `summary` → Summary tab, `highlights` → Highlights tab, `caption` → Caption tab; with one field the tab bar hides. Provide only what you can source — don't invent a `Visual`/`Audio` read for a text post.
+- **`thumb`** should be a real, still-live image (same hotlink rules as example posts); omit it and the modal shows a placeholder icon rather than a broken image.
+- Without a `post-data` blob the modal still opens, falling back to the card's `.cq-handle`/`.cq-text` (or `.handle`/`.post-text`) and its `href`/`data-url`.
+
+Reference: the overlay markup + script at the end of `example.html`, opened by the "Caption-insight themes" quote cards.
+
 ## Example-post components
 
 Use when a brief shows real social or news posts as evidence — top posts, example posts per theme, quote cards. The `.sc-*` styles ship inside `quid.css`, so inlining `quid.css` is all the setup needed; copy the markup shape from the "Example posts" section of `example.html`.
@@ -520,7 +594,7 @@ Light mode is the default. To activate dark mode, add `class="dark"` (or `data-t
 │   ├── shadow-colors-dark.tokens.json
 │   ├── typography-desktop.tokens.json
 │   └── typography-mobile.tokens.json
-├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, ranked theme (with quotes + with media), chart palette, table, accordion, featured posts, example-post carousel, large cards, social embeds
+├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, ranked theme (with quotes + with media), chart palette, table, accordion, featured posts, caption-insight themes + post-detail modal, example-post carousel, large cards, social embeds
 └── shell-example.html  ← full-page reference: the Shell as a page container (hero + rail + sections + methodology)
 ```
 
