@@ -114,6 +114,49 @@
       </section>
 
       <section class="quid-card" style="padding: 20px;">
+        <h2 class="quid-h2">Chart palette &amp; convention</h2>
+        <p class="quid-body quid-muted">Series colors come from tokens in <code>quid.css</code>. Categorical charts cycle <code>--chart-1…14</code>; sentiment uses <code>--sentiment-*</code>; wordclouds use the Citrus set. Charts read them via <code>getComputedStyle</code>, so re-theming a client only means overriding these tokens. Axis grid uses <code>--border</code>; labels use <code>--muted-foreground</code>.</p>
+        <div class="quid-caption" style="margin-top:12px;">Categorical ramp (--chart-1…14)</div>
+        <div class="row" style="gap:8px; margin-top:8px;">
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-1)" title="--chart-1"></div>
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-2)" title="--chart-2"></div>
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-3)" title="--chart-3"></div>
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-4)" title="--chart-4"></div>
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-5)" title="--chart-5"></div>
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-6)" title="--chart-6"></div>
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-7)" title="--chart-7"></div>
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-8)" title="--chart-8"></div>
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-9)" title="--chart-9"></div>
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-10)" title="--chart-10"></div>
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-11)" title="--chart-11"></div>
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-12)" title="--chart-12"></div>
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-13)" title="--chart-13"></div>
+          <div class="swatch" style="width:44px;height:40px;background:var(--chart-14)" title="--chart-14"></div>
+        </div>
+        <div style="display:flex; gap:40px; flex-wrap:wrap; margin-top:20px;">
+          <div>
+            <div class="quid-caption">Sentiment (--sentiment-*)</div>
+            <div class="row" style="gap:8px; margin-top:8px;">
+              <div class="swatch" style="width:56px;height:40px;background:var(--sentiment-positive)" title="--sentiment-positive"></div>
+              <div class="swatch" style="width:56px;height:40px;background:var(--sentiment-neutral)" title="--sentiment-neutral"></div>
+              <div class="swatch" style="width:56px;height:40px;background:var(--sentiment-negative)" title="--sentiment-negative"></div>
+            </div>
+          </div>
+          <div>
+            <div class="quid-caption">Citrus / wordcloud (--citrus-1…6)</div>
+            <div class="row" style="gap:8px; margin-top:8px;">
+              <div class="swatch" style="width:40px;height:40px;background:var(--citrus-1)" title="--citrus-1"></div>
+              <div class="swatch" style="width:40px;height:40px;background:var(--citrus-2)" title="--citrus-2"></div>
+              <div class="swatch" style="width:40px;height:40px;background:var(--citrus-3)" title="--citrus-3"></div>
+              <div class="swatch" style="width:40px;height:40px;background:var(--citrus-4)" title="--citrus-4"></div>
+              <div class="swatch" style="width:40px;height:40px;background:var(--citrus-5)" title="--citrus-5"></div>
+              <div class="swatch" style="width:40px;height:40px;background:var(--citrus-6)" title="--citrus-6"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="quid-card" style="padding: 20px;">
         <h2 class="quid-h2">Example posts — image-top carousel</h2>
         <p class="quid-body quid-muted">Horizontal scroll of example posts with the image on top. Each card uses the linked post's og:image; when a source exposes no usable image (X, Reddit, Instagram, or a placeholder), the thumb falls back to a gradient tile showing the source domain. Handle · platform, caption, then a View post link. The first five cards are real posts covering each image-sourcing pattern (news og:image, YouTube, X, Bluesky, signed/expiring URL); the last shows the domain fallback for a deleted post.</p>
         <h3 class="sub-head" style="margin-top: 12px;">Example posts</h3>

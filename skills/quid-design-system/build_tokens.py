@@ -537,6 +537,22 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 """
     )
 
+    # ---- Chart palette & convention ----
+    # Series-color tokens charts read via getComputedStyle: categorical --chart-1..14,
+    # --sentiment-* (pos/neu/neg), and the Citrus set for wordclouds. Ported from the
+    # Component Gallery. Overridable per client. Docs: SKILL.md "Chart palette & convention".
+    parts.append(
+        """/* ---- Chart palette & convention (series-color tokens; overridable per client) ---- */
+:root {
+  --chart-1: #2F75D7; --chart-2: #6E21BA; --chart-3: #CE42A6; --chart-4: #37A1A5; --chart-5: #E4A709;
+  --chart-6: #187B34; --chart-7: #EC6515; --chart-8: #529CE2; --chart-9: #A12B86; --chart-10: #42C366;
+  --chart-11: #DD4848; --chart-12: #A91E1E; --chart-13: #A762D9; --chart-14: #AEAEAE;
+  --sentiment-positive: #2E964B; --sentiment-neutral: #A0A0A0; --sentiment-negative: #C91616;
+  --citrus-1: #158287; --citrus-2: #1B959A; --citrus-3: #37A1A5; --citrus-4: #B88B00; --citrus-5: #CA5010; --citrus-6: #B94103;
+}
+"""
+    )
+
     return "\n".join(parts).rstrip() + "\n"
 
 
