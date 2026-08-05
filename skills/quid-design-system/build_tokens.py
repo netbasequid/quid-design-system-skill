@@ -691,6 +691,25 @@ body.modal-open { overflow: hidden; }
 """
     )
 
+    # ---- Insight / callout ----
+    # A bordered callout for a single takeaway: a colored left rule keyed to sentiment
+    # (default/accent-2/accent-3/warn/neg), an optional .tag above, one or two short
+    # paragraphs. .insight-grid holds a 2-up set of small .insight-card takeaways.
+    # Uses the shared .tag badge. Ported from the Component Gallery.
+    # Markup contract + rules: SKILL.md "Insight / callout"; reference: example.html.
+    parts.append(
+        """/* ---- Insight / callout (bordered takeaway; + 2-up insight grid) ---- */
+.insight-box { background: var(--card); color: var(--card-foreground); border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 16px 0; box-shadow: var(--shadow-sm-recipe); }
+.insight-box.accent-2 { border-left-color: var(--color-purple-700); } .insight-box.accent-3 { border-left-color: var(--color-green-700); }
+.insight-box.warn { border-left-color: var(--color-orange-700); } .insight-box.neg { border-left-color: var(--destructive); }
+.insight-box p { font-size: var(--font-size-15); margin: 0; } .insight-box p + p { margin-top: 8px; }
+.insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+.insight-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow-sm-recipe); }
+.insight-card h4 { font-size: var(--font-size-15); font-weight: var(--font-bold); margin: 8px 0 6px; } .insight-card p { font-size: var(--font-size-14); color: var(--muted-foreground); margin: 0; }
+@media (max-width: 760px) { .insight-grid { grid-template-columns: 1fr; } }
+"""
+    )
+
     return "\n".join(parts).rstrip() + "\n"
 
 

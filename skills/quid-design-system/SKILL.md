@@ -6,7 +6,7 @@ description: >
   shadows) as CSS custom properties wired to shadcn/ui semantics, plus a small set of
   Quid-branded utility classes, a full-page shell container (side-nav rail with
   scroll-spy, hero, and section primitives — the frame a
-  multi-section brief is built on), an optional KPI metric strip, colored tag badges, a ranked-theme list (rank + badge + metrics + verbatim quotes), chart-series color tokens, a data table, an accordion, a media-beside ranked-theme variant, featured-post cards, a caption-insight presentation for ranked themes (with a shared post-detail modal), an optional methodology block, and example-post components (post cards with
+  multi-section brief is built on), an optional KPI metric strip, colored tag badges, a ranked-theme list (rank + badge + metrics + verbatim quotes), chart-series color tokens, a data table, an accordion, a media-beside ranked-theme variant, featured-post cards, a caption-insight presentation for ranked themes (with a shared post-detail modal), an optional methodology block, insight callouts (+ a 2-up insight grid), and example-post components (post cards with
   images, per-platform image sourcing, large creative-showcase cards in a 3-up grid,
   live social embeds). Use BEFORE creating an HTML brief, dashboard, report, or any
   other Quid-branded artifact so the output inherits correct fonts, colors, radius, and
@@ -88,6 +88,7 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 - **Example-post components** — `.sc-carousel`, `.sc-card`, `.sc-thumb`, `.sc-thumb-ph`, `.sc-meta`, `.sc-who`, `.sc-handle`, `.sc-plat`, `.sc-quote`, `.sc-link` (see the dedicated section below).
 - **Large cards (creative in the wild)** — `.large-cards`, `.large-card`, `.lc-media`, `.lc-thumb`, `.lc-logo`, `.lc-play`, `.lc-meta`, `.lc-head`, `.lc-author`, `.lc-src`, `.lc-text`, `.lc-stats` (see the dedicated section below).
 - **Social embeds (native)** — `.embed-grid`, `.embed-tile`, `.embed-plat`, `.dot`, `.embed-body`, `.yt`, `.embed-note` — chrome for the platforms' own embed snippets (iframe or script blockquote), one tile per platform (see the dedicated section below).
+- **Insight / callout** — `.insight-box` (+ `.accent-2` / `.accent-3` / `.warn` / `.neg`) for a single bordered takeaway; `.insight-grid` / `.insight-card` (+ `h4`) for a 2-up set of small takeaways. Uses the shared `.tag` badge (see the dedicated section below).
 - **Methodology** — `.methodology` — a small muted block for a brief's sources / window / caveats; an optional standalone component (not part of the shell) — see the dedicated section below.
 
 ## The Shell (page container)
@@ -468,6 +469,34 @@ An **optional standalone** block for a brief's provenance — data source, date 
 
 Reference markup: the "Methodology" section of `example.html`.
 
+## Insight / callout
+
+A bordered callout that spotlights a **single takeaway** — a colored left rule keyed to sentiment, an optional `.tag` above, and one or two short lines. Use it to punctuate a section with the "so what," not to hold body content.
+
+```html
+<div class="insight-box neg">
+  <span class="tag tag-risk">Risk</span>
+  <p><strong>{Headline.}</strong> {One or two sentences.}</p>
+</div>
+```
+
+For a set of small paired takeaways, use the 2-up grid:
+
+```html
+<div class="insight-grid">
+  <div class="insight-card"><span class="tag tag-trend">Trend</span><h4>{Short title}</h4><p>{One line.}</p></div>
+  <div class="insight-card"><span class="tag tag-opportunity">Opportunity</span><h4>{Short title}</h4><p>{One line.}</p></div>
+</div>
+```
+
+Rules the markup can't show:
+
+- **The left rule is keyed to meaning** — default (blue `--primary`), `.accent-2` (purple), `.accent-3` (green, positive/signal), `.warn` (orange, caution), `.neg` (red, risk/negative). Pair the accent with a matching `.tag` variant, not a clashing one.
+- **Keep it short.** `.insight-box` is a callout, not a section — a bold lead-in plus a sentence or two. Reach for a `.section` + `.prose` when there's more to say.
+- **The `.tag` is optional** (see "Tags / badges"); the `.insight-grid` collapses to one column under 760px.
+
+Reference markup (all box variants + the 2-up grid): the "Insight / callout" section of `example.html`.
+
 ## Example-post components
 
 Use when a brief shows real social or news posts as evidence — top posts, example posts per theme, quote cards. The `.sc-*` styles ship inside `quid.css`, so inlining `quid.css` is all the setup needed; copy the markup shape from the "Example posts" section of `example.html`.
@@ -611,7 +640,7 @@ Light mode is the default. To activate dark mode, add `class="dark"` (or `data-t
 │   ├── shadow-colors-dark.tokens.json
 │   ├── typography-desktop.tokens.json
 │   └── typography-mobile.tokens.json
-├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, ranked theme (with quotes + with media), chart palette, table, accordion, featured posts, caption-insight themes + post-detail modal, example-post carousel, large cards, social embeds, methodology
+├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, ranked theme (with quotes + with media), chart palette, table, accordion, featured posts, caption-insight themes + post-detail modal, example-post carousel, large cards, social embeds, methodology, insight / callout
 └── shell-example.html  ← full-page reference: the Shell as a page container (hero + rail + sections)
 ```
 
