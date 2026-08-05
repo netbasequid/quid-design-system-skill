@@ -475,7 +475,7 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 .section a:not([class]) { color: var(--primary); text-decoration: none; }
 .section a:not([class]):hover { text-decoration: underline; }
 
-/* ---- Shell: methodology footer ---- */
+/* ---- Methodology (optional standalone block; a brief's sources / window / caveats) ---- */
 .methodology { max-width: 900px; }
 .methodology p { font-size: var(--font-size-13); color: var(--muted-foreground); line-height: var(--font-line-height-15); }
 .methodology p + p { margin-top: 8px; }
