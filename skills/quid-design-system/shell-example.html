@@ -11,7 +11,7 @@
       FULL-PAGE SHELL REFERENCE.
       The shell is the page CONTAINER, not a widget: <body class="with-sidenav"> →
       .body-layout → [ .sidenav rail | .main( hero + .container-brief( .brief-body slot
-      + methodology footer ) ) ]. Catalog components (here: stat cards + the .sc-carousel
+      ) ) ]. Catalog components (here: stat cards + the .sc-carousel
       of real posts; elsewhere KPI strips, charts, tables, embeds) compose INSIDE the
       .brief-body <section> blocks. Everything below uses classes shipped in quid.css.
       Rail rule: each nav link's text is the target section's blue eyebrow (.section-label),
@@ -29,7 +29,6 @@
           <a href="#section-summary" class="active">Executive summary</a>
           <a href="#section-sharing">What people are sharing</a>
           <a href="#section-signals">Signals to watch</a>
-          <a href="#section-methodology">Methodology</a>
         </nav>
       </aside>
 
@@ -102,15 +101,6 @@
             </section>
 
           </div><!-- /brief-body (end SLOT) -->
-
-          <!-- ════ SHELL · methodology footer (always last) ════ -->
-          <section class="section" id="section-methodology">
-            <p class="section-label">Methodology</p>
-            <div class="methodology">
-              <p>Source: illustrative sample for the design-system shell reference. Window: Jul 2026. Example posts are real, public posts reused from the component reference; metrics shown are placeholders to demonstrate the layout.</p>
-              <p>This page exists to show the shell as a page container; swap the hero image, sections, and posts for real analysis output.</p>
-            </div>
-          </section>
 
         </div><!-- /container-brief -->
       </main>

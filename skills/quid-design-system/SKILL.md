@@ -5,7 +5,7 @@ description: >
   Inlines a single stylesheet that exposes all Figma tokens (colors, typography, radius,
   shadows) as CSS custom properties wired to shadcn/ui semantics, plus a small set of
   Quid-branded utility classes, a full-page shell container (side-nav rail with
-  scroll-spy, hero, section primitives, and methodology footer — the frame a
+  scroll-spy, hero, and section primitives — the frame a
   multi-section brief is built on), an optional KPI metric strip, colored tag badges, a ranked-theme list (rank + badge + metrics + verbatim quotes), chart-series color tokens, a data table, an accordion, a media-beside ranked-theme variant, featured-post cards, a caption-insight presentation for ranked themes (with a shared post-detail modal), and example-post components (post cards with
   images, per-platform image sourcing, large creative-showcase cards in a 3-up grid,
   live social embeds). Use BEFORE creating an HTML brief, dashboard, report, or any
@@ -74,7 +74,7 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 - **Typography** — `--font-sans` (Inter), `--font-size-12 / 13 / 14 / 15 / 16 / h0..h3 / hero / subtitle / pull-quote / blob-caption / code-large`, matching `--font-line-height-*`, weights `--font-light / regular / medium / semibold / bold / headings / h0`. A `@media (max-width: 768px)` block automatically swaps in the mobile size scale.
 - **Shadows** — `--shadow-sm`, `--shadow-rg`, `--shadow-lg`, `--shadow-sm-hover`, `--shadow-rg-hover` (raw rgba), and ready-to-use recipes `--shadow-sm-recipe`, `--shadow-rg-recipe`, `--shadow-lg-recipe`.
 - **Utility classes** — `.quid-hero`, `.quid-h0`, `.quid-h1`, `.quid-h2`, `.quid-h3`, `.quid-subtitle`, `.quid-pull-quote`, `.quid-body`, `.quid-body-lg`, `.quid-caption`, `.quid-muted`, `.quid-card`, `.quid-button`, `.quid-badge`.
-- **Shell (page container)** — layout: `.with-sidenav` (toggle), `.body-layout`, `.container-brief`, `.main`, `.brief-body`; rail: `.sidenav`, `.sidenav-title`, `.sidenav a` / `:hover` / `.active`; hero: `.hero`, `.hero-card` (`.has-img`), `.eyebrow`, `.lede`; section primitives: `.section`, `.section-label`, `.section-sub`, `.divider`, `.section-divider`, `.prose`; footer: `.methodology`. Hero-gradient brand tokens `--hero-overlay` / `--hero-img` / `--grad-*`. The page container every multi-section brief starts from (see the dedicated section below).
+- **Shell (page container)** — layout: `.with-sidenav` (toggle), `.body-layout`, `.container-brief`, `.main`, `.brief-body`; rail: `.sidenav`, `.sidenav-title`, `.sidenav a` / `:hover` / `.active`; hero: `.hero`, `.hero-card` (`.has-img`), `.eyebrow`, `.lede`; section primitives: `.section`, `.section-label`, `.section-sub`, `.divider`, `.section-divider`, `.prose`. Hero-gradient brand tokens `--hero-overlay` / `--hero-img` / `--grad-*`. The page container every multi-section brief starts from (see the dedicated section below).
 - **KPI strip** — `.kpi-grid`, `.kpi-card`, `.kpi-card .label` / `.value` / `.delta` (`.up` / `.down`) / `.period` — optional top-accent metric cards (see the dedicated section below).
 - **Tags / badges** — `.tag` + `.tag-opportunity` / `-risk` / `-trend` / `-signal` / `-watch` / `-neutral` — colored pill labels (see the dedicated section below).
 - **Ranked theme — with quotes** — `.theme-list`, `.theme-card`, `.theme-head`, `.theme-rank`, `.theme-name`, `.theme-metrics` / `.theme-metric` (`.up` / `.down`), `.theme-desc`, `.theme-quote` / `.q-src`, `.theme-examples-label` (uses the shared `.tag` badge). Boxless ranked list with inline verbatim quotes (see the dedicated section below).
@@ -93,12 +93,11 @@ Drop `quid.css` into the project's `globals.css` (or @import it). The semantic t
 
 The Shell is the **page container** every multi-section brief starts from — not a widget you drop in. It is the frame; the catalog components (KPI strips, charts, `.sc-carousel`, `.large-cards`, `.embed-*`, tables, pull-quotes) are the content that composes **inside** its sections. Reach for it whenever a brief has enough parts to be worth a structure and an "on this page" rail.
 
-The container is four fixed regions plus one slot:
+The container is two fixed regions plus one slot:
 
 1. **Side-nav rail** (`.sidenav`) — sticky "on this page" list, one link per section, with a scroll-spy that tracks the section in view.
 2. **Hero** (`.hero` / `.hero-card`) — eyebrow + title + lede. Dark Quid gradient by default; add `has-img` + set `--hero-img` for a photo hero, or `.hero-card.light` for the pale primary-container hero.
-3. **The slot** (`.brief-body`) — the ONLY flexible region: any number of `<section class="section" id="…">` blocks, each composing catalog components based on what the data needs. There is no fixed section layout.
-4. **Methodology footer** — a final `.section` with source, window, and caveats.
+3. **The slot** (`.brief-body`) — the flexible region: any number of `<section class="section" id="…">` blocks, each composing catalog components based on what the data needs. There is no fixed section layout. (If a brief wants a sources/caveats footer, add it here as an ordinary final `.section` — it is not part of the shell.)
 
 It all ships in `quid.css`, so inlining `quid.css` is the only CSS setup; the rail also wants the small scroll-spy script below. Section primitives (`.section`, `.section-label`, `.section-sub`, `.divider`, `.section-divider`, `.prose`) come with the shell.
 
@@ -113,7 +112,6 @@ Container contract:
       <nav>
         <a href="#section-1">{Section 1 eyebrow}</a>
         <a href="#section-2">{Section 2 eyebrow}</a>
-        <a href="#section-methodology">Methodology</a>
       </nav>
     </aside>
 
@@ -137,11 +135,6 @@ Container contract:
           </section>
           <section class="section" id="section-2"> … </section>
         </div>
-
-        <section class="section" id="section-methodology">   <!-- methodology footer -->
-          <p class="section-label">Methodology</p>
-          <div class="methodology"><p>{Source, window, caveats.}</p></div>
-        </section>
       </div>
     </main>
 
@@ -167,7 +160,7 @@ Scroll-spy — highlights the section in view (put near `</body>`; a no-op when 
 Rules the markup can't show:
 
 - **The shell is the frame; components live in the slot.** Keep the four fixed regions as-is and compose everything data-specific into `.brief-body` sections — don't restructure the hero, rail, or footer per brief.
-- **Each nav link's text is the target section's blue eyebrow (`.section-label`), verbatim** — the rail mirrors the section labels, not the `<h2>` headings, so the two always read the same. Methodology is conventionally the last entry.
+- **Each nav link's text is the target section's blue eyebrow (`.section-label`), verbatim** — the rail mirrors the section labels, not the `<h2>` headings, so the two always read the same.
 - **Every rail `<a href="#id">` must match a real `id`** on a `.section` (or `.section-divider`) in the slot; each section already carries `scroll-margin-top` so the sticky offset doesn't hide its top on jump.
 - **The rail is desktop-only by design.** `.sidenav` is `display:none` until `min-width:1024px`; below that the main column goes full-width and the rail drops out — no hamburger, nothing to wire. Intended, not a gap.
 - **The rail is optional and removable in one move.** Drop `class="with-sidenav"` (and delete the `<aside>`) and the same page renders as a single full-width column — so add it only when there are enough sections to be worth navigating.
@@ -175,7 +168,7 @@ Rules the markup can't show:
 - **Smooth-scroll and the page canvas ship with the shell.** Side-nav anchor clicks smooth-scroll (`html { scroll-behavior: smooth }`), and the page sits on the soft `--shell-canvas` tint behind the white section cards. Both are automatic — nothing to wire.
 - The active rail link uses `--primary-container-foreground` / `--primary-container-background` with a `--primary` left border; hover uses `--secondary`. All from tokens — no raw hex.
 
-Full-page reference (hero + rail + real components composed into sections + methodology + working scroll-spy): **`shell-example.html`**. Open it over http — it is a complete brief, the honest picture of the shell as a page container, unlike the boxed component tiles in `example.html`.
+Full-page reference (hero + rail + real components composed into sections + working scroll-spy): **`shell-example.html`**. Open it over http — it is a complete brief, the honest picture of the shell as a page container, unlike the boxed component tiles in `example.html`.
 
 ## KPI strip
 
@@ -599,7 +592,7 @@ Light mode is the default. To activate dark mode, add `class="dark"` (or `data-t
 │   ├── typography-desktop.tokens.json
 │   └── typography-mobile.tokens.json
 ├── example.html        ← component reference: type scale, cards, buttons, swatches, KPI strip, tags/badges, ranked theme (with quotes + with media), chart palette, table, accordion, featured posts, caption-insight themes + post-detail modal, example-post carousel, large cards, social embeds
-└── shell-example.html  ← full-page reference: the Shell as a page container (hero + rail + sections + methodology)
+└── shell-example.html  ← full-page reference: the Shell as a page container (hero + rail + sections)
 ```
 
 ## Updating after a Figma change

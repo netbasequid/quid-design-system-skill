@@ -396,7 +396,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-headings); color: va
     # ---- Shell (page scaffold / container) ----
     # The full-page container every multi-section brief is built on: a sticky
     # side-nav rail beside the main column (hero + a .brief-body slot of
-    # <section> blocks + a methodology footer). Catalog components (KPI, charts,
+    # <section> blocks). Catalog components (KPI, charts,
     # posts, embeds, tables) compose INSIDE the .brief-body sections — the shell
     # is the frame, not the content.
     # Markup contract + scroll-spy JS + nav-label rule: SKILL.md "The Shell";
