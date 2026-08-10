@@ -48,15 +48,39 @@
 
       <section class="quid-card" style="padding: 20px;">
         <h2 class="quid-h2">KPI strip</h2>
-        <p class="quid-body quid-muted">Optional primary top-accent metric cards. Each card is a <code>.label</code> over a big <code>.value</code>, with an optional <code>.delta</code> row — <code>.up</code> (green ▲) or <code>.down</code> (red ▼) — and an optional <code>.period</code> span naming the comparison window. Auto-fits 3–4 cards; omit it entirely if the brief doesn't need summary metrics.</p>
+        <p class="quid-body quid-muted">Optional metric cards with a light per-metric gradient fill. Each card is a bold <code>.label</code> over a big <code>.value</code>, with an optional <code>.delta</code> row — <code>.up</code> (green ▲) or <code>.down</code> (red ▼) — and an optional <code>.period</code> span naming the comparison window; an optional <code>.kpi-note</code> carries a sub-metric (usually omitted). Color by <strong>metric</strong>, not by hue: add a metric-semantic class (<code>.kpi-card--volume</code>, <code>--authors</code>, <code>--engagement</code>, <code>--reach</code>, …) that sets <code>--kpi-tint</code> to a <code>--chart-*</code> token — the same metric always gets the same color. Auto-fits 3–4 cards; omit it entirely if the brief doesn't need summary metrics.</p>
         <div class="kpi-grid" style="margin-top: 12px;">
-          <!-- up delta with comparison window -->
-          <div class="kpi-card"><div class="label">Total posts</div><div class="value">431K</div><div class="delta up">+31% <span class="period">vs last month</span></div></div>
-          <div class="kpi-card"><div class="label">Active authors</div><div class="value">76K</div><div class="delta up">+24% <span class="period">vs last month</span></div></div>
-          <!-- down delta -->
-          <div class="kpi-card"><div class="label">Engagements</div><div class="value">70.3M</div><div class="delta down">-16% <span class="period">vs last month</span></div></div>
-          <!-- value only (no delta when there's no prior-window comparison) -->
-          <div class="kpi-card"><div class="label">Net sentiment</div><div class="value">+71</div></div>
+          <!-- volume metric (blue) · up delta with comparison window -->
+          <div class="kpi-card kpi-card--volume"><div class="label">Total posts</div><div class="value">431K</div><div class="delta up">+31% <span class="period">vs last month</span></div></div>
+          <!-- authors metric (teal) -->
+          <div class="kpi-card kpi-card--authors"><div class="label">Active authors</div><div class="value">76K</div><div class="delta up">+24% <span class="period">vs last month</span></div></div>
+          <!-- engagement metric (orange) · down delta + optional .kpi-note sub-metric -->
+          <div class="kpi-card kpi-card--engagement"><div class="label">Engagements</div><div class="value">70.3M</div><div class="delta down">-16% <span class="period">vs last month</span></div><div class="kpi-note"><b>1.2M</b> comments · 2% of engagements</div></div>
+          <!-- reach metric (grey) · value only (no delta when there's no prior-window comparison) -->
+          <div class="kpi-card kpi-card--reach"><div class="label">Potential impressions</div><div class="value">10.2B</div></div>
+        </div>
+      </section>
+
+      <section class="quid-card" style="padding: 20px;">
+        <h2 class="quid-h2">KPI strip — full metric set (Monitor Summary)</h2>
+        <p class="quid-body quid-muted">The complete metric→color standard, one card per metric class — the grid wraps to as many rows as needed. Each metric always takes the same <code>--chart-*</code> tint: Mentions co-occurs with Posts, so it uses the light-blue <code>--mentions</code> while Posts stays blue <code>--volume</code>; the sentiment family runs purple (Net Sentiment) → violet (Passion) → green (Positives) → red (Negatives). Reach is neutral grey; Authors teal.</p>
+        <div class="kpi-grid" style="margin-top: 12px;">
+          <!-- mentions (light blue) — 2nd volume metric, distinct from Posts -->
+          <div class="kpi-card kpi-card--mentions"><div class="label">Mentions</div><div class="value">1.1M</div></div>
+          <!-- posts / volume (blue) -->
+          <div class="kpi-card kpi-card--volume"><div class="label">Posts</div><div class="value">1.1M</div></div>
+          <!-- net sentiment (purple) -->
+          <div class="kpi-card kpi-card--sentiment"><div class="label">Net Sentiment</div><div class="value">43%</div></div>
+          <!-- passion intensity (violet) -->
+          <div class="kpi-card kpi-card--passion"><div class="label">Passion Intensity</div><div class="value">21</div></div>
+          <!-- positives (green) -->
+          <div class="kpi-card kpi-card--positives"><div class="label">Positives</div><div class="value">483.1K</div></div>
+          <!-- negatives (red) -->
+          <div class="kpi-card kpi-card--negatives"><div class="label">Negatives</div><div class="value">1.1M</div></div>
+          <!-- potential impressions / reach (grey) -->
+          <div class="kpi-card kpi-card--reach"><div class="label">Potential Impressions</div><div class="value">1.1M</div></div>
+          <!-- authors (teal) -->
+          <div class="kpi-card kpi-card--authors"><div class="label">Authors</div><div class="value">483.1K</div></div>
         </div>
       </section>
 

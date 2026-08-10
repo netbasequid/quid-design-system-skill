@@ -483,20 +483,37 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
     )
 
     # ---- KPI strip (optional metric cards) ----
-    # Primary top-accent metric cards: label over big value, optional up/down delta
-    # with a comparison-window period. Ported verbatim from the Component Gallery.
-    # Markup contract + rules: SKILL.md "KPI strip"; reference: example.html "KPI strip".
+    # Per-metric gradient-tint metric cards: bold label over a big value, optional up/down
+    # delta with a comparison-window period, and an optional sub-metric note. Colored by
+    # WHICH METRIC via a metric-semantic class (--volume/--authors/--engagement/... mapped to
+    # --chart-* tokens); one --kpi-tint knob drives both fill and (auto-darkened) label.
+    # Markup contract + metric->color standard: SKILL.md "KPI strip"; reference: example.html.
     parts.append(
-        r"""/* ---- KPI strip (optional; primary top-accent metric cards) ---- */
+        r"""/* ---- KPI strip (optional; per-metric gradient-tint metric cards) ---- */
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 16px; margin: 24px 0; }
-.kpi-card { background: var(--card); color: var(--card-foreground); border: 1px solid var(--border); border-top: 3px solid var(--primary); border-radius: var(--radius); padding: 20px 16px; text-align: center; box-shadow: var(--shadow-sm-recipe); }
-.kpi-card .label { font-size: var(--font-size-12); font-weight: var(--font-semibold); text-transform: uppercase; letter-spacing: 0.02em; color: var(--muted-foreground); margin-bottom: 8px; }
-.kpi-card .value { font-size: var(--font-size-h1); font-weight: var(--font-bold); line-height: 1.1; }
-.kpi-card .delta { display: inline-flex; align-items: center; gap: 4px; font-size: var(--font-size-13); font-weight: var(--font-regular); margin-top: 2px; }
-.kpi-card .delta::before { font-size: 0.8em; line-height: 1; }   /* directional triangle */
+/* One knob per card: --kpi-tint drives BOTH the gradient fill and the (auto-darkened) label color. */
+.kpi-card { --kpi-tint: var(--primary); color: var(--card-foreground); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; text-align: left; background: linear-gradient(155deg, color-mix(in srgb, var(--kpi-tint) 13%, var(--card)) 0%, var(--card) 62%); box-shadow: var(--shadow-sm-recipe); }
+.kpi-card .label { font-size: var(--font-size-12); font-weight: var(--font-bold); text-transform: uppercase; letter-spacing: 0.02em; color: color-mix(in srgb, var(--kpi-tint) 82%, #000); line-height: 1.35; margin-bottom: 8px; }
+.kpi-card .value { font-size: var(--font-size-h1); font-weight: var(--font-bold); line-height: 1.05; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.kpi-card .delta { display: inline-flex; align-items: center; gap: 5px; font-size: var(--font-size-13); font-weight: var(--font-semibold); margin-top: 10px; font-variant-numeric: tabular-nums; }
+.kpi-card .delta::before { font-size: 0.78em; line-height: 1; }   /* directional triangle */
 .kpi-card .delta.up { color: var(--color-green-700); } .kpi-card .delta.up::before { content: "\25B2"; }   /* up */
 .kpi-card .delta.down { color: var(--destructive); } .kpi-card .delta.down::before { content: "\25BC"; }   /* down */
-.kpi-card .delta .period { color: var(--muted-foreground); }   /* optional "vs ..." window, inline after the delta */
+.kpi-card .delta .period { color: var(--muted-foreground); font-weight: var(--font-regular); }   /* optional "vs ..." window, inline after the delta */
+.kpi-card .kpi-note { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); font-size: var(--font-size-12); color: var(--muted-foreground); line-height: 1.4; }   /* optional sub-metric; usually omitted */
+.kpi-card .kpi-note b { color: var(--card-foreground); font-weight: var(--font-semibold); }
+/* metric->color standard: author by METRIC (never re-pick the color); each sets --kpi-tint to a --chart-* token */
+.kpi-card--volume     { --kpi-tint: var(--chart-1);  }   /* posts / volume                 */
+.kpi-card--mentions   { --kpi-tint: var(--chart-8);  }   /* mentions (2nd volume metric)   */
+.kpi-card--authors    { --kpi-tint: var(--chart-4);  }   /* active authors / unique voices */
+.kpi-card--engagement { --kpi-tint: var(--chart-7);  }   /* engagements / interactions     */
+.kpi-card--reach      { --kpi-tint: var(--chart-14); }   /* potential impressions / reach  */
+.kpi-card--sentiment  { --kpi-tint: var(--chart-2);  }   /* net sentiment                  */
+.kpi-card--positives  { --kpi-tint: var(--chart-6);  }   /* positives / positive mentions  */
+.kpi-card--negatives  { --kpi-tint: var(--chart-11); }   /* negatives / negative mentions  */
+.kpi-card--passion    { --kpi-tint: var(--chart-13); }   /* passion intensity              */
+.kpi-card--score      { --kpi-tint: var(--chart-5);  }   /* trend score / momentum         */
+.kpi-card--video      { --kpi-tint: var(--chart-3);  }   /* video / media volume           */
 """
     )
 
