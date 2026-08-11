@@ -174,7 +174,7 @@ Full-page reference (hero + rail + real components composed into sections + work
 
 ## KPI strip
 
-Optional summary metrics that sit above the slot (inside `.container-brief`, or inside any `.section`). Left-aligned cards with a light per-metric gradient fill: a bold `.label` over a big `.value`, with an optional directional `.delta` and an optional `.kpi-note` sub-metric. Auto-fits 3–4 cards; omit it when a brief has no headline numbers.
+Optional summary metrics that sit above the slot (inside `.container-brief`, or inside any `.section`). Center-aligned cards with a light per-metric gradient fill: a bold `.label` over a big `.value`, with an optional directional `.delta` and an optional `.kpi-note` sub-metric. Auto-fits 3–4 cards; omit it when a brief has no headline numbers.
 
 Contract (one `.kpi-card` per metric):
 

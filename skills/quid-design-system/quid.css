@@ -540,7 +540,7 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 /* ---- KPI strip (optional; per-metric gradient-tint metric cards) ---- */
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 16px; margin: 24px 0; }
 /* One knob per card: --kpi-tint drives BOTH the gradient fill and the (auto-darkened) label color. */
-.kpi-card { --kpi-tint: var(--primary); color: var(--card-foreground); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; text-align: left; background: linear-gradient(155deg, color-mix(in srgb, var(--kpi-tint) 13%, var(--card)) 0%, var(--card) 62%); box-shadow: var(--shadow-sm-recipe); }
+.kpi-card { --kpi-tint: var(--primary); color: var(--card-foreground); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; text-align: center; background: linear-gradient(155deg, color-mix(in srgb, var(--kpi-tint) 13%, var(--card)) 0%, var(--card) 62%); box-shadow: var(--shadow-sm-recipe); }
 .kpi-card .label { font-size: var(--font-size-12); font-weight: var(--font-bold); text-transform: uppercase; letter-spacing: 0.02em; color: color-mix(in srgb, var(--kpi-tint) 82%, #000); line-height: 1.35; margin-bottom: 8px; }
 .kpi-card .value { font-size: var(--font-size-h1); font-weight: var(--font-bold); line-height: 1.05; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
 .kpi-card .delta { display: inline-flex; align-items: center; gap: 5px; font-size: var(--font-size-13); font-weight: var(--font-semibold); margin-top: 10px; font-variant-numeric: tabular-nums; }
