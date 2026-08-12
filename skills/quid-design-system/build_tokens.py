@@ -430,7 +430,7 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 }
 .sidenav-title { font-size: var(--font-size-12); font-weight: var(--font-bold); letter-spacing: 0.02em; color: var(--muted-foreground); margin-bottom: 12px; padding: 0 12px; }
 .sidenav nav { display: flex; flex-direction: column; gap: 2px; }
-.sidenav a { display: block; padding: 8px 12px; border-left: 2px solid transparent; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: var(--font-size-14); line-height: var(--font-line-height-14); font-weight: var(--font-medium); color: var(--foreground); text-decoration: none; transition: color .15s, border-color .15s, background-color .15s; }
+.sidenav a { display: block; padding: 8px 12px; border-left: 2px solid transparent; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: var(--font-size-14); line-height: var(--font-line-height-14); font-weight: var(--font-medium); text-transform: capitalize; color: var(--foreground); text-decoration: none; transition: color .15s, border-color .15s, background-color .15s; }
 .sidenav a:hover { color: var(--primary); background: var(--secondary); }
 .sidenav a.active { color: var(--primary-container-foreground); border-left-color: var(--primary); font-weight: var(--font-semibold); background: var(--primary-container-background); }
 

@@ -97,7 +97,7 @@ The Shell is the **page container** every multi-section brief starts from — no
 
 The container is two fixed regions plus one slot:
 
-1. **Side-nav rail** (`.sidenav`) — sticky "on this page" list, one link per section, with a scroll-spy that tracks the section in view.
+1. **Side-nav rail** (`.sidenav`) — sticky "on this page" list, one link per section, with a scroll-spy that tracks the section in view. Author link labels in natural sentence case; the rail renders them Title Case via `text-transform: capitalize` (don't pre-capitalize or UPPERCASE them in markup).
 2. **Hero** (`.hero` / `.hero-card`) — eyebrow + title + lede. Dark Quid gradient by default; add `has-img` + set `--hero-img` for a photo hero, or `.hero-card.light` for the pale primary-container hero.
 3. **The slot** (`.brief-body`) — the flexible region: any number of `<section class="section" id="…">` blocks, each composing catalog components based on what the data needs. There is no fixed section layout. (If a brief wants a sources/caveats footer, add it here as an ordinary final `.section` — it is not part of the shell.)
 
