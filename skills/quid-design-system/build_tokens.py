@@ -504,7 +504,7 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 .kpi-card .kpi-note b { color: var(--card-foreground); font-weight: var(--font-semibold); }
 /* metric->color standard: author by METRIC (never re-pick the color); each sets --kpi-tint to a --chart-* token */
 .kpi-card--volume     { --kpi-tint: var(--chart-1);  }   /* posts / volume                 */
-.kpi-card--mentions   { --kpi-tint: var(--chart-8);  }   /* mentions (2nd volume metric)   */
+.kpi-card--mentions   { --kpi-tint: var(--chart-9);  }   /* mentions (2nd volume metric)   */
 .kpi-card--authors    { --kpi-tint: var(--chart-4);  }   /* active authors / unique voices */
 .kpi-card--engagement { --kpi-tint: var(--chart-7);  }   /* engagements / interactions     */
 .kpi-card--reach      { --kpi-tint: var(--chart-14); }   /* potential impressions / reach  */

@@ -197,7 +197,7 @@ A KPI card is colored by **which metric it shows** — the same metric always ge
 | Metric (and synonyms) | Class | Chart token | Color |
 |---|---|---|---|
 | Posts / volume | `kpi-card--volume` | `--chart-1` | blue |
-| Mentions (2nd volume metric; co-occurs with Posts) | `kpi-card--mentions` | `--chart-8` | light blue |
+| Mentions (2nd volume metric; co-occurs with Posts) | `kpi-card--mentions` | `--chart-9` | berry |
 | Active authors / unique voices | `kpi-card--authors` | `--chart-4` | teal |
 | Engagements / interactions | `kpi-card--engagement` | `--chart-7` | orange |
 | Potential impressions / reach | `kpi-card--reach` | `--chart-14` | grey |
@@ -210,7 +210,7 @@ A KPI card is colored by **which metric it shows** — the same metric always ge
 
 Rules the markup can't show:
 
-- **Color by metric.** Pick the class by what the number *is*, not by position or by taste. Mentions and Posts are both volume: when only one appears use `--volume`; when both appear, keep Posts on `--volume` and put Mentions on `--mentions` so they read as one family but stay distinct.
+- **Color by metric.** Pick the class by what the number *is*, not by position or by taste. Mentions and Posts are both volume: when only one appears use `--volume` (blue); when both appear, keep Posts on `--volume` and put Mentions on `--mentions` (berry) — a low fill tint blurs two blues together, so Mentions takes a distinct hue to stay legibly separate.
 - **Off-standard metric** → set the tint inline with the next unused chart token (`style="--kpi-tint: var(--chart-9)"`) rather than inventing a raw hex; a bare `.kpi-card` with no metric class falls back to `--primary`.
 - **Label first, value second** — the eyebrow-style `.label` sits *above* the big `.value`; don't invert them.
 - **`.delta` is optional and directional** — `.up` renders a green ▲, `.down` a red ▼ (the arrow is a `::before`, so put only the number in the text). The `.period` span is the comparison window ("vs last month"), muted and inline.
