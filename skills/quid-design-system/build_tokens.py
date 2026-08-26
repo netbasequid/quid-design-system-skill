@@ -439,6 +439,7 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
    --hero-img inline to layer a photo behind the dark overlay. Add class="light" for the
    pale primary-container hero instead. */
 .hero { padding: 32px 0 0; text-align: left; }
+.hero > .container-brief { margin-top: 0; }   /* hero owns its top space (32px); don't stack the container's 24px */
 .hero-card { background-color: var(--grad-navy); background-image: var(--hero-gradient); color: #fff; border: 1px solid transparent; border-radius: var(--radius-lg); padding: 36px 32px; display: flex; flex-direction: column; justify-content: center; }
 .hero-card h1 { color: #fff; }
 .hero-card .lede { color: #fff; opacity: .92; }
