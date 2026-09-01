@@ -340,7 +340,14 @@ body {
   color: var(--foreground);
   background: var(--background);
   -webkit-font-smoothing: antialiased;
-  font-feature-settings: "cv11", "ss03";
+  /* ss03 = Inter's "Round quotes & commas".
+     cv11 ("Single-story a") was removed: it swapped the default double-storey a
+     for a round, single-storey form, which read as a rendering fault rather than
+     a deliberate letterform to people reading Quid briefs. It also only ever
+     applied when Inter itself loaded, so artifacts falling back to a system font
+     silently lost it — the same text set two different ways depending on the
+     viewer. ss03 is kept: it is subtle, and nobody has objected to it. */
+  font-feature-settings: "ss03";
 }
 
 h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-headings); color: var(--foreground); }
