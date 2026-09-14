@@ -540,11 +540,6 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 .section a:not([class]) { color: var(--primary); text-decoration: none; }
 .section a:not([class]):hover { text-decoration: underline; }
 
-/* ---- Methodology (optional standalone block; a brief's sources / window / caveats) ---- */
-.methodology { max-width: 900px; }
-.methodology p { font-size: var(--font-size-13); color: var(--muted-foreground); line-height: var(--font-line-height-15); }
-.methodology p + p { margin-top: 8px; }
-
 /* ---- KPI strip (optional; per-metric gradient-tint metric cards) ---- */
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 16px; margin: 24px 0; }
 /* One knob per card: --kpi-tint drives BOTH the gradient fill and the (auto-darkened) label color. */

@@ -8,7 +8,7 @@ description: >
   multi-section brief is built on) and a catalog of brief components, each documented in
   its own file under components/ (KPI metric strip, tags, ranked-theme lists, chart
   palette, tables, accordions, featured posts, post-detail modal, insight callouts,
-  example-post carousels, large creative cards, live social embeds, methodology). Use
+  example-post carousels, large creative cards, live social embeds). Use
   BEFORE creating an HTML brief, dashboard, report, or any other Quid-branded artifact
   so the output inherits correct fonts, colors, radius, and spacing. Triggers: "make
   this Quid-branded", "apply Quid styling", "use our design system", "Quid look and
@@ -176,7 +176,6 @@ Every component is documented in its own file under `components/` — the markup
 | Example-post carousel | Many evidence posts to scan; includes the image-sourcing policy | `components/example-posts.md` |
 | Large cards (creative in the wild) | A few hero posts worth a big visual | `components/large-cards.md` |
 | Social embeds (native) | The living post itself — playable video, live counts | `components/social-embeds.md` |
-| Methodology | Provenance / caveats footnote block | `components/methodology.md` |
 
 ## Theming
 
