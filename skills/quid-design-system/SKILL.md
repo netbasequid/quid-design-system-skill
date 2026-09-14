@@ -107,8 +107,8 @@ Container contract:
       <header class="hero">                           <!-- hero -->
         <div class="container-brief">
           <div class="hero-card has-img" style="--hero-img: url('{image}');">
-            <span class="eyebrow">{Client · Scope · Period}</span>
-            <h1 class="quid-hero">{Title}</h1>
+            <span class="eyebrow">{Client · Scope · Sep 14, 2026 – Sep 21, 2026}</span>
+            <h1 class="quid-hero">{Title in Title Case}</h1>
             <p class="lede">{One-sentence lede.}</p>
           </div>
         </div>
@@ -153,6 +153,8 @@ Rules the markup can't show:
 - **The rail is desktop-only by design.** `.sidenav` is `display:none` until `min-width:1024px`; below that the main column goes full-width and the rail drops out — no hamburger, nothing to wire. Intended, not a gap.
 - **The rail is optional and removable in one move.** Drop `class="with-sidenav"` (and delete the `<aside>`) and the same page renders as a single full-width column — so add it only when there are enough sections to be worth navigating.
 - **Hero:** the default `.hero-card` is the dark `--hero-gradient` (navy→teal, white text). Add `has-img` + set `--hero-img` inline for a photo (the shell multiplies the dark `--hero-overlay` over it); add `.hero-card.light` for the pale primary-container hero. All brand tokens, overridable per client — never hand-pick hero hex.
+- **The hero headline is Title Case** — author `<h1 class="quid-hero">` with principal words capitalized and articles, coordinating conjunctions, and prepositions of four letters or fewer left lowercase, unless one falls first or last: "Momentum Builds Behind the 2026 Squad". Unlike the rail, the headline carries no `text-transform` — write the case you want into the markup, because CSS `capitalize` would raise "the" too. This applies to the hero `<h1>` only; section `<h2>` headings stay sentence case.
+- **Dates in the eyebrow pill read `Mmm D, YYYY`, ranges joined by a spaced en dash** — "Sep 14, 2026 – Sep 21, 2026": abbreviated month, no leading zero on the day, four-digit year, `–` (not a hyphen) between the two ends. A single date just drops the second half. The pill's other segments are unchanged and stay middot-separated (`Client · Scope · …`).
 - **Smooth-scroll and the page canvas ship with the shell.** Side-nav anchor clicks smooth-scroll (`html { scroll-behavior: smooth }`), and the page sits on the soft `--shell-canvas` tint behind the white section cards. Both are automatic — nothing to wire.
 - The active rail link uses `--primary-container-foreground` / `--primary-container-background` with a `--primary` left border; hover uses `--secondary`. All from tokens — no raw hex.
 
