@@ -492,7 +492,7 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 @media (min-width: 1024px) {
   .with-sidenav .sidenav { display: block; width: 240px; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; border-right: 1px solid var(--border); background: var(--card); padding: 26px 14px; }
 }
-.sidenav-title { font-size: var(--font-size-12); font-weight: var(--font-bold); letter-spacing: 0.02em; color: var(--muted-foreground); margin-bottom: 12px; padding: 0 12px; }
+.sidenav-title { font-size: var(--font-size-12); font-weight: var(--font-bold); letter-spacing: 0.02em; color: var(--muted-foreground); margin: 0 0 12px; padding: 0 12px; }
 .sidenav nav { display: flex; flex-direction: column; gap: 2px; }
 .sidenav a { display: block; padding: 8px 12px; border-left: 2px solid transparent; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: var(--font-size-14); line-height: var(--font-line-height-14); font-weight: var(--font-medium); text-transform: capitalize; color: var(--foreground); text-decoration: none; transition: color .15s, border-color .15s, background-color .15s; }
 .sidenav a:hover { color: var(--primary); background: var(--secondary); }
@@ -521,9 +521,11 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 
 /* ---- Shell: section primitives (structure the .brief-body slot) ---- */
 .section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm-recipe); padding: 32px; margin-bottom: 24px; scroll-margin-top: 24px; }
-.section-label { font-size: var(--font-size-12); font-weight: var(--font-bold); text-transform: uppercase; letter-spacing: 0.02em; color: var(--primary); margin-bottom: 6px; }
-.section > h2 { margin-bottom: 6px; }
-.section > .section-sub { font-size: var(--font-size-15); color: var(--muted-foreground); margin-bottom: 24px; }
+/* These label <p>s set margin explicitly: a bare <p> otherwise inherits the UA
+   margin-block-start of 1em, which stacks on top of .section's 32px padding. */
+.section-label { font-size: var(--font-size-12); font-weight: var(--font-bold); text-transform: uppercase; letter-spacing: 0.02em; color: var(--primary); margin: 0 0 6px; }
+.section > h2 { margin-top: 0; margin-bottom: 6px; }
+.section > .section-sub { font-size: var(--font-size-15); color: var(--muted-foreground); margin: 0 0 24px; }
 .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 /* section divider band (between parts) */
 .section-divider { background: var(--muted); color: var(--foreground); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 32px; margin-bottom: 24px; }
