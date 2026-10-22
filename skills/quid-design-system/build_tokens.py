@@ -484,6 +484,18 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 /* plain content links inside a section (classed links keep their own style; side-nav unaffected) */
 .section a:not([class]) { color: var(--primary); text-decoration: none; }
 .section a:not([class]):hover { text-decoration: underline; }
+
+/* ---- Methodology (standard closing disclosure; collapsed, caption-scale, never in the rail) ---- */
+.methodology { margin: 32px 0 8px; border-top: 1px solid var(--border); padding-top: 12px; }
+.methodology summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 6px; font-size: var(--font-size-13); font-weight: var(--font-semibold); color: var(--muted-foreground); }
+.methodology summary::-webkit-details-marker { display: none; }
+.methodology summary::before { content: "\\25B8"; color: var(--muted-foreground); font-size: var(--font-size-h3); line-height: 1; transition: transform .15s ease; }
+.methodology[open] summary::before { transform: rotate(90deg); }
+.methodology summary:hover, .methodology summary:focus-visible { color: var(--foreground); }
+.methodology .methodology-body { margin-top: 8px; font-size: var(--font-size-12); line-height: 1.55; color: var(--muted-foreground); }
+.methodology .methodology-body ul { margin: 0; padding-left: 18px; list-style: disc; }
+.methodology .methodology-body li { margin: 4px 0; }
+.methodology .methodology-body b { font-weight: var(--font-semibold); color: var(--foreground); }
 """
     )
 

@@ -8,7 +8,8 @@ description: >
   multi-section brief is built on) and a catalog of brief components, each documented in
   its own file under components/ (KPI metric strip, tags, ranked-theme lists, chart
   palette, tables, accordions, featured posts, post-detail modal, insight callouts,
-  example-post carousels, large creative cards, live social embeds). Use
+  example-post carousels, large creative cards, live social embeds, the standard
+  collapsed methodology disclosure). Use
   BEFORE creating an HTML brief, dashboard, report, or any other Quid-branded artifact
   so the output inherits correct fonts, colors, radius, and spacing. Triggers: "make
   this Quid-branded", "apply Quid styling", "use our design system", "Quid look and
@@ -85,7 +86,7 @@ The container is two fixed regions plus one slot:
 
 1. **Side-nav rail** (`.sidenav`) — sticky "on this page" list, one link per section, with a scroll-spy that tracks the section in view. Author link labels in natural sentence case; the rail renders them Title Case via `text-transform: capitalize` (don't pre-capitalize or UPPERCASE them in markup).
 2. **Hero** (`.hero` / `.hero-card`) — eyebrow + title + lede. Dark Quid gradient by default; add `has-img` + set `--hero-img` for a photo hero, or `.hero-card.light` for the pale primary-container hero.
-3. **The slot** (`.brief-body`) — the flexible region: any number of `<section class="section" id="…">` blocks, each composing catalog components based on what the data needs. There is no fixed section layout. (If a brief wants a sources/caveats footer, add it here as an ordinary final `.section` — it is not part of the shell.)
+3. **The slot** (`.brief-body`) — the flexible region: any number of `<section class="section" id="…">` blocks, each composing catalog components based on what the data needs. There is no fixed section layout, with one exception: a client brief always closes the slot with a single collapsed Methodology disclosure (`details.methodology`, see `components/methodology.md`). It sits after the last section, is not a `.section` card, and never gets a rail link.
 
 It all ships in `quid.css`, so inlining `quid.css` is the only CSS setup; the rail also wants the small scroll-spy script below. Section primitives (`.section`, `.section-label`, `.section-sub`, `.divider`, `.section-divider`, `.prose`) come with the shell.
 
@@ -122,6 +123,7 @@ Container contract:
             <!-- KPI cards / chart / .sc-carousel / table / prose … -->
           </section>
           <section class="section" id="section-2"> … </section>
+          <details class="methodology" data-methodology> … </details>  <!-- always last; collapsed; no rail link -->
         </div>
       </div>
     </main>
@@ -179,6 +181,7 @@ Every component is documented in its own file under `components/` — the markup
 | Example-post carousel | Many evidence posts to scan; includes the image-sourcing policy | `components/example-posts.md` |
 | Large cards (creative in the wild) | A few hero posts worth a big visual | `components/large-cards.md` |
 | Social embeds (native) | The living post itself — playable video, live counts | `components/social-embeds.md` |
+| Methodology | **Standard on every client brief:** the collapsed, small-type sources / window / caveats note that closes the slot | `components/methodology.md` |
 
 ## Theming
 
