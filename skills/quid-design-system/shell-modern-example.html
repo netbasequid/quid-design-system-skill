@@ -95,7 +95,13 @@
                  the lede and the meta row end on the same line as the prose
                  beneath them. It is not optional. -->
             <div class="bb-text">
-              <h1 class="quid-hero">Headline Carries The Point, Not The Topic</h1>
+              <!-- Title Case per SKILL.md: articles, coordinating conjunctions
+                   and prepositions of four letters or fewer stay lowercase
+                   unless they fall first or last. Both "the"s here are
+                   lowercase for that reason. This string is copied into every
+                   brief started from this file, so it has to model the rule
+                   rather than break it. -->
+              <h1 class="quid-hero">Headline Carries the Point, Not the Topic</h1>
               <p class="lede">One or two sentences that say what the brief found, in the same plain language the sections use.</p>
 
               <!-- Optional. A <dl> so each label stays bound to its value. -->
@@ -123,8 +129,19 @@
           <div class="container-brief">
             <div class="brief-body">
 
+              <!-- THREE TIERS, NOT TWO. Eyebrow, then heading, then standfirst.
+                   The <h2 class="quid-h1"> is required: <h2> keeps the document
+                   outline correct under the hero <h1>, and quid-h1 is the type
+                   size, because a section heading is a major landmark and
+                   quid-h2 is for sub-headings *inside* a section.
+
+                   This file shipped without them, which is worse than a typo:
+                   it is the file SKILL.md tells you to copy, so every brief
+                   started from it inherited a missing headline tier and read
+                   as eyebrow + standfirst with nothing carrying the point. -->
               <section class="section" id="section-summary">
                 <p class="section-label">Executive summary</p>
+                <h2 class="quid-h1">What the Section Argues, Not What It Covers</h2>
                 <p class="section-sub">A short standfirst under the eyebrow, carrying the section's argument rather than its subject.</p>
                 <div class="prose">
                   <p>Body copy. Sections are boxless here and prose runs the full column; the shell sets no measure cap. Catalog components drop in unchanged.</p>
@@ -133,6 +150,7 @@
 
               <section class="section" id="section-sharing">
                 <p class="section-label">What people are sharing</p>
+                <h2 class="quid-h1">Where the Conversation Actually Moved</h2>
                 <p class="section-sub">Compose KPI strips, charts, tables, example posts and embeds inside these blocks; example-modern.html shows every one of them in this shell.</p>
                 <div class="prose">
                   <p>A table goes inside <code>.table-wrap</code> so it scrolls on a phone instead of breaking the page.</p>
@@ -141,6 +159,7 @@
 
               <section class="section" id="section-signals">
                 <p class="section-label">Signals to watch</p>
+                <h2 class="quid-h1">What to Watch Before the Next Read</h2>
                 <div class="prose">
                   <p>The last section closes the argument. No recap paragraph.</p>
                 </div>

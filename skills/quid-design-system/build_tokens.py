@@ -540,7 +540,12 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-headings); color: va
 .embed-tile .yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
 /* script-processed blockquotes centre themselves once the platform widget rehydrates them */
 .embed-tile .instagram-media, .embed-tile .tiktok-embed, .embed-tile .twitter-tweet { margin: 0 auto !important; }
-.embed-note { font-size: var(--font-size-13); line-height: var(--font-line-height-15); color: var(--muted-foreground); margin-top: 16px; max-width: 70ch; }
+/* No max-width. This carried `70ch`, the last reading-measure cap on text in
+   the system, and it resolved to 574px against a 930px body column -- 62%, so
+   an embed caption ran two-thirds width while everything around it ran full.
+   The modern shell already removes the one other cap it inherited
+   (`.hero .lede`, see quid-modern-shell.css). Text fills its column here. */
+.embed-note { font-size: var(--font-size-13); line-height: var(--font-line-height-15); color: var(--muted-foreground); margin-top: 16px; }
 """
     )
 
