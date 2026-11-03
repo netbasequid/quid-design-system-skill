@@ -133,9 +133,19 @@
   --color-accent-dark-bg-800: #2B3640;
   --color-accent-dark-bg-850: #242C33;
   --color-accent-dark-bg-900: #23292F;
+  --color-teal-100: #F4F9F9;
+  --color-teal-200: #E8F3F3;
+  --color-teal-300: #D6E7E7;
+  --color-teal-400: #37A1A5;
+  --color-teal-500: #13797D;
+  --color-teal-600: #246C6F;
+  --color-teal-700: #246C6F;
+  --color-teal-800: #13797D;
+  --color-teal-900: #246C6F;
+  --color-teal-1000: #246C6F;
 
   /* ---- semantic colors (light) ---- */
-  --background: #FFFFFF;
+  --background: #FAFAFA;
   --foreground: #212121;
   --muted: #F0F0F0;
   --muted-foreground: #666666;
@@ -147,12 +157,12 @@
   --unselected-border: #757575;
   --hover-border: #AEAEAE;
   --input: #E0E0E0;
-  --primary: #2F75D7;
-  --primary-container-background: #DDEDFD;
-  --primary-container-foreground: #0F58BD;
+  --primary: #13797D;
+  --primary-container-background: #D6E7E7;
+  --primary-container-foreground: #246C6F;
   --primary-foreground: #FFFFFF;
-  --hover-primary: rgba(47, 117, 215, 0.9);
-  --pressed-primary: rgba(47, 117, 215, 0.8);
+  --hover-primary: rgba(36, 108, 111, 0.8);
+  --pressed-primary: rgba(19, 121, 125, 0.6);
   --secondary: rgba(0, 0, 0, 0.06);
   --secondary-foreground: #464646;
   --hover-secondary: rgba(0, 0, 0, 0.04);
@@ -191,41 +201,55 @@
   --radius-icon-16: 1.3333px;
   --radius-icon-20: 1.6667px;
   --radius-icon-24: 2px;
-  --opacity-disabled: 50%;
   --radius: 8px;
   --radius-md: 6px;
   --radius-xs: 4px;
+  --opacity-disabled: 50%;
 
   /* ---- typography (desktop default) ---- */
   --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-display: QuidSans, ui-sans-serif, system-ui, sans-serif;
+  --font-family-h0: var(--font-display);
+  --font-family-h1: var(--font-display);
+  --font-family-h2: var(--font-display);
+  --font-family-h3: var(--font-display);
+  --font-family-hero: var(--font-display);
+  --font-family-headings: var(--font-display);
+  --font-family-subtitle: var(--font-display);
+  --font-family-pull-quote: var(--font-display);
   --font-size-12: 12px;
   --font-size-13: 13px;
   --font-size-14: 14px;
   --font-size-15: 15px;
   --font-size-16: 16px;
+  --font-size-display: 18px;
   --font-size-h0: 40px;
-  --font-size-h1: 28px;
-  --font-size-h2: 22px;
-  --font-size-h3: 18px;
-  --font-size-hero: 32px;
+  --font-size-h1: 32px;
+  --font-size-h2: 28px;
+  --font-size-h3: 22px;
+  --font-size-hero: 40px;
   --font-size-subtitle: 22px;
   --font-size-pull-quote: 22px;
   --font-size-blob-caption: 14px;
   --font-size-code-large: 14px;
+  --font-size-body: 15px;
+  --font-size-sidenav: 14px;
   --font-line-height-12: 16px;
   --font-line-height-13: 16px;
   --font-line-height-14: 20px;
   --font-line-height-15: 24px;
   --font-line-height-16: 24px;
+  --font-line-height-display: 26px;
   --font-line-height-h0: 48px;
-  --font-line-height-h1: 34px;
-  --font-line-height-h2: 30px;
+  --font-line-height-h1: 36px;
+  --font-line-height-h2: 32px;
   --font-line-height-h3: 26px;
   --font-line-height-hero: 38px;
   --font-line-height-pull-quote: 30px;
   --font-line-height-subtitle: 30px;
   --font-line-height-blob-caption: 20px;
-  --font-line-height-code-large: 22px;
+  --font-line-height-code-large: 24px;
+  --font-line-height-body: 24px;
   --font-light: 300;
   --font-regular: 400;
   --font-medium: 500;
@@ -256,12 +280,12 @@
   --unselected-border: #A0A0A0;
   --hover-border: #828282;
   --input: #464646;
-  --primary: #529CE2;
-  --primary-container-background: #28456D;
-  --primary-container-foreground: #87C2FB;
+  --primary: #37A1A5;
+  --primary-container-background: #246C6F;
+  --primary-container-foreground: #E8F3F3;
   --primary-foreground: #212121;
-  --hover-primary: rgba(82, 156, 226, 0.9);
-  --pressed-primary: rgba(82, 156, 226, 0.8);
+  --hover-primary: rgba(19, 121, 125, 0.6);
+  --pressed-primary: rgba(36, 108, 111, 0.8);
   --secondary: rgba(255, 255, 255, 0.12);
   --secondary-foreground: #F0F0F0;
   --hover-secondary: rgba(255, 255, 255, 0.09);
@@ -300,29 +324,34 @@
     --font-size-14: 14px;
     --font-size-15: 15px;
     --font-size-16: 16px;
-    --font-size-h0: 32px;
-    --font-size-h1: 24px;
-    --font-size-h2: 20px;
-    --font-size-h3: 18px;
-    --font-size-hero: 32px;
+    --font-size-display: 18px;
+    --font-size-h0: 36px;
+    --font-size-h1: 32px;
+    --font-size-h2: 28px;
+    --font-size-h3: 22px;
+    --font-size-hero: 36px;
     --font-size-subtitle: 20px;
     --font-size-pull-quote: 22px;
     --font-size-blob-caption: 14px;
     --font-size-code-large: 14px;
+    --font-size-body: 15px;
+    --font-size-sidenav: 14px;
     --font-line-height-12: 16px;
     --font-line-height-13: 16px;
     --font-line-height-14: 20px;
     --font-line-height-15: 24px;
     --font-line-height-16: 24px;
+    --font-line-height-display: 26px;
     --font-line-height-h0: 38px;
-    --font-line-height-h1: 28px;
-    --font-line-height-h2: 24px;
-    --font-line-height-h3: 22px;
+    --font-line-height-h1: 36px;
+    --font-line-height-h2: 30px;
+    --font-line-height-h3: 26px;
     --font-line-height-hero: 38px;
     --font-line-height-pull-quote: 30px;
     --font-line-height-subtitle: 22px;
     --font-line-height-blob-caption: 20px;
-    --font-line-height-code-large: 22px;
+    --font-line-height-code-large: 24px;
+    --font-line-height-body: 24px;
   }
 }
 
@@ -720,3 +749,14 @@ body.modal-open { overflow: hidden; }
 .insight-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow-sm-recipe); }
 .insight-card h4 { font-size: var(--font-size-15); font-weight: var(--font-bold); margin: 8px 0 6px; } .insight-card p { font-size: var(--font-size-14); color: var(--muted-foreground); margin: 0; }
 @media (max-width: 760px) { .insight-grid { grid-template-columns: 1fr; } }
+
+/* ---- Reduced motion (honours prefers-reduced-motion: reduce) ---- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

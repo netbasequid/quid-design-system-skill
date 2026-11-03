@@ -52,7 +52,16 @@ def walk(node: dict, prefix: tuple[str, ...] = ()) -> list[tuple[tuple[str, ...]
 
 
 def _clean(part: str) -> str:
-    return part.lower().replace(" ", "-").replace(":", "-").replace("/", "-")
+    """Lowercase a path part into something valid in a CSS custom-property name.
+
+    Collapses every run of non-alphanumerics to a single hyphen, so group names
+    carrying punctuation survive being used as a qualifier. `radius(open-source)`
+    has to become `radius-open-source`: the parentheses were harmless while the
+    group name was always dropped, but they produce an unparseable property the
+    moment a collision forces the group into the name.
+    """
+    import re as _re
+    return _re.sub(r"[^a-z0-9]+", "-", part.lower()).strip("-")
 
 
 def slug(parts: tuple[str, ...]) -> str:
@@ -87,6 +96,98 @@ def resolve_alias(ref: str) -> str:
     inner = ref.strip().strip("{}")
     inner = inner.replace(".", "-").replace(":", "-").replace(" ", "-").lower()
     return f"var(--{inner})"
+
+
+def is_alias(value) -> bool:
+    """True for a DTCG brace reference like '{font-family.font-display}'."""
+    return isinstance(value, str) and value.strip().startswith("{") and value.strip().endswith("}")
+
+
+def alias_leaf(ref: str) -> str:
+    """Last segment of a brace alias: '{font-family.font-display}' -> 'font-display'.
+
+    The emitters below name a token by its LEAF, not its full path, so an alias
+    has to be resolved the same way or it would point at a variable that is
+    never declared.
+    """
+    return _clean(ref.strip().strip("{}").split(".")[-1])
+
+
+def assign_names(entries: list[tuple[str, str]]) -> tuple[dict[int, str], list[str]]:
+    """Give every (group, leaf) a unique CSS custom-property name.
+
+    WHY THIS EXISTS. Tokens are emitted under their LEAF name, so two different
+    Figma groups holding the same leaf collapse onto one custom property. The
+    typography collection does exactly that: `font-family/font-size-h1` and
+    `font-size/font-size-h1` both want `--font-size-h1`, and `font-headings`
+    exists in both `font-family` and `font-weight`.
+
+    Today the duplicate is resolved by EMIT ORDER — the later declaration wins,
+    and it happens to be the one callers want. Nothing enforces that. Reorder
+    the groups and every heading silently loses its weight, with no error and
+    no visibly broken output until someone looks at a rendered brief.
+
+    This makes the outcome explicit instead of incidental:
+
+      * the winner keeps the canonical name, chosen as the entry whose leaf
+        already carries its own group prefix (`font-size/font-size-h1`), since
+        that is the token the name is actually describing;
+      * if no entry qualifies (`font-headings` sits in two groups and matches
+        neither), the LAST one wins — preserving exactly what emit order does
+        today, so this change cannot alter a resolved value;
+      * every loser is renamed to `<group>-<leaf>`, which keeps its declaration
+        valid and reachable rather than letting it be silently overwritten.
+
+    Returns the index->name map and a list of human-readable collision notes.
+    """
+    canonical = [f"{_clean(leaf)}" for _group, leaf in entries]
+    seen: dict[str, list[int]] = {}
+    for i, name in enumerate(canonical):
+        seen.setdefault(name, []).append(i)
+
+    names: dict[int, str] = {}
+    notes: list[str] = []
+    for name, idxs in seen.items():
+        if len(idxs) == 1:
+            names[idxs[0]] = name
+            continue
+        prefixed = [i for i in idxs
+                    if _clean(entries[i][1]).startswith(_clean(entries[i][0]))]
+        winner = prefixed[-1] if prefixed else idxs[-1]
+        for i in idxs:
+            if i == winner:
+                names[i] = name
+            else:
+                names[i] = f"{_clean(entries[i][0])}-{name}"
+        notes.append(
+            "--%s claimed by %d tokens (%s); kept for %s/%s, others qualified"
+            % (name, len(idxs),
+               ", ".join(f"{entries[i][0]}/{entries[i][1]}" for i in idxs),
+               entries[winner][0], entries[winner][1])
+        )
+    return names, notes
+
+
+def assert_unique(block: str, lines: list[str]) -> None:
+    """Refuse to emit a block that declares the same custom property twice.
+
+    A backstop for the emitters this module does not route through
+    assign_names. Redeclaring across blocks is legitimate — .dark overrides
+    :root by design — so this only looks within one block.
+    """
+    import re as _re
+    counts: dict[str, int] = {}
+    for line in lines:
+        m = _re.match(r"\s*(--[\w-]+)\s*:", line)
+        if m:
+            counts[m.group(1)] = counts.get(m.group(1), 0) + 1
+    dupes = {k: v for k, v in counts.items() if v > 1}
+    if dupes:
+        raise SystemExit(
+            f"FAIL  {block} declares {len(dupes)} custom property/properties twice: "
+            + ", ".join(f"{k} x{v}" for k, v in sorted(dupes.items()))
+            + "\n      The later declaration would silently win. Fix the token source."
+        )
 
 
 def color_vars(tree: dict, prefix: str) -> list[str]:
@@ -168,39 +269,74 @@ def build() -> str:
     root.append(section("shadow rgba (light)", color_vars(shadow_light, "")))
 
     # Radius primitives (radius-sm, radius-rg, radius-lg, ...)
-    radius_lines: list[str] = []
+    #
+    # Routed through assign_names for the same reason typography is: the Quid
+    # scale and the shadcn-compatibility group both contain a `radius-sm`, with
+    # DIFFERENT values (6 and 4). Dropping the group name collapses them onto
+    # one property, and six rules in this stylesheet read --radius-sm expecting
+    # the Quid 6px. Letting the other one land there would shrink all six by
+    # 2px with nothing to show for it in the build output.
+    radius_entries: list[tuple[str, str]] = []
+    radius_vals: list[float] = []
+    state_lines: list[str] = []
     for path, tok in walk(primitives):
         if tok["$type"] != "number":
             continue
         # primitives.tokens.json contains both radius (px) and state (opacity %).
         if path[0].startswith("radius"):
-            name = f"--{slug(path[1:] or path)}"
-            val = tok["$value"]
-            if isinstance(val, float) and not val.is_integer():
-                val_str = f"{round(val, 4)}px"
-            elif val >= 1000:
-                val_str = f"{int(val)}px"
-            else:
-                val_str = f"{int(val)}px"
-            radius_lines.append(f"  {name}: {val_str};")
+            radius_entries.append((path[0], path[-1]))
+            radius_vals.append(tok["$value"])
         elif path[0] == "state":
-            radius_lines.append(f"  --opacity-{slug(path[1:])}: {tok['$value']}%;")
-    root.append(section("radius & state primitives", radius_lines))
+            state_lines.append(f"  --opacity-{slug(path[1:])}: {tok['$value']}%;")
+
+    radius_names, radius_notes = assign_names(radius_entries)
+    radius_lines: list[str] = []
+    for i, val in enumerate(radius_vals):
+        if isinstance(val, float) and not val.is_integer():
+            val_str = f"{round(val, 4)}px"
+        else:
+            val_str = f"{int(val)}px"
+        radius_lines.append(f"  --{radius_names[i]}: {val_str};")
+    root.append(section("radius & state primitives", radius_lines + state_lines))
 
     # Typography (desktop). Emit using only the leaf token name — the Figma leaves
     # already carry the prefix (font-sans, font-size-14, font-line-height-h1, font-bold, ...).
-    type_lines: list[str] = []
+    #
+    # Collected first, then named in one pass: leaves collide across groups, and
+    # the winner cannot be decided until every entry is known. See assign_names.
+    entries: list[tuple[str, str]] = []
+    renderers: list = []
+
     for path, tok in walk(type_desktop["font-family"]):
-        if tok["$type"] == "string":
-            type_lines.append(
-                f"  --{_clean(path[-1])}: {tok['$value']}, ui-sans-serif, system-ui, sans-serif;"
-            )
+        if tok["$type"] != "string":
+            continue
+        entries.append(("font-family", path[-1]))
+        value = tok["$value"]
+        if is_alias(value):
+            # A brace alias was previously written into the CSS verbatim, e.g.
+            # `--font-size-h1: {font-family.font-display}, ui-sans-serif, ...`,
+            # which is not a value any browser can parse. Point it at the
+            # target custom property instead. No fallback stack is appended:
+            # the target already carries one, and repeating it would nest the
+            # same three families twice.
+            renderers.append(lambda v=value: f"var(--{alias_leaf(v)})")
+        else:
+            renderers.append(lambda v=value: f"{v}, ui-sans-serif, system-ui, sans-serif")
+
     for cat in ("font-size", "line-height"):
         for path, tok in walk(type_desktop[cat]):
-            type_lines.append(f"  --{_clean(path[-1])}: {int(tok['$value'])}px;")
+            entries.append((cat, path[-1]))
+            renderers.append(lambda t=tok: f"{int(t['$value'])}px")
+
     for path, tok in walk(type_desktop["font-weight"]):
-        type_lines.append(f"  --{_clean(path[-1])}: {int(tok['$value'])};")
+        entries.append(("font-weight", path[-1]))
+        renderers.append(lambda t=tok: f"{int(t['$value'])}")
+
+    names, collision_notes = assign_names(entries)
+    type_lines = [f"  --{names[i]}: {renderers[i]()};" for i in range(len(entries))]
+    assert_unique("typography (desktop)", type_lines)
     root.append(section("typography (desktop default)", type_lines))
+    build.collision_notes = radius_notes + collision_notes
 
     # Composed shadow recipes (built from shadow color tokens)
     root.append(
@@ -216,6 +352,7 @@ def build() -> str:
         )
     )
 
+    assert_unique(":root", [ln for blk in root for ln in blk.splitlines()])
     css = ":root {\n" + "\n\n".join(root) + "\n}\n"
     parts.append(css)
 
@@ -223,6 +360,7 @@ def build() -> str:
     dark_lines: list[str] = []
     dark_lines.append(section("semantic colors (dark)", color_vars(sys_dark, "")))
     dark_lines.append(section("shadow rgba (dark)", color_vars(shadow_dark, "")))
+    assert_unique(".dark", [ln for blk in dark_lines for ln in blk.splitlines()])
     parts.append('.dark, [data-theme="dark"] {\n' + "\n\n".join(dark_lines) + "\n}\n")
 
     # ---- Mobile typography override ----
@@ -407,7 +545,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-headings); color: va
     # posts, embeds, tables) compose INSIDE the .brief-body sections — the shell
     # is the frame, not the content.
     # Markup contract + scroll-spy JS + nav-label rule: SKILL.md "The Shell";
-    # full-page reference: shell-example.html.
+    # full-page reference: shell-modern-example.html.
     parts.append(
         """/* ---- Shell brand tokens (hero gradient + page canvas; overridable per client) ---- */
 :root {
@@ -744,12 +882,71 @@ body.modal-open { overflow: hidden; }
 """
     )
 
+    # ---- Reduced motion ----
+    # LAST BLOCK IN THE STYLESHEET, deliberately. The cascade is not what makes it
+    # win -- !important does that -- but anything appended after it would be read
+    # by a maintainer as "outside the reduced-motion rules", which is a trap.
+    #
+    # WHAT IT NEUTRALISES, AND WHAT IT DOES NOT. Durations only. It does not strip
+    # `transform`, and that is the whole point of writing this by hand rather than
+    # pasting the usual blanket reset:
+    #
+    #   .methodology[open] summary::before { transform: rotate(90deg); }
+    #   .accordion  details[open] summary::before { transform: rotate(90deg); }
+    #
+    # Those two rotations are not decoration. They are the only thing that tells a
+    # reader the disclosure is open -- the caret is a U+25B8 glyph, so with the
+    # transform removed an open Methodology section looks exactly like a closed
+    # one. A reset that kills `transform` to honour a motion preference would
+    # therefore destroy a state indicator for the users asking for the
+    # accommodation. Zeroing the duration gets the real win: the caret snaps
+    # instead of sweeping, and still points the right way.
+    #
+    # The hover lifts (`translateY(-2px)` on cards and posts) are kept for the
+    # same reason in miniature: a static 2px offset is a hover affordance, not
+    # motion. Reduced motion means "don't animate at me", not "remove feedback".
+    #
+    # scroll-behavior IS reverted, and it is the one that matters most here: a
+    # smooth-scrolled jump from a rail click travels the full height of a long
+    # brief, which is the classic vestibular trigger. It is also reset on `html`
+    # specifically because that is where quid.css sets it, and the `*` rule below
+    # cannot reach it with the needed specificity on every engine.
+    #
+    # .01ms rather than 0s: a zero duration can skip transitionend/animationend
+    # in some engines, so script that waits on those events silently stalls.
+    # Nothing here listens for them today; the idiom costs nothing and removes
+    # the trap for whatever consumes this stylesheet later.
+    parts.append(
+        """/* ---- Reduced motion (honours prefers-reduced-motion: reduce) ---- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+"""
+    )
+
     return "\n".join(parts).rstrip() + "\n"
 
 
 def main() -> None:
-    OUT.write_text(build())
+    import sys
+    css = build()
+    notes = getattr(build, "collision_notes", [])
+    OUT.write_text(css)
     print(f"Wrote {OUT.relative_to(ROOT)} ({OUT.stat().st_size} bytes)")
+    if notes:
+        print(f"\nWARNING  {len(notes)} token name collision(s) in the Figma source:")
+        for n in notes:
+            print(f"  - {n}")
+        print("  Resolved deterministically, not by emit order. Fix at the source:")
+        print("  rename the mismatched leaves in Figma so each leaf is unique.")
+        if "--strict" in sys.argv:
+            raise SystemExit("FAIL  --strict: refusing to ship with unresolved collisions.")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quid Design System — modern shell example</title>
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link rel="stylesheet" href="./quid.css" />
+    <!--
+      MODERN SHELL REFERENCE. START HERE FOR A NEW BRIEF.
+
+      This is the current house style: full-bleed black masthead with a brand
+      strip, a right-hand rail, boxless sections, Quid Sans headings. Copy this
+      file and the setup comes with it.
+
+      The older card-based layout still ships in quid.css and existing briefs
+      built on it keep working untouched. What it no longer has is a starter
+      file: there is one shell to copy, and this is it.
+
+      .brief-modern ON <body> IS ALREADY IN THIS FILE -- there is nothing to
+      switch on. Every rule that changes .section, .body-layout or .hero-card is
+      scoped to that class, so copying this markup gets you the modern shell and
+      an existing brief without the class keeps its current look.
+
+      The scope is not there to make you opt in. It is there for the other
+      consumers of this design system, where one stylesheet bundle can serve
+      many pages and an unscoped rule would restyle all of them. Briefs avoid
+      that by being self-contained single files. Do not strip the scope to
+      "simplify" the CSS.
+
+      STRUCTURE, and the three things that differ from the card-based layout:
+
+        body.with-sidenav.brief-modern
+          .body-layout
+            header.hero                    <- 1. OUTSIDE .main, not inside it
+              .container-brief
+                .hero-card
+                  .bb-text                 <- 2. wraps the copy, carries measure
+                    h1.quid-hero
+                    p.lede
+                    dl.hero-meta                optional labelled pairs
+            .page-row                      <- 3. the flex row lives here now
+              nav.sidenav                       a <nav>, not an <aside>
+              .main
+                .container-brief
+                  .brief-body
+                    section.section
+
+      WHY THE MASTHEAD LEAVES .main. It bleeds to the viewport edge with
+      negative insets. A flex item's outer size counts its margins, so as a
+      direct flex child its width computes negative and the body column beside
+      it collapses. Keeping it in normal flow above the row avoids that.
+
+      WHY THE RAIL IS A <nav>. The Terminal PDF exporter strips <nav> and gives
+      the space back to the body. Left as an <aside> it survives into the PDF,
+      keeps its 240px, and prints an orphaned "On this page".
+
+      WHY THE RAIL IS STILL FIRST IN THE MARKUP. It is moved to the right with
+      `order: 3`, so a screen reader and the exporter still meet the navigation
+      in its logical place. Only the painted position moves.
+
+      Catalog components compose inside the .section blocks unchanged; see
+      example-modern.html for all of them in this shell. Every class below
+      ships in quid.css.
+    -->
+    <!-- Quid Sans, base64 inside the stylesheet. No font host, no CORS
+         header, nothing for a reader to install. Load it before the
+         shell so the family exists when the headings bind to it.
+
+         No separate token file: the Terminal palette and type scale live in
+         quid.css itself, regenerated from the exports in tokens/. -->
+    <link rel="stylesheet" href="./quid-fonts.css" />
+    <link rel="stylesheet" href="./quid-modern-shell.css" />
+  </head>
+
+  <body class="with-sidenav brief-modern">
+    <div class="body-layout">
+
+      <!-- MASTHEAD. Sits above .page-row, not inside it. -->
+      <header class="hero">
+        <div class="container-brief">
+
+          <!-- COVER PHOTO behind the band. Same hook quid.css already ships
+               for the card-based layout: add `has-img` and set --hero-img
+               inline. Drop both and the band is flat black.
+
+               The photo is painted on the band's bleeding pseudo-element, so
+               it reaches the viewport edge rather than stopping at the content
+               column. A token-built scrim and a flat floor sit over it to hold
+               the white text; see quid-modern-shell.css for the measurements. -->
+          <div class="hero-card has-img"
+               style="--hero-img: url('https://tshauiu.oss-us-east-1.aliyuncs.com/brief-cover-421a10df-9771-46b4-a682-3322de88a45c.png');">
+            <!-- .bb-text holds the copy to the body column, so the headline,
+                 the lede and the meta row end on the same line as the prose
+                 beneath them. It is not optional. -->
+            <div class="bb-text">
+              <h1 class="quid-hero">Headline Carries The Point, Not The Topic</h1>
+              <p class="lede">One or two sentences that say what the brief found, in the same plain language the sections use.</p>
+
+              <!-- Optional. A <dl> so each label stays bound to its value. -->
+              <dl class="hero-meta">
+                <div class="hm-item"><dt>Brand</dt><dd>Acme, Acme Pro</dd></div>
+                <div class="hm-item"><dt>Report Date</dt><dd>Oct 27, 2026</dd></div>
+              </dl>
+            </div>
+          </div>
+
+        </div>
+      </header>
+
+      <!-- THE ROW. Rail first in markup, painted right by order: 3. -->
+      <div class="page-row">
+
+        <nav class="sidenav" aria-label="On this page">
+          <p class="sidenav-title">On this page</p>
+          <a href="#section-summary" class="active">Executive summary</a>
+          <a href="#section-sharing">What people are sharing</a>
+          <a href="#section-signals">Signals to watch</a>
+        </nav>
+
+        <div class="main">
+          <div class="container-brief">
+            <div class="brief-body">
+
+              <section class="section" id="section-summary">
+                <p class="section-label">Executive summary</p>
+                <p class="section-sub">A short standfirst under the eyebrow, carrying the section's argument rather than its subject.</p>
+                <div class="prose">
+                  <p>Body copy. Sections are boxless here and prose runs the full column; the shell sets no measure cap. Catalog components drop in unchanged.</p>
+                </div>
+              </section>
+
+              <section class="section" id="section-sharing">
+                <p class="section-label">What people are sharing</p>
+                <p class="section-sub">Compose KPI strips, charts, tables, example posts and embeds inside these blocks; example-modern.html shows every one of them in this shell.</p>
+                <div class="prose">
+                  <p>A table goes inside <code>.table-wrap</code> so it scrolls on a phone instead of breaking the page.</p>
+                </div>
+              </section>
+
+              <section class="section" id="section-signals">
+                <p class="section-label">Signals to watch</p>
+                <div class="prose">
+                  <p>The last section closes the argument. No recap paragraph.</p>
+                </div>
+              </section>
+
+              <!--
+                METHODOLOGY. Every client brief ends with exactly one of these,
+                and it is the last thing in .brief-body.
+
+                FOUR THINGS THE MARKUP CANNOT SHOW:
+
+                1. No `open` attribute, and no script. Native <details>, closed
+                   on arrival. The reader sees one quiet line and a caret.
+                2. It is NOT a .section. Don't wrap it in one, don't give it a
+                   .section-label, don't put it in a card. It is a footnote; it
+                   is deliberately a tier quieter than the prose above it.
+                3. It gets NO rail link, which is why it carries no id. The
+                   scroll-spy observes `.section[id]`, so adding an id here
+                   would also make the rail highlight nothing while the reader
+                   sits in the methodology.
+                4. Client language only. No topic or theme IDs, no boolean or
+                   query text, no product, API or skill names, no metric enums,
+                   no "we analyzed". Caveats may be reworded, never dropped.
+
+                THE BRACES ARE LEFT UNFILLED ON PURPOSE. This is the file you
+                copy, and prose describing some other brief's data is worse
+                than a blank: it reads as finished and ships a false scope.
+                Replace every {...}; delete any bullet with nothing to say.
+
+                Writing the content: the `brief-methodology-section` Shared
+                Expertise skill owns the copy rules and the leak checker.
+              -->
+              <details class="methodology" data-methodology>
+                <summary>Methodology</summary>
+                <div class="methodology-body">
+                  <ul>
+                    <li><b>Source.</b> {Where the conversation came from, in reader terms: platforms, languages.}</li>
+                    <li><b>Scope.</b> {What was included and excluded, described in words, never as a query.}</li>
+                    <li><b>Time frame.</b> {Dates written out; flag any partial period.}</li>
+                    <li><b>How it's measured.</b> {What each headline figure counts.}</li>
+                    <li><b>Example posts.</b> {How posts and quotes were chosen.}</li>
+                    <li><b>Notes.</b> {Caveats a reader needs in order to read the figures correctly.}</li>
+                  </ul>
+                </div>
+              </details>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--
+      SCROLL-SPY. Highlights the rail link for the section in view. Without it
+      the rail renders and the first link keeps .active forever, which looks
+      like a styling bug rather than a missing script.
+
+      Copy this with the markup. It is a no-op when there is no rail, so it is
+      safe to leave in a brief that drops the sidenav.
+
+      rootMargin '-20% 0px -70% 0px' narrows the observer to a band near the
+      top of the viewport, so the active link changes when a section reaches
+      reading position rather than when it first peeks into view.
+    -->
+    <script>
+      (function () {
+        const links = document.querySelectorAll('.sidenav a'); if (!links.length) return;
+        const byId = new Map([...links].map(a => [a.getAttribute('href').slice(1), a]));
+        const obs = new IntersectionObserver((es) => es.forEach((e) => {
+          if (e.isIntersecting) { links.forEach(a => a.classList.remove('active')); const l = byId.get(e.target.id); if (l) l.classList.add('active'); }
+        }), { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+        document.querySelectorAll('.section[id], .section-divider[id]').forEach(s => obs.observe(s));
+      })();
+    </script>
+  </body>
+</html>

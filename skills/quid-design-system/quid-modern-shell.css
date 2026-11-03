@@ -1,0 +1,458 @@
+/* ============================================================================
+   MODERN BRIEF SHELL
+   Proposed addition to quid.css.
+
+   Full-bleed black masthead with a brand strip, a right-hand rail, and boxless
+   sections. Adds NO tokens: every value below already exists in quid.css.
+
+   TWO PARTS, AND THE SPLIT IS THE POINT.
+
+   Part 1 is additive. Nothing in quid.css defines .page-row, .bb-text,
+   .hero-meta today, so these rules cannot change how any
+   existing brief renders. Safe to ship unscoped.
+
+   Part 2 redefines selectors every existing brief already uses -- .section,
+   .body-layout, .hero-card. Shipped unscoped it would strip the card off every
+   section in every consumer and move every rail. So it is gated behind
+   .brief-modern on <body>. Existing briefs render byte-identically; new ones
+   opt in with one class.
+
+   Do not merge Part 2 ungated.
+   ========================================================================= */
+
+
+/* ============================================================================
+   PART 1 - ADDITIVE. Unscoped, safe.
+   ========================================================================= */
+
+:root {
+  --rail-w: 240px;        /* the rail's column width */
+  --rail-gap: 30px;       /* gap between body column and rail */
+  --rail-top: 56px;       /* sticky offset for the rail */
+  --strip-h: 10px;        /* brand strip under the masthead */
+  --section-pad-y: 26px;  /* vertical rhythm once sections lose their card */
+  --masthead-gap: 20px;   /* breathing room below the masthead */
+}
+
+/* THE ROW SITS BELOW .body-layout, NOT ON IT. The masthead bleeds to the
+   viewport edge with negative insets, and a flex item's outer size counts its
+   margins, so as a direct flex child its width computes negative and the body
+   column beside it collapses. Keeping .body-layout a block and putting the
+   flex one level down lets the masthead stay in normal flow. */
+/* MARGIN, NOT PADDING ON THE MASTHEAD. The masthead carries the black
+   background, so padding its bottom extends the black rather than creating a
+   gap. The space has to sit on the row below it to read as separation.
+   It goes on .page-row rather than on .main or .sidenav so the rail and the
+   body start on the same line; spacing them separately drifts the moment one
+   of them changes its own padding. */
+.page-row {
+  display: flex;
+  align-items: flex-start;
+  column-gap: var(--rail-gap);
+  margin-top: var(--masthead-gap);
+}
+
+/* THE ROW IS ONLY A ROW WHERE THE RAIL IS A COLUMN. quid.css already hides
+   .sidenav below the desktop breakpoint; this keeps the row from being a flex
+   context at widths where there is nothing to put beside the body. */
+@media (max-width: 1023px) {
+  .page-row { display: block; }
+}
+
+/* Masthead copy wrapper. Carries the measure so the headline, the lede and the
+   meta row all stop on the same line as the prose beneath them. Derived from
+   the rail rather than a fixed number, so it tracks --rail-w and --rail-gap. */
+.bb-text {
+  min-width: 0;
+  max-width: calc(100% - var(--rail-w) - var(--rail-gap));
+}
+@media (max-width: 1023px) {
+  .bb-text { max-width: none; }
+}
+
+/* Masthead meta: labelled pairs under the lede. A <dl> because that is what
+   these are, which also means a screen reader announces "Brand: Acme" rather
+   than two loose words, and the PDF exporter keeps them associated.
+
+   .hm-item welds each pair together. Without it the dt and dd become
+   independent flex items and a narrow viewport can strand a label on one line
+   with its value under a different label. */
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 36px;
+  margin: 22px 0 0;
+}
+.hero-meta .hm-item {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;   /* not center: 12px label against 14px value */
+  gap: 8px;
+}
+.hero-meta dt {
+  flex: none;
+  margin: 0;
+  font-size: var(--font-size-12);
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-gray-0);
+  opacity: .62;
+}
+.hero-meta dd {
+  margin: 0;
+  font-size: var(--font-size-14);
+  line-height: var(--font-line-height-14);
+  font-weight: var(--font-medium);
+  color: var(--color-gray-0);
+}
+
+/* NO CLIENT BAR. There was a .brief-bar here: a full-bleed accent band above
+   the masthead carrying the client name and the report date. Removed
+   deliberately, so this is not a gap to be helpfully filled later.
+
+   The shell now opens on the black band. The only accent is the strip beneath
+   it, which is the element that does the branding work; a second coloured band
+   directly above the first competed with it rather than framing it.
+
+   The client name and the date have somewhere better to live: the .hero-meta
+   row under the lede, where they sit as labelled values beside everything else
+   the reader needs. */
+
+
+/* ============================================================================
+   PART 2 - GATED. Requires <body class="with-sidenav brief-modern">.
+   Every rule here overrides something an existing brief relies on.
+   ========================================================================= */
+
+/* THE CLIP HAS TO REACH <html>, NOT JUST <body>. The masthead and the bar
+   bleed with -50vw insets, which overflow by design and need an ancestor to
+   clip them. Setting overflow-x on the body alone does not do it: the body's
+   value only propagates to the viewport under conditions that do not hold
+   here, so <html> stayed `visible` and the page gained 575px of horizontal
+   scroll at 1345px wide, with no element reported as an offender because the
+   overflow came from pseudo-elements.
+
+   Scoped through :has() rather than set on a bare `html` selector, because an
+   unscoped clip would apply to every existing brief and silently hide, rather
+   than scroll, anything that legitimately overflows today.
+
+   clip rather than hidden: overflow:hidden on an ancestor creates a scroll
+   container and silently kills position:sticky on every descendant, which
+   would cost the rail its sticky behaviour.
+
+   IF THE PDF RENDERER DOES NOT SUPPORT :has(), this rule no-ops and the bleed
+   comes back as horizontal scroll. Verify in a Terminal round-trip; the
+   fallback is a plain `html { overflow-x: clip }` in the brief itself. */
+html:has(> body.brief-modern) { overflow-x: clip; }
+.brief-modern { overflow-x: clip; }
+
+/* quid.css makes .body-layout the flex row. The modern shell needs it to be a
+   block so the masthead can bleed, with the row one level down on .page-row. */
+.brief-modern.with-sidenav .body-layout { display: block; }
+
+/* ONE CONTAINER, AND IT IS THE OUTER ONE. .container-brief appears twice, once
+   in the masthead and once around the body, and quid.css gives it a 1200px
+   max-width with 32px of padding. In the standard shell both resolve to the
+   same box. Here they cannot: the masthead spans the full width while the body
+   is narrowed by the rail, so the hero copy centred at 1200px and the body
+   copy filled 1075px, leaving the headline starting 73px right of the first
+   paragraph and ending 72px short of it. Two independently centred containers
+   cannot agree once one of them is narrowed.
+
+   So the width moves up to .body-layout, measured once, and .container-brief
+   is emptied. Both the masthead and the body then inherit the same edges. */
+.brief-modern .body-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px 96px;
+}
+.brief-modern .container-brief {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* RAIL ON THE RIGHT, in CSS rather than in markup. Source order keeps the rail
+   before the body, so a screen reader and the PDF exporter still meet the
+   navigation first; only the painted position moves.
+
+   THE DIVIDER COMES OFF WITH THE MOVE. quid.css gives .sidenav a 1px right
+   border, which is right for a rail on the LEFT: it draws the line between the
+   rail and the body it sits beside. Moved to the right, the same border lands
+   on the outer edge of the page with nothing past it, reading as a stray rule
+   down the margin rather than a divider. The rail is already separated from
+   the body by --rail-gap, so nothing replaces it. */
+.brief-modern .page-row > .sidenav { order: 3; border-right: 0; }
+.brief-modern .page-row > .main { flex: 1; min-width: 0; }
+@media (min-width: 1024px) {
+  .brief-modern .page-row > .sidenav {
+    flex: 0 0 var(--rail-w);
+    width: auto;
+    position: sticky;
+    top: var(--rail-top);
+  }
+}
+
+/* ── KPI strip ───────────────────────────────────────────────────────────────
+   NO TILE. quid.css draws each card as a rounded, bordered, shadowed box with
+   a 13% tint washing diagonally out of --kpi-tint. That is a tile, and tiles
+   belong in the standard shell where the sections around them are cards too.
+   Here the sections are boxless, so a grid of shadowed tiles is the heaviest
+   thing on the page and reads as a different design.
+
+   WHAT SURVIVES IS THE COLOUR. --kpi-tint is the per-metric knob: .kpi-card
+   defaults it to --primary and the metric classes override it, so volume is
+   --chart-1, authors --chart-4, sentiment --chart-2 and so on. The label
+   already takes its colour from that token, so stripping the box keeps every
+   metric's identity without restating a single hue here. The tint also moves
+   to a 2px left rule, which is the only mark left on the card.
+
+   ORDER MATTERS INSIDE THIS RULE. border-left comes AFTER border: 0, same
+   rule, later declaration. Written the other way round the reset would clear
+   the coloured rule it is meant to keep.
+
+   LEFT, NOT CENTRED. Centring was right inside a tile, where the box drew the
+   bounds. With the box gone and the only mark on the left edge, a centred
+   label floats away from the rule that identifies it. */
+.brief-modern .kpi-card {
+  background: none;
+  background-image: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  border-left: 2px solid var(--kpi-tint, var(--primary));
+  padding: 2px 0 2px 14px;
+  text-align: left;
+}
+
+/* The sub-metric divider was drawn against the tint wash; on the page it needs
+   the ordinary rule colour or it reads as a second accent. */
+.brief-modern .kpi-card .kpi-note { border-top-color: var(--border); }
+
+/* The figure is display type and should be set in the display face, like every
+   other large number in this shell. */
+.brief-modern .kpi-card .value { font-family: var(--font-display); }
+
+/* Wider minimum and a looser gutter: without tiles the cards no longer have an
+   edge to separate them, so the space between has to do that work. */
+.brief-modern .kpi-grid {
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 22px 24px;
+}
+
+/* ── The rail ────────────────────────────────────────────────────────────────
+   NO SURFACE. quid.css paints .sidenav white and fills the active link with
+   --primary-container-background, which reads as a panel and a pill. Both are
+   right for the standard shell, where the body is a column of cards and the
+   rail is one more surface among them. Here nothing else has a surface: the
+   sections are boxless and the page is one sheet, so a white panel on a
+   near-white page would be the only box left on screen.
+
+   A TRACK INSTEAD. The rail gets a hairline running the length of the links,
+   with the active marker sitting on it. Drawn as a 1px left border on each
+   link rather than on a container, because the two shells nest the rail
+   differently: the standard markup is <aside class="sidenav"><nav>links</nav>,
+   while this shell needs <nav class="sidenav"> directly for LAY-1, with no
+   inner wrapper. A per-link border is continuous in both, and needs no markup
+   either shell does not already have.
+
+   gap: 0 is required for that continuity -- quid.css spaces the links 2px
+   apart, which would dash the track instead of drawing it.
+
+   The active link takes a 2px teal border and pulls itself 1px left, so the
+   thicker marker sits over the track without shifting its own text. Hover
+   changes colour only; quid.css fills it with --secondary, which is another
+   surface this shell does not want. */
+.brief-modern .sidenav nav { gap: 0; }
+
+.brief-modern .page-row > .sidenav { background: none; }
+
+.brief-modern .sidenav a {
+  background: none;
+  border-left: 1px solid var(--border);
+  border-radius: 0;
+  padding: 7px 0 7px 14px;
+}
+
+.brief-modern .sidenav a:hover {
+  background: none;
+  color: var(--primary);
+}
+
+.brief-modern .sidenav a.active {
+  background: none;
+  border-left: 2px solid var(--primary);
+  margin-left: -1px;            /* keeps the text aligned under the wider marker */
+  border-radius: 0;
+  color: var(--primary);
+  font-weight: var(--font-bold);
+}
+
+/* NO GAP ABOVE THE BAND. quid.css gives .hero `padding: 32px 0 0`, which is
+   right for a masthead that sits as a card inside the page. This one bleeds to
+   the viewport edge and is meant to start at the top of the document, so that
+   padding shows as a 32px strip of page background above the black. */
+.brief-modern .hero { padding-top: 0; }
+
+/* COLOURS AND TYPE LIVE IN quid-modern-tokens.css, not here. That file carries
+   the whole Terminal set -- 292 declarations including the teal --primary, the
+   teal ramp, the primary-container pair and the larger heading scale -- scoped
+   to the same .brief-modern class as this shell, so a brief takes the layout
+   and the palette together or takes neither.
+
+   An earlier version of this file hand-wrote five teal declarations here to get
+   the strip right. That is exactly the drift worth avoiding: a brand value
+   belongs in the generated token file, which traces back to Figma, not in a
+   layout stylesheet where it becomes a second source of truth. */
+
+/* The masthead band. Full-bleed black behind the headline. Both class names
+   are listed because .hero-card.has-img carries (0,2,0) in quid.css and would
+   otherwise outrank a bare .hero-card whatever the source order. */
+.brief-modern .hero-card,
+.brief-modern .hero-card.has-img {
+  position: relative;
+  color: var(--color-gray-0);
+  background-color: var(--color-gray-1700);
+  background-image: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 52px 0 46px;
+}
+.brief-modern .hero-card::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0 -50vw;
+  background: inherit;
+}
+.brief-modern .hero-card > * { position: relative; z-index: 1; }
+
+/* ── Cover photo behind the band ─────────────────────────────────────────────
+   Uses the hook quid.css already ships: add `has-img` and set --hero-img
+   inline, exactly as the reference markup does. Nothing new to learn.
+
+   THE PHOTO GOES ON THE ::before, NOT THE CARD, because the ::before is the
+   element that bleeds. Painted on the card it would stop at the content column
+   and leave the band's own black showing either side of it.
+
+   Three layers, top to bottom: the scrim, a flat floor, the photo. The floor
+   is the load-bearing one. A single gradient scrim weakens toward one end, and
+   because it is painted across a viewport-wide bleed while the copy is capped
+   at the body column, the narrower the window the further into the weak end
+   the text reaches. Measured on the equivalent Explorer layer: fine at 1360px,
+   down to 4.46:1 against a white photo at 1024px, under AA for body text. The
+   flat step does not move with the viewport, so it holds the floor. */
+.brief-modern .hero-card.has-img::before {
+  background-color: var(--color-gray-1700);
+  background-image:
+    var(--hero-overlay),
+    linear-gradient(var(--color-gray-alpha-1700-a40), var(--color-gray-alpha-1700-a40)),
+    var(--hero-img, none);
+  background-size: cover;
+  background-position: center;
+}
+
+/* THE SCRIM IS REDEFINED, NOT RE-PLUMBED. quid.css sets --hero-overlay to a
+   navy-to-teal gradient, which is right for its own navy hero card and wrong
+   for a black band: it tints the whole masthead. Redefining the token inside
+   the gate means the upstream rule above keeps working unchanged, and a brief
+   that genuinely wants a tinted scrim can still override --hero-overlay
+   inline. Built from token black alphas so the band stays neutral. */
+.brief-modern {
+  --hero-overlay: linear-gradient(90deg,
+    var(--color-gray-alpha-1600-a70) 0%,
+    var(--color-gray-alpha-1600-a70) 62%,
+    var(--color-gray-alpha-1700-a20) 100%);
+}
+
+/* The brand strip under the band. Same hook as the bar, so a client colour
+   wraps the black rather than competing with it. */
+.brief-modern .hero-card::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: -50vw;
+  right: -50vw;
+  bottom: calc(var(--strip-h) * -1);
+  height: var(--strip-h);
+  background: var(--client-accent, var(--primary));
+}
+
+.brief-modern .hero-card .quid-hero,
+.brief-modern .hero-card h1 {
+  color: var(--color-gray-0);
+  margin: 0;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+}
+/* THE WRAPPER OWNS THE MEASURE, so the lede's own cap has to go. quid.css sets
+   `.hero .lede { max-width: 680px }`, which is right for a centred 1200px
+   masthead and wrong here: with .bb-text already holding the copy to the main
+   column, the 680px cap stopped the lede 250px short of the headline above it
+   and the meta row below it, giving the masthead three different right edges.
+   Removing it lets the lede inherit .bb-text like everything else. */
+.brief-modern .hero .lede { max-width: none; }
+.brief-modern .hero-card .lede {
+  color: var(--color-gray-0);
+  opacity: .86;
+  margin: 16px 0 0;
+}
+
+/* The eyebrow pill keeps its shape, restated in tokens so it reads on black.
+   quid.css has three white alpha steps and no 28%, so the fill drops to a09
+   and the border rises to a12 to keep the two apart inside the vocabulary. */
+.brief-modern .hero-card .eyebrow {
+  background: var(--color-gray-alpha-0-a09);
+  border: 1px solid var(--color-gray-alpha-0-a12);
+  color: var(--color-gray-0);
+  align-self: start;
+  margin: 18px 0 0;
+}
+
+/* HEADINGS ARE NOT BOUND HERE. The Quid Sans binding lives in
+   quid-fonts.css, beside the @font-face rules that make it possible, so the
+   two cannot be separated. A brief that links the font file gets the typeface
+   whether or not it adopts this layout; a brief that does not link it keeps
+   Inter rather than falling through to the system UI face. */
+
+/* BOXLESS SECTIONS. This is the rule that would have republished a different
+   look to every consumer, which is the whole reason Part 2 is gated. */
+.brief-modern .section {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: var(--section-pad-y) 0;
+  margin: 0;
+}
+.brief-modern .section + .section { border-top: 1px solid var(--border); }
+
+/* BOXLESS MEANS THE CANVAS TOO. With the cards gone, a tinted page background
+   has nothing left to sit behind and reads as a wash. Invisible to a computed
+   check, because the colour is on an ancestor. */
+.brief-modern body,
+.brief-modern .body-layout {
+  background-image: none;
+  background-color: var(--background);
+}
+
+/* NO PROSE MEASURE CAP. Removed deliberately, so this is not an oversight to
+   be helpfully re-added later.
+
+   Boxless sections mean paragraphs run the full body column rather than being
+   held in by a card, and the obvious reflex is to cap the text. Two reasons
+   not to. The cap was the single most fragile rule in the Explorer layer: it
+   died silently once to a stray comment delimiter and then, when revived, it
+   turned out `ch` is the advance width of "0" and a 72ch cap was rendering
+   around 94 characters, so it had never meant what it said. And a measure cap
+   is an editorial judgement about line length that belongs to whoever is
+   authoring a brief, not to the shell every brief inherits.
+
+   A brief that wants a narrower measure can set one on its own prose. The
+   shell gives it the column and gets out of the way. */
+
+/* Tables, charts and media need the full column either way. This keeps a wide
+   table scrollable instead of breaking the page. */
+.brief-modern .table-wrap { overflow-x: auto; }

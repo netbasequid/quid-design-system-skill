@@ -11,6 +11,114 @@
         ],
         "com.figma.type": "string"
       }
+    },
+    "font-display": {
+      "$type": "string",
+      "$value": "QuidSans",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9796:17912",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "FONT_FAMILY"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "font-family-h0": {
+      "$type": "string",
+      "$value": "{font-family.font-display}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9791:6265",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "FONT_FAMILY"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "font-family-h1": {
+      "$type": "string",
+      "$value": "{font-family.font-display}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9791:6237",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "FONT_FAMILY"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "font-family-h2": {
+      "$type": "string",
+      "$value": "{font-family.font-display}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9791:6267",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "FONT_FAMILY"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "font-family-h3": {
+      "$type": "string",
+      "$value": "{font-family.font-display}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9791:6268",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "FONT_FAMILY"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "font-family-hero": {
+      "$type": "string",
+      "$value": "{font-family.font-display}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9791:6269",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "FONT_FAMILY"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "font-family-headings": {
+      "$type": "string",
+      "$value": "{font-family.font-display}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9791:6271",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "FONT_FAMILY"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "font-family-subtitle": {
+      "$type": "string",
+      "$value": "{font-family.font-display}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9796:17541",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "FONT_FAMILY"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "font-family-pull-quote": {
+      "$type": "string",
+      "$value": "{font-family.font-display}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9796:17542",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "FONT_FAMILY"
+        ],
+        "com.figma.type": "string"
+      }
     }
   },
   "font-size": {
@@ -69,6 +177,17 @@
         ]
       }
     },
+    "font-size-display": {
+      "$type": "number",
+      "$value": 18,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9796:17910",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "FONT_SIZE"
+        ]
+      }
+    },
     "font-size-h0": {
       "$type": "number",
       "$value": 40,
@@ -82,7 +201,7 @@
     },
     "font-size-h1": {
       "$type": "number",
-      "$value": 28,
+      "$value": 32,
       "$extensions": {
         "com.figma.variableId": "VariableID:4776:13476",
         "com.figma.hiddenFromPublishing": true,
@@ -93,7 +212,7 @@
     },
     "font-size-h2": {
       "$type": "number",
-      "$value": 22,
+      "$value": 28,
       "$extensions": {
         "com.figma.variableId": "VariableID:4776:13468",
         "com.figma.hiddenFromPublishing": true,
@@ -104,7 +223,7 @@
     },
     "font-size-h3": {
       "$type": "number",
-      "$value": 18,
+      "$value": 22,
       "$extensions": {
         "com.figma.variableId": "VariableID:4776:13454",
         "com.figma.hiddenFromPublishing": true,
@@ -115,7 +234,7 @@
     },
     "font-size-hero": {
       "$type": "number",
-      "$value": 32,
+      "$value": 40,
       "$extensions": {
         "com.figma.variableId": "VariableID:4776:13472",
         "com.figma.hiddenFromPublishing": true,
@@ -162,6 +281,28 @@
       "$value": 14,
       "$extensions": {
         "com.figma.variableId": "VariableID:4776:13466",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "FONT_SIZE"
+        ]
+      }
+    },
+    "font-size-body": {
+      "$type": "number",
+      "$value": 15,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9711:798",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "FONT_SIZE"
+        ]
+      }
+    },
+    "font-size-sidenav": {
+      "$type": "number",
+      "$value": 14,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9711:800",
         "com.figma.hiddenFromPublishing": true,
         "com.figma.scopes": [
           "FONT_SIZE"
@@ -225,6 +366,17 @@
         ]
       }
     },
+    "font-line-height-display": {
+      "$type": "number",
+      "$value": 26,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9796:17911",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "LINE_HEIGHT"
+        ]
+      }
+    },
     "font-line-height-h0": {
       "$type": "number",
       "$value": 48,
@@ -238,7 +390,7 @@
     },
     "font-line-height-h1": {
       "$type": "number",
-      "$value": 34,
+      "$value": 36,
       "$extensions": {
         "com.figma.variableId": "VariableID:4776:13453",
         "com.figma.hiddenFromPublishing": true,
@@ -249,7 +401,7 @@
     },
     "font-line-height-h2": {
       "$type": "number",
-      "$value": 30,
+      "$value": 32,
       "$extensions": {
         "com.figma.variableId": "VariableID:4776:13451",
         "com.figma.hiddenFromPublishing": true,
@@ -315,9 +467,20 @@
     },
     "font-line-height-code-large": {
       "$type": "number",
-      "$value": 22,
+      "$value": 24,
       "$extensions": {
         "com.figma.variableId": "VariableID:4776:13450",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "LINE_HEIGHT"
+        ]
+      }
+    },
+    "font-line-height-body": {
+      "$type": "number",
+      "$value": 24,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9711:799",
         "com.figma.hiddenFromPublishing": true,
         "com.figma.scopes": [
           "LINE_HEIGHT"

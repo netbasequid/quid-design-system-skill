@@ -81,9 +81,9 @@
           "OPACITY"
         ],
         "com.figma.aliasData": {
-          "targetVariableId": "VariableID:f68fd9b2fc924002714c96f43b5ac8612050d46f/-1:-1",
+          "targetVariableId": "VariableID:31ba0d2ab7545a224ec11cbd4c67870086b3bb81/-1:-1",
           "targetVariableName": "opacity/opacity-50",
-          "targetVariableSetId": "VariableCollectionId:76988b9b563486df70e948db5086d4b93d92506f/-1:-1",
+          "targetVariableSetId": "VariableCollectionId:a209d94efefe2c960a80589ce3cdaf2ef512085e/-1:-1",
           "targetVariableSetName": " References - Tailwind - Primitives"
         }
       }
@@ -93,64 +93,31 @@
     "radius": {
       "$type": "number",
       "$value": 8,
-      "$description": "Border radius for card, input and buttons",
       "$extensions": {
-        "com.figma.variableId": "VariableID:2732:15523",
-        "com.figma.hiddenFromPublishing": true,
+        "com.figma.variableId": "VariableID:9834:18787",
         "com.figma.scopes": [
           "CORNER_RADIUS"
-        ],
-        "com.figma.codeSyntax": {
-          "WEB": "var(--radius)"
-        },
-        "com.figma.aliasData": {
-          "targetVariableId": "VariableID:ceebe8b5bcd8ebac6a51544e6b13163e6f09ee11/-1:-1",
-          "targetVariableName": "border radius/rounded-lg",
-          "targetVariableSetId": "VariableCollectionId:76988b9b563486df70e948db5086d4b93d92506f/-1:-1",
-          "targetVariableSetName": " References - Tailwind - Primitives"
-        }
+        ]
       }
     },
     "radius-md": {
       "$type": "number",
       "$value": 6,
-      "$description": "Medium border radius for card, input and buttons",
       "$extensions": {
-        "com.figma.variableId": "VariableID:2732:15529",
-        "com.figma.hiddenFromPublishing": true,
+        "com.figma.variableId": "VariableID:9834:18788",
         "com.figma.scopes": [
           "CORNER_RADIUS"
-        ],
-        "com.figma.codeSyntax": {
-          "WEB": "calc(var(--radius) - 2px)"
-        },
-        "com.figma.aliasData": {
-          "targetVariableId": "VariableID:d3c3df16dd7af990c1acb94b9a78c04b669f9fe3/-1:-1",
-          "targetVariableName": "border radius/rounded-md",
-          "targetVariableSetId": "VariableCollectionId:76988b9b563486df70e948db5086d4b93d92506f/-1:-1",
-          "targetVariableSetName": " References - Tailwind - Primitives"
-        }
+        ]
       }
     },
     "radius-xs": {
       "$type": "number",
       "$value": 4,
-      "$description": "Small border radius for card, input and buttons",
       "$extensions": {
-        "com.figma.variableId": "VariableID:2732:15530",
-        "com.figma.hiddenFromPublishing": true,
+        "com.figma.variableId": "VariableID:9834:18789",
         "com.figma.scopes": [
           "CORNER_RADIUS"
-        ],
-        "com.figma.codeSyntax": {
-          "WEB": "calc(var(--radius) - 4px)"
-        },
-        "com.figma.aliasData": {
-          "targetVariableId": "VariableID:b910357ed65889314fd1df608a91186246c3d2f0/-1:-1",
-          "targetVariableName": "border radius/rounded",
-          "targetVariableSetId": "VariableCollectionId:76988b9b563486df70e948db5086d4b93d92506f/-1:-1",
-          "targetVariableSetName": " References - Tailwind - Primitives"
-        }
+        ]
       }
     }
   },

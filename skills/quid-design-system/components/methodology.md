@@ -31,4 +31,4 @@ Rules the markup can't show:
 
 The copy rules (the "never show" list, the internal-to-client translation table) and the leak checker live in the **`brief-methodology-section`** Shared Expertise skill. Use it whenever you write or revise this section's content; this doc owns the markup and look.
 
-Reference markup: the "Methodology" section of `example.html`, and the end of the slot in `shell-example.html`.
+Reference markup: the "Methodology" section of `example.html`, and the same section inside the shell in `example-modern.html`.
