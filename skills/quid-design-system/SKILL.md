@@ -318,6 +318,7 @@ Every component is documented in its own file under `components/` — the markup
 | KPI strip | Headline metrics in tinted cards, colored by a fixed metric→color standard | `components/kpi-strip.md` |
 | Tags / badges | Colored pill labels for a category or sentiment | `components/tags-badges.md` |
 | Ranked themes | Ranked list of conversation themes — three interchangeable presentations (with quotes / with media / caption-insight) and how to choose | `components/ranked-themes.md` |
+| Chart card | Boxed container for a plotted figure — chart, graph or wordcloud. Not for tables (those use `.table-wrap`) | `components/chart-card.md` |
 | Chart palette & convention | Series colors for any chart (categorical / sentiment / wordcloud) | `components/chart-palette.md` |
 | Table | Metrics and comparisons in a real `<table>` | `components/table.md` |
 | Accordion | Expandable stacked rows on native `<details>` | `components/accordion.md` |

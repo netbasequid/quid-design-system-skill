@@ -928,6 +928,46 @@ body.modal-open { overflow: hidden; }
     # Nothing here listens for them today; the idiom costs nothing and removes
     # the trap for whatever consumes this stylesheet later.
     parts.append(
+        """/* ---- Chart card (boxed container for a plotted figure) ---- */
+/* For a chart, graph or wordcloud -- anything with a plot area, axis labels or
+   a legend. NOT for tables: those use .table-wrap, which is deliberately a
+   different treatment (top/bottom hairline, no side borders, no radius, no
+   shadow) because a table's header and row rules already bound it. Boxing a
+   table puts a second boundary round something already bounded.
+
+   The one surface in the modern shell that KEEPS its box. Sections are boxless
+   there and the tinted page canvas is switched off, so a figure sitting loose on
+   the page has no edge of its own: its plot area, axis labels and legend read as
+   part of the prose around them. The card gives it that edge.
+
+   Same four declarations as .quid-card, not a second card style. Do not swap the
+   fill for a hand-picked hex -- in dark mode --card and --background are both
+   #212121 and the border carries the whole boundary, which is the intended
+   behaviour and the reason the border is not optional.
+
+   .chart-box is the sized wrapper Chart.js needs: a canvas with no positioned
+   parent of fixed height grows on every resize. Height is a plain value here,
+   so override it inline for a chart that needs more room.
+
+   Colors come from the --chart-* / --sentiment-* tokens, read at runtime --
+   see components/chart-palette.md. This block is chrome only; it sets nothing
+   about the series. */
+.chart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0; }
+.chart-card {
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm-recipe);
+  padding: 20px;
+}
+.chart-card .chart-title { margin: 0 0 2px; }
+.chart-card .chart-sub { margin: 0 0 14px; font-size: var(--font-size-13); line-height: var(--font-line-height-15); color: var(--muted-foreground); }
+.chart-card .chart-box { position: relative; height: 260px; }
+"""
+    )
+
+    parts.append(
         """/* ---- Reduced motion (honours prefers-reduced-motion: reduce) ---- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

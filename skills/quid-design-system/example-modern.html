@@ -40,7 +40,7 @@
               <p class="lede">Every demo from example.html, lifted out of its card and placed in a boxless section. Same markup, different container.</p>
               <dl class="hero-meta">
                 <div class="hm-item"><dt>Shell</dt><dd>Modern</dd></div>
-                <div class="hm-item"><dt>Components</dt><dd>18</dd></div>
+                <div class="hm-item"><dt>Components</dt><dd>19</dd></div>
               </dl>
             </div>
           </div>
@@ -68,6 +68,7 @@
         <a href="#sec-16">Large cards (creative in the wild)</a>
         <a href="#sec-17">Social embeds (native)</a>
         <a href="#sec-18">Color ramps</a>
+        <a href="#sec-19">Chart card</a>
         </nav>
 
         <div class="main">
@@ -607,12 +608,93 @@
           <div class="swatch" style="background: var(--color-gray-500);" title="--color-gray-500"></div>
         </div>
             </section>
+            <section class="section" id="sec-19">
+              <p class="section-label">Chart card</p>
+
+        <h2 class="quid-h2">Chart card</h2>
+        <p class="quid-body quid-muted">A boxed container for a chart. The one surface that keeps its box in the
+          modern shell, where sections are boxless and the page canvas is off: a chart sitting loose on the page has no
+          edge of its own, so its axis labels and legend read as part of the surrounding prose. Pair with
+          <code>.chart-grid</code> for a responsive row that drops to one column under 280px per track. Colors are not
+          set here — see <code>components/chart-palette.md</code>.</p>
+
+        <!-- CATEGORICAL SERIES. Cycles --chart-1 onward, in order, read at
+             runtime so dark mode and per-client overrides flow through. -->
+        <!-- SENTIMENT. Uses --sentiment-positive/neutral/negative, never the
+             categorical ramp — the mapping is semantic, not decorative. -->
+        <div class="chart-grid">
+          <div class="chart-card">
+            <h3 class="quid-h3 chart-title">Weekly Posts by Platform</h3>
+            <p class="chart-sub">Categorical series cycle <code>--chart-1</code> onward, in order.</p>
+            <div class="chart-box"><canvas id="exVolume"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <h3 class="quid-h3 chart-title">Sentiment Split</h3>
+            <p class="chart-sub">Sentiment uses <code>--sentiment-*</code>, never the categorical ramp.</p>
+            <div class="chart-box"><canvas id="exSentiment"></canvas></div>
+          </div>
+        </div>
+            </section>
             </div>
           </div>
         </div>
       </div>
     </div>
 
+
+    <!-- Chart.js for the "Chart card" section. The design system ships no
+         charting library and takes no position on which one you use; this is
+         here so the catalog can render a real chart rather than an empty box.
+         Series colors are READ FROM THE TOKENS at runtime, which is the part
+         worth copying — never paste hex into chart config. -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script>
+      (function () {
+        if (typeof Chart === 'undefined') return;           // offline: boxes stay empty, page still fine
+        var css = getComputedStyle(document.documentElement);
+        var t = function (n) { return css.getPropertyValue(n).trim(); };
+        var grid = t('--border'), label = t('--muted-foreground');
+        Chart.defaults.font.family = t('--font-sans') || 'Inter, sans-serif';
+        Chart.defaults.color = label;
+
+        new Chart(document.getElementById('exVolume'), {
+          type: 'bar',
+          data: {
+            labels: ['Wk 1', 'Wk 2', 'Wk 3', 'Wk 4', 'Wk 5', 'Wk 6'],
+            datasets: [
+              { label: 'X',         data: [9.1, 11.2, 10.3, 13.8, 12.7, 14.1], backgroundColor: t('--chart-1') },
+              { label: 'Instagram', data: [6.2,  6.9,  7.6,  8.4,  9.1,  6.5], backgroundColor: t('--chart-4') },
+              { label: 'TikTok',    data: [4.3,  5.1,  6.8,  6.7,  7.9,  7.2], backgroundColor: t('--chart-7') }
+            ]
+          },
+          options: {
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, usePointStyle: true, pointStyle: 'circle' } } },
+            scales: {
+              x: { stacked: true, grid: { display: false }, border: { color: grid } },
+              y: { stacked: true, grid: { color: grid }, border: { display: false },
+                   ticks: { callback: function (v) { return v + 'K'; } } }
+            }
+          }
+        });
+
+        new Chart(document.getElementById('exSentiment'), {
+          type: 'doughnut',
+          data: {
+            labels: ['Positive', 'Neutral', 'Negative'],
+            datasets: [{
+              data: [54, 32, 14],
+              backgroundColor: [t('--sentiment-positive'), t('--sentiment-neutral'), t('--sentiment-negative')],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            maintainAspectRatio: false, cutout: '62%',
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, usePointStyle: true, pointStyle: 'circle' } } }
+          }
+        });
+      })();
+    </script>
 
     <!-- Native embed widget scripts for the "Social embeds (native)" section.
          YouTube, Instagram, Facebook, Threads are plain iframes and need no script. -->
