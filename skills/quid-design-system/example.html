@@ -40,15 +40,63 @@
 
       <section class="quid-card" style="padding: 20px;">
         <h2 class="quid-h2">Type scale</h2>
-        <div class="stack">
-          <div class="quid-hero">Hero / H0 — 40 / 48</div>
-          <div class="quid-h1">Heading 1 — 32 / 36</div>
-          <div class="quid-h2">Heading 2 — 28 / 32</div>
-          <div class="quid-h3">Heading 3 — 22 / 26</div>
-          <div class="quid-body-lg">Body large — 16 / 24</div>
-          <div class="quid-body">Body — 14 / 20</div>
-          <div class="quid-caption">Caption — 12 / 16</div>
+        <!-- EVERY named type style gets a row, including the ones a brief
+             rarely uses. An unexercised utility class is one no reference
+             render can catch: .quid-subtitle and .quid-pull-quote were absent
+             here, and both shipped at the wrong size in the wrong font until
+             someone put a pull quote in a brief and looked at it.
+
+             THE SIZES ARE READ FROM THE RENDERED CSS, not typed in. A hand-
+             written label is a second copy of the token that nobody updates
+             on a refresh: this row used to read "Hero / H0 - 40 / 48", which
+             outlived the value AND documented a grouping bug as if it were
+             intent. Reading computed style means the label cannot disagree
+             with what the page is actually doing, and the row doubles as the
+             drift check -- a style in the body font shows its family in red. -->
+        <div class="stack" id="type-scale">
+          <div class="quid-hero"      data-display><span>Hero</span></div>
+          <div class="quid-h0"        data-display><span>Heading 0</span></div>
+          <div class="quid-h1"        data-display><span>Heading 1</span></div>
+          <div class="quid-h2"        data-display><span>Heading 2</span></div>
+          <div class="quid-h3"        data-display><span>Heading 3</span></div>
+          <div class="quid-subtitle"  data-display><span>Subtitle</span></div>
+          <div class="quid-pull-quote" data-display><span>Pull quote</span></div>
+          <div class="quid-body-lg"><span>Body large</span></div>
+          <div class="quid-body"><span>Body</span></div>
+          <div class="quid-caption"><span>Caption</span></div>
         </div>
+        <script>
+          (function () {
+            var stack = document.getElementById('type-scale');
+            if (!stack) return;
+
+            /* RE-READ ON RESIZE. quid.css swaps the whole size scale at 768px,
+               so a label written once at load is wrong the moment the window
+               crosses the breakpoint -- which is exactly how someone checks a
+               mobile scale. Measured at load only, this row confidently showed
+               the mobile numbers on a 1240px-wide page. */
+            function paint() {
+              var bodyFam = getComputedStyle(document.body).fontFamily.split(',')[0].replace(/["']/g, '').trim();
+              [].forEach.call(stack.children, function (el) {
+                var s = getComputedStyle(el);
+                var fam = s.fontFamily.split(',')[0].replace(/["']/g, '').trim();
+                var tag = el.querySelector('.ts-metrics') || el.appendChild(document.createElement('span'));
+                tag.className = 'ts-metrics';
+                tag.style.cssText = 'font:400 12px/16px var(--font-sans);color:var(--muted-foreground);margin-left:10px;letter-spacing:0';
+                tag.textContent = ' ' + parseFloat(s.fontSize) + ' / ' + parseFloat(s.lineHeight);
+                /* Only the DISPLAY styles must be Quid Sans. Body, body-large
+                   and caption are Inter by design, so flagging every row that
+                   matches the body font would cry wolf on three of ten. */
+                if (el.hasAttribute('data-display') && fam === bodyFam) {
+                  tag.textContent += '  ·  ' + fam + ' (expected display face)';
+                  tag.style.color = 'var(--destructive)';
+                }
+              });
+            }
+            paint();
+            addEventListener('resize', paint);
+          })();
+        </script>
       </section>
 
       <section class="quid-card" style="padding: 20px;">

@@ -379,7 +379,7 @@
     },
     "font-line-height-h0": {
       "$type": "number",
-      "$value": 38,
+      "$value": 42,
       "$extensions": {
         "com.figma.variableId": "VariableID:4776:13455",
         "com.figma.hiddenFromPublishing": true,
@@ -423,7 +423,7 @@
     },
     "font-line-height-hero": {
       "$type": "number",
-      "$value": 38,
+      "$value": 42,
       "$extensions": {
         "com.figma.variableId": "VariableID:4776:13456",
         "com.figma.hiddenFromPublishing": true,

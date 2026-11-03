@@ -85,13 +85,20 @@ Two ways to avoid it, in order of preference:
 1. **Use a heading element.** `<h3 class="theme-name">` is already covered by the binding, needs no edit here, and is better for screen readers and document outline. Zero out the UA margin if the parent is a flex or grid container.
 2. **Add the class to the binding list** in `quid-fonts.css`, if the element genuinely should not be a heading.
 
-To find anything already drifting, search for rules that take a heading size and set no family:
+To find anything already drifting, render a page that uses the classes and walk the DOM, comparing each element's computed family against the body font:
 
-```bash
-grep -nE 'font-size:[[:space:]]*var\(--font-size-(h[0-3]|hero|subtitle)\)' quid.css
+```js
+[...document.querySelectorAll('*')]
+  .filter(e => parseFloat(getComputedStyle(e).fontSize) >= 22)
+  .filter(e => !getComputedStyle(e).fontFamily.startsWith('QuidSans'))
+  .map(e => e.tagName + '.' + e.className)
 ```
 
-Not everything that matches wants binding. `.accordion summary::before` and `.methodology summary::before` take a heading size but their content is a glyph (`▸`), and changing the family changes the shape of the arrow. They are deliberately left out.
+**Do not audit this with a grep.** A line-based scan reports only the selector that shares the `font-size` line, so on a multi-line selector group it names one selector and hides the others. That is exactly how `.quid-subtitle` and `.quid-pull-quote` shipped in the body font: they shared a rule with `.quid-h2`, which was already bound, and `.quid-subtitle` never appeared in the scan output at all. The same grouping also had them taking h2's **size**, so a scan looking only for a missing family would have caught half the bug at best.
+
+The DOM walk only sees classes the page actually uses, so check that every utility class in the inventory above appears somewhere in `example.html` or `example-modern.html`. An unexercised class is one no reference render can catch.
+
+Not everything flagged wants binding. `.accordion summary::before` and `.methodology summary::before` take a heading size but their content is a glyph (`▸`), and changing the family changes the shape of the arrow. They are deliberately left out.
 
 ### INLINE THEM. A delivered brief has no sibling files.
 

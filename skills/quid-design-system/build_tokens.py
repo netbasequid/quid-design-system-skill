@@ -402,12 +402,18 @@ body {
 
 h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-headings); color: var(--foreground); }
 
-.quid-hero,
+/* ONE RULE PER NAMED TYPE STYLE, each consuming its own tokens. Do not group
+   two of these onto a third one's variables to save a line: hero, subtitle and
+   pull-quote all used to ride along on h0 and h2, which silently shipped three
+   type styles at the wrong size for as long as the grouping existed. The
+   typography collection names them separately because Figma sets them
+   separately. */
+.quid-hero { font-size: var(--font-size-hero); line-height: var(--font-line-height-hero); font-weight: var(--font-h0); letter-spacing: -0.02em; }
 .quid-h0   { font-size: var(--font-size-h0); line-height: var(--font-line-height-h0); font-weight: var(--font-h0); letter-spacing: -0.02em; }
 .quid-h1   { font-size: var(--font-size-h1); line-height: var(--font-line-height-h1); font-weight: var(--font-headings); letter-spacing: -0.015em; }
-.quid-h2,
-.quid-subtitle,
-.quid-pull-quote { font-size: var(--font-size-h2); line-height: var(--font-line-height-h2); font-weight: var(--font-headings); letter-spacing: -0.01em; }
+.quid-h2   { font-size: var(--font-size-h2); line-height: var(--font-line-height-h2); font-weight: var(--font-headings); letter-spacing: -0.01em; }
+.quid-subtitle   { font-size: var(--font-size-subtitle); line-height: var(--font-line-height-subtitle); font-weight: var(--font-headings); letter-spacing: -0.01em; }
+.quid-pull-quote { font-size: var(--font-size-pull-quote); line-height: var(--font-line-height-pull-quote); font-weight: var(--font-headings); letter-spacing: -0.01em; }
 .quid-h3   { font-size: var(--font-size-h3); line-height: var(--font-line-height-h3); font-weight: var(--font-headings); }
 .quid-body { font-size: var(--font-size-14); line-height: var(--font-line-height-14); }
 .quid-body-lg { font-size: var(--font-size-16); line-height: var(--font-line-height-16); }

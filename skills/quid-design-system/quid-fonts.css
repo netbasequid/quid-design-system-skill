@@ -49,23 +49,32 @@
    layout: a brief should be able to take the brand font without adopting the
    modern shell. Linking this one file gets both the font and its use.
 
-   Bound to --font-display, not to the per-size family tokens. The typography
-   collection also declares font-family/font-size-h1 and friends, but those
-   collide by name with the SIZE tokens of the same name -- quid.css declares
-   --font-size-h1 twice and the size wins. --font-display is the only family
-   token that survives generation intact.
+   Bound to --font-display rather than to each style's own --font-family-* token.
+   Those tokens are all fine -- the typography collection declares eight of them
+   and all eight reach quid.css intact, every one aliasing --font-display -- so
+   this is a readability choice, not a workaround. One name here, one place to
+   change it. (An earlier version of this comment claimed the per-size family
+   tokens collided with the SIZE tokens and did not survive generation. They do;
+   the claim was wrong, and believing it is what kept this list hand-maintained
+   instead of letting the generator emit the family alongside the size.)
 
    The fallback inside --font-display is ui-sans-serif, so if this file is ever
    loaded without the faces above, headings land on the system UI face. That is
    why the faces and the binding ship together in one file. */
 h1, h2, h3, h4,
 .quid-hero, .quid-h0, .quid-h1, .quid-h2, .quid-h3,
+.quid-subtitle, .quid-pull-quote,
 /* Components that set a HEADING SIZE on a span or div. Size and family are
    separate tokens, so `font-size: var(--font-size-h3)` buys the scale and not
    the typeface: these rendered at 22px and 40px in the BODY font, next to real
    headings in Quid Sans, which reads as an inconsistency rather than a choice.
-   Found by scanning quid.css for rules that take a --font-size-h* token and
-   set no font-family. */
+
+   AUDIT THIS BY PARSING, NOT BY GREP. The obvious line-based scan reports only
+   the selector sharing the `font-size` line, so for a multi-line selector group
+   it names one selector and hides the rest. That is exactly how .quid-subtitle
+   and .quid-pull-quote stayed off this list: they shared a rule with .quid-h2,
+   which was already here, and .quid-subtitle never appeared in the scan output
+   at all. SKILL.md carries a DOM-walk audit instead. */
 .theme-name,              /* ranked theme title, --font-size-h3 */
 .ci-name,                 /* caption-insight title, --font-size-h3 */
 .ci-num,                  /* caption-insight rank number, --font-size-h0 */
