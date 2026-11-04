@@ -2,7 +2,7 @@
 
 **Ranked theme — with quotes** — `.theme-list`, `.theme-card`, `.theme-head`, `.theme-rank`, `.theme-name`, `.theme-metrics` / `.theme-metric` (`.up` / `.down`), `.theme-desc`, `.theme-quote` / `.q-src`, `.theme-examples-label` (uses the shared `.tag` badge). Boxless ranked list with inline verbatim quotes.
 **Ranked theme — with media** — `.theme-card.with-media` + `.theme-text` / `.theme-thumb` / `.theme-cols` (extends the ranked-theme base; composes `.sc-carousel`) — text left, thumbnail right, carousel below.
-**Ranked theme — caption-insight** — `.ci-list`, `.ci-card`, `.ci-num`, `.ci-body`, `.ci-head`, `.ci-name`, `.ci-text`, `.ci-quotes`, `.ci-quote` / `.cq-handle` / `.cq-text` / `.cq-more`. A third presentation option for ranked themes (alongside with-quotes and with-media): ghost number + caption read + quote cards that open the shared **post-detail modal**.
+**Ranked theme — caption-insight** — `.ci-list`, `.ci-card`, `.ci-num`, `.ci-body`, `.ci-head`, `.ci-name`, `.ci-text`, `.ci-quotes`, `.ci-quote` / `.cq-handle` / `.cq-text` / `.cq-more`. A third presentation option for ranked themes (alongside with-quotes and with-media): boxless, with the shared rank chip + caption read + quote cards that open the shared **post-detail modal**.
 
 ## Ranked themes — choosing a presentation
 
@@ -10,7 +10,7 @@ Ranked themes have **three interchangeable presentations** — same ordered set 
 
 - **With quotes** (below) — rank + badge + metrics + description + inline verbatim pull-quotes. The default; best when the *quotes themselves* are the evidence.
 - **With media** (`.theme-card.with-media`) — text left, a thumbnail top-right, and a full-width example-post carousel below. Best when a hero image or several example posts per theme carry the story.
-- **Caption-insight** (`.ci-*`) — a big ghost number + name/tag + a one-line caption **read**, then a 2-up grid of clickable quote cards that open the post-detail modal. Best when the *interpretation* leads and readers drill into individual posts.
+- **Caption-insight** (`.ci-*`) — rank chip + name/tag + a one-line caption **read**, then a 2-up grid of clickable quote cards that open the post-detail modal. Best when the *interpretation* leads and readers drill into individual posts.
 
 Each is documented below.
 
@@ -84,7 +84,7 @@ Reference markup (two real themes with example-post carousels): the "Ranked them
 
 ## Ranked theme — caption-insight
 
-The **caption-insight** presentation of ranked themes (the third option — see "Ranked themes — choosing a presentation" above): each theme is a big **ghost number** + name/tag + a caption **read** (a sentence on what the captions *collectively* say), then a 2-up grid of quote cards. Each quote card is clickable and opens the shared **post-detail modal** with that post's fuller detail. Reach for it when the interpretation should lead and readers drill into individual posts.
+The **caption-insight** presentation of ranked themes (the third option — see "Ranked themes — choosing a presentation" above): each theme is a **rank chip** + name/tag + a caption **read** (a sentence on what the captions *collectively* say), then a 2-up grid of quote cards. Each quote card is clickable and opens the shared **post-detail modal** with that post's fuller detail. Reach for it when the interpretation should lead and readers drill into individual posts.
 
 Contract (one `.ci-card` per theme, inside a `.ci-list`):
 
@@ -111,6 +111,8 @@ Rules the markup can't show:
 
 - **The `.ci-text` is an interpretation** — it summarizes what the captions collectively convey. It's editorial, so keep it faithful to the set; the **`.cq-text` quotes stay verbatim**.
 - **Each `.ci-quote` opens the post-detail modal** — it needs `tabindex="0" role="button"` and a `data-url`, plus an inline `<script type="application/json" class="post-data">` blob for the modal to read (falls back to `.cq-handle`/`.cq-text` if the blob is absent). See `components/post-detail-modal.md` — the modal singleton + its script must be present once in the brief for clicks to do anything.
-- The badge is the shared `.tag`; one per theme (optional). Ghost number is decorative (`--border`-colored) — keep the list short so the numbers stay meaningful.
+- **Boxless, like the other two presentations** — `.ci-card` has no border, radius, or shadow; a bottom hairline separates items and the last one drops it. Don't wrap the cards in `.quid-card`/`.section` boxes. The quote cards inside are the only boxed thing, which is what makes them read as clickable.
+- **`.ci-num` is the same 26px rank chip as `.theme-rank`** — pale teal, hung in a left gutter so every theme's body text aligns down the list. It's a marker, not a figure: keep the list short so the numbers stay meaningful.
+- The badge is the shared `.tag`; one per theme (optional).
 
 Reference markup (two real Taiwan themes with clickable quotes): the "Caption-insight themes" section of `example.html`.
