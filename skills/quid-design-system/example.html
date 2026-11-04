@@ -331,6 +331,133 @@
       </section>
 
       <section class="quid-card" style="padding: 20px;">
+        <h2 class="quid-h2">Platform source tiles</h2>
+        <p class="quid-body quid-muted">The branded square a post card falls back to when it has no image, or when its image expires. One empty <code>&lt;span class="pt-logo" data-plat="…"&gt;</code> — the mark is a CSS mask, so there is no sprite to paste in. Put it under every card, not only the image-less ones: social CDN links die within days and <code>onerror</code> then reveals the tile instead of a hole. See <code>components/platform-tiles.md</code>.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:12px;margin-top:16px">
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="facebook" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">Facebook</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="instagram" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">Instagram</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="x" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">X</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="threads" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">Threads</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="tiktok" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">TikTok</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="youtube" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">YouTube</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="linkedin" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">LinkedIn</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="reddit" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">Reddit</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="pinterest" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">Pinterest</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="snapchat" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">Snapchat</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="twitch" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">Twitch</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="tumblr" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">Tumblr</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="bluesky" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">Bluesky</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="discord" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">Discord</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="telegram" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">Telegram</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="whatsapp" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">WhatsApp</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="vimeo" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">Vimeo</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="podcast" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">Podcast</figcaption>
+          </figure>
+          <figure style="margin:0">
+            <span class="pt-logo" data-plat="news" aria-hidden="true"
+                  style="position:relative;inset:auto;width:100%;aspect-ratio:92/120;border-radius:var(--radius-sm)"></span>
+            <figcaption class="quid-caption" style="margin-top:6px">News / web</figcaption>
+          </figure>
+        </div>
+
+        <h3 class="sub-head" style="margin-top:22px;">In a card, both states <span class="count">2</span></h3>
+        <div class="posts-featured">
+          <a class="post" href="#" onclick="return false">
+            <div class="post-thumb">
+              <span class="pt-logo" data-plat="youtube" aria-hidden="true"></span>
+              <img src="https://i.ytimg.com/vi/UVa1F8nLjgQ/hqdefault.jpg" loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()">
+            </div>
+            <div class="post-body">
+              <div class="post-author"><span class="src">YouTube</span></div>
+              <p class="post-text">Image present. It covers the tile, so the tile is never seen.</p>
+              <div class="post-foot"><span class="sc-link">View original &#8599;</span></div>
+            </div>
+          </a>
+          <a class="post" href="#" onclick="return false">
+            <div class="post-thumb">
+              <span class="pt-logo" data-plat="reddit" aria-hidden="true"></span>
+            </div>
+            <div class="post-body">
+              <div class="post-author"><span class="handle">r/Cinephiles</span><span class="src">Reddit</span></div>
+              <p class="post-text">No image. The <code>&lt;img&gt;</code> is omitted and the tile shows.</p>
+              <div class="post-foot"><span class="sc-link">View original &#8599;</span></div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="quid-card" style="padding: 20px;">
         <h2 class="quid-h2">Ranked theme — caption-insight</h2>
         <p class="quid-body quid-muted">A third presentation option for ranked themes (alongside <em>with quotes</em> and <em>with media</em>): the shared rank chip + name/tag + a caption <em>read</em> (what the captions collectively say), then a 2-up grid of quote cards. Each quote card opens the shared <strong>post-detail modal</strong> (click one). Real Taiwan-news themes and verbatim quotes.</p>
         <div class="ci-list" style="margin-top:12px;">

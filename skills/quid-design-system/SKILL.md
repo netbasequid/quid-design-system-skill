@@ -323,6 +323,7 @@ Every component is documented in its own file under `components/` — the markup
 | Table | Metrics and comparisons in a real `<table>` | `components/table.md` |
 | Accordion | Expandable stacked rows on native `<details>` | `components/accordion.md` |
 | Featured posts | 2-up rich cards for a few standout posts | `components/featured-posts.md` |
+| Platform source tiles | Branded fallback square for a post with no image, or whose image expired | `components/platform-tiles.md` |
 | Post-detail modal | Shared drilldown singleton opened by post/quote cards | `components/post-detail-modal.md` |
 | Insight / callout | Single-takeaway callout + 2-up insight grid | `components/insight-callout.md` |
 | Example-post carousel | Many evidence posts to scan; includes the image-sourcing policy | `components/example-posts.md` |
