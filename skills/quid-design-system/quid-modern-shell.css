@@ -31,7 +31,15 @@
   --rail-top: 56px;       /* sticky offset for the rail */
   --strip-h: 10px;        /* brand strip under the masthead */
   --section-pad-y: 26px;  /* vertical rhythm once sections lose their card */
-  --masthead-gap: 20px;   /* breathing room below the masthead */
+  /* Breathing room below the masthead. This is the only thing that sets the
+     gap: the leading child supplies the rest of the optical space from its
+     own box. A section contributes --section-pad-y (26px); a KPI strip
+     contributes .kpi-grid's 24px margin plus the card's 2px, because the
+     boxless .brief-modern .kpi-card drops the 20px padding it has in
+     quid.css. Both land on gap + 26, so the two lead-ins match. Do not
+     zero a leading child's margin to "fix" spacing here; that unbalances
+     the pair and halves the air above a KPI-led brief. Change this token. */
+  --masthead-gap: 32px;
 }
 
 /* THE ROW SITS BELOW .body-layout, NOT ON IT. The masthead bleeds to the
