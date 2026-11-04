@@ -504,7 +504,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-headings); color: va
    an embed caption ran two-thirds width while everything around it ran full.
    The modern shell already removes the one other cap it inherited
    (`.hero .lede`, see quid-modern-shell.css). Text fills its column here. */
-.embed-note { font-size: var(--font-size-13); line-height: var(--font-line-height-15); color: var(--muted-foreground); margin-top: 16px; }
+.embed-note { font-size: var(--font-size-13); line-height: var(--font-line-height-13); color: var(--muted-foreground); margin-top: 16px; }
 
 /* ---- Shell brand tokens (hero gradient + page canvas; overridable per client) ---- */
 :root {
@@ -565,7 +565,7 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
    margin-block-start of 1em, which stacks on top of .section's 32px padding. */
 .section-label { font-size: var(--font-size-12); font-weight: var(--font-bold); text-transform: uppercase; letter-spacing: 0.02em; color: var(--primary); margin: 0 0 6px; }
 .section > h2 { margin-top: 0; margin-bottom: 6px; }
-.section > .section-sub { font-size: var(--font-size-15); color: var(--muted-foreground); margin: 0 0 24px; }
+.section > .section-sub { font-size: var(--font-size-15); line-height: var(--font-line-height-15); color: var(--muted-foreground); margin: 0 0 24px; }
 .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 /* section divider band (between parts) */
 .section-divider { background: var(--muted); color: var(--foreground); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 32px; margin-bottom: 24px; }
@@ -632,7 +632,7 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 .theme-card:last-child { border-bottom: none; }
 .theme-head { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
 .theme-rank { flex: none; width: 26px; height: 26px; border-radius: var(--radius-full); background: var(--primary-container-background); color: var(--primary-container-foreground); font-size: var(--font-size-13); font-weight: var(--font-bold); display: inline-flex; align-items: center; justify-content: center; }
-.theme-name { font-size: var(--font-size-h3); font-weight: var(--font-bold); color: var(--foreground); }
+.theme-name { font-size: var(--font-size-h3); line-height: var(--font-line-height-h3); font-weight: var(--font-bold); color: var(--foreground); }
 .theme-head .tag { margin: 0; }
 .theme-metrics { margin-left: auto; display: flex; gap: 18px; align-items: baseline; }
 .theme-metric { font-size: var(--font-size-13); color: var(--muted-foreground); } .theme-metric b { color: var(--foreground); font-weight: var(--font-bold); }
@@ -710,7 +710,7 @@ body.modal-open { overflow: hidden; }
 .post-modal { background: var(--card); color: var(--card-foreground); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg-recipe); max-width: 900px; width: 100%; margin: auto; display: flex; flex-direction: column; max-height: calc(100vh - 48px); overflow: hidden; }
 .post-modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 22px 28px; border-bottom: 1px solid var(--border); flex: none; }
 .post-modal-head .pm-eyebrow { display: block; font-size: var(--font-size-12); font-weight: var(--font-bold); text-transform: uppercase; letter-spacing: .02em; color: var(--primary); margin-bottom: 4px; }
-.post-modal-head .handle { font-size: var(--font-size-h2); font-weight: var(--font-bold); color: var(--foreground); }
+.post-modal-head .handle { font-size: var(--font-size-h2); line-height: var(--font-line-height-h2); font-weight: var(--font-bold); color: var(--foreground); }
 .post-modal-close { flex: none; width: 36px; height: 36px; border: 0; background: var(--secondary); color: var(--foreground); font-size: 22px; line-height: 1; cursor: pointer; border-radius: var(--radius); display: inline-flex; align-items: center; justify-content: center; }
 .post-modal-close:hover { background: var(--muted); }
 .post-modal-body { display: grid; grid-template-columns: 340px 1fr; min-height: 0; overflow: hidden; }
@@ -740,7 +740,7 @@ body.modal-open { overflow: hidden; }
 .ci-num { flex: none; font-size: var(--font-size-h0); font-weight: var(--font-h0); line-height: 1; letter-spacing: -0.03em; color: var(--border); }
 .ci-body { flex: 1; min-width: 0; }
 .ci-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; } .ci-head .tag { margin: 0; }
-.ci-name { font-size: var(--font-size-h3); font-weight: var(--font-bold); color: var(--foreground); }
+.ci-name { font-size: var(--font-size-h3); line-height: var(--font-line-height-h3); font-weight: var(--font-bold); color: var(--foreground); }
 .ci-text { font-size: var(--font-size-14); line-height: var(--font-line-height-15); color: var(--card-foreground); } .ci-text strong { font-weight: var(--font-bold); color: var(--foreground); }
 .ci-quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
 .ci-quote { border: 1px solid var(--border); border-left: 3px solid var(--unselected-border); border-radius: var(--radius-sm); padding: 11px 14px; background: var(--background); cursor: pointer; transition: border-color .15s, box-shadow .15s, background-color .15s, transform .15s; }
@@ -755,7 +755,7 @@ body.modal-open { overflow: hidden; }
 .insight-box { background: var(--card); color: var(--card-foreground); border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 16px 0; box-shadow: var(--shadow-sm-recipe); }
 .insight-box.accent-2 { border-left-color: var(--color-purple-700); } .insight-box.accent-3 { border-left-color: var(--color-green-700); }
 .insight-box.warn { border-left-color: var(--color-orange-700); } .insight-box.neg { border-left-color: var(--destructive); }
-.insight-box p { font-size: var(--font-size-15); margin: 0; } .insight-box p + p { margin-top: 8px; }
+.insight-box p { font-size: var(--font-size-15); line-height: var(--font-line-height-15); margin: 0; } .insight-box p + p { margin-top: 8px; }
 .insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
 .insight-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow-sm-recipe); }
 .insight-card h4 { font-size: var(--font-size-15); font-weight: var(--font-bold); margin: 8px 0 6px; } .insight-card p { font-size: var(--font-size-14); color: var(--muted-foreground); margin: 0; }
