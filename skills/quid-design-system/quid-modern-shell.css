@@ -395,13 +395,12 @@ html:has(> body.brief-modern) { overflow-x: clip; }
   letter-spacing: -0.028em;
   text-wrap: balance;
 }
-/* THE WRAPPER OWNS THE MEASURE, so the lede's own cap has to go. quid.css sets
-   `.hero .lede { max-width: 680px }`, which is right for a centred 1200px
-   masthead and wrong here: with .bb-text already holding the copy to the main
-   column, the 680px cap stopped the lede 250px short of the headline above it
-   and the meta row below it, giving the masthead three different right edges.
-   Removing it lets the lede inherit .bb-text like everything else. */
-.brief-modern .hero .lede { max-width: none; }
+/* The `.brief-modern .hero .lede { max-width: none }` that used to sit here is
+   gone: quid.css no longer caps the lede at 680px, so there is nothing left to
+   undo. Noted rather than silently dropped, because a brief built before that
+   change still carries the cap in its inlined copy, and the symptom -- a lede
+   stopping 250px short of the headline above it -- points at the stylesheet
+   rather than at this file. */
 .brief-modern .hero-card .lede {
   color: var(--color-gray-0);
   opacity: .86;

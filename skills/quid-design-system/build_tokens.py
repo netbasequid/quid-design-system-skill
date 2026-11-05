@@ -543,8 +543,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-headings); color: va
 /* No max-width. This carried `70ch`, the last reading-measure cap on text in
    the system, and it resolved to 574px against a 930px body column -- 62%, so
    an embed caption ran two-thirds width while everything around it ran full.
-   The modern shell already removes the one other cap it inherited
-   (`.hero .lede`, see quid-modern-shell.css). Text fills its column here. */
+   The one other cap, `.hero .lede`, is gone too. Text fills its column here. */
 .embed-note { font-size: var(--font-size-13); line-height: var(--font-line-height-13); color: var(--muted-foreground); margin-top: 16px; }
 """
     )
@@ -609,7 +608,12 @@ html { scroll-behavior: smooth; }   /* smooth-scroll on side-nav anchor clicks (
 .hero .eyebrow { display: inline-block; align-self: flex-start; border-radius: var(--radius-full); padding: 4px 14px; font-size: var(--font-size-12); font-weight: var(--font-semibold); letter-spacing: 0.02em; margin-bottom: 20px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.28); color: #fff; }
 .hero-card.light .eyebrow { background: var(--card); border-color: var(--border); color: var(--muted-foreground); }
 .hero h1 { margin-bottom: 14px; }
-.hero .lede { font-size: var(--font-size-16); line-height: var(--font-line-height-16); max-width: 680px; margin: 0; }
+/* No max-width. This carried `680px`, which stopped the lede short of the
+   headline above it and the meta row below it, so one masthead had three
+   different right edges. The modern shell had been overriding it to `none`
+   for exactly that reason; the cap is gone from the source instead, so a
+   stock-shell brief gets the same hero the modern one already had. */
+.hero .lede { font-size: var(--font-size-16); line-height: var(--font-line-height-16); margin: 0; }
 
 /* ---- Shell: section primitives (structure the .brief-body slot) ---- */
 .section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm-recipe); padding: 32px; margin-bottom: 24px; scroll-margin-top: 24px; }
