@@ -10,7 +10,7 @@ Every client-facing brief carries **exactly one** Methodology section, and it is
   <div class="methodology-body">
     <ul>
       <li><b>Source.</b> {Where the conversation came from, in reader terms: language, platforms.}</li>
-      <li><b>Scope.</b> {What was included, described in words, never as a query.}</li>
+      <li><b>Scope.</b> {What was included, described in words rather than search syntax.}</li>
       <li><b>Time frame.</b> {Dates written out; flag any partial period.}</li>
       <li><b>How it's measured.</b> {What each headline figure counts.}</li>
       <li><b>Example posts.</b> {How posts and quotes were chosen.}</li>
