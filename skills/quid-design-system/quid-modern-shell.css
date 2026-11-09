@@ -26,6 +26,8 @@
    ========================================================================= */
 
 :root {
+  --body-col: 1010px;     /* the readable column -- the number that matters */
+  --page-pad: 40px;       /* wrapper padding, one side */
   --rail-w: 240px;        /* the rail's column width */
   --rail-gap: 30px;       /* gap between body column and rail */
   --rail-top: 56px;       /* sticky offset for the rail */
@@ -67,16 +69,21 @@
   .page-row { display: block; }
 }
 
-/* Masthead copy wrapper. Carries the measure so the headline, the lede and the
-   meta row all stop on the same line as the prose beneath them. Derived from
-   the rail rather than a fixed number, so it tracks --rail-w and --rail-gap. */
-.bb-text {
-  min-width: 0;
-  max-width: calc(100% - var(--rail-w) - var(--rail-gap));
-}
-@media (max-width: 1023px) {
-  .bb-text { max-width: none; }
-}
+/* Masthead copy wrapper. NO MEASURE OF ITS OWN ANY MORE.
+
+   It used to carry `max-width: calc(100% - var(--rail-w) - var(--rail-gap))`,
+   insetting the copy from a masthead that filled the whole wrapper so the
+   headline would stop on the same line as the prose beneath it. That worked,
+   but it put the alignment in the wrong place: the measure was recomputed
+   against whatever width the masthead happened to be, so it had to be gated on
+   whether a rail existed, and a rail-less brief inset its headline by 270px
+   for nothing.
+
+   The masthead box is now capped to --body-col directly (see .hero
+   .container-brief below), so the card already IS the column and there is
+   nothing to inset from. Keep min-width: 0 -- it stops a long unbroken string
+   in the headline from forcing the flex item wider than its share. */
+.bb-text { min-width: 0; }
 
 /* Masthead meta: labelled pairs under the lede. A <dl> because that is what
    these are, which also means a screen reader announces "Brand: Acme" rather
@@ -170,11 +177,52 @@ html:has(> body.brief-modern) { overflow-x: clip; }
 
    So the width moves up to .body-layout, measured once, and .container-brief
    is emptied. Both the masthead and the body then inherit the same edges. */
+/* THE COLUMN IS THE NUMBER, THE WRAPPER IS DERIVED. --body-col is the readable
+   column; everything else here is what has to be added to it to get a wrapper.
+   Stating the wrapper instead and letting the column fall out of it is how the
+   column ended up at 1020 when the intent was 1100: padding and the rail come
+   off the top, and the number in the CSS stops meaning the thing anyone cares
+   about. */
 .brief-modern .body-layout {
-  max-width: 1280px;
+  max-width: calc(var(--body-col) + var(--page-pad) * 2);
   margin: 0 auto;
-  padding: 0 40px 96px;
+  padding: 0 var(--page-pad) 96px;
 }
+
+/* THE RAIL COSTS PAGE WIDTH, NOT COLUMN WIDTH. The wrapper above is the text
+   column's width. A rail placed inside it is subtracted from the prose, so the
+   same brief read 930px wide with navigation and 1200px without: it got
+   narrower for having a contents list, which is backwards.
+
+   Growing the wrapper by exactly the rail's footprint puts the rail beside the
+   page instead of inside it, and the text column is 1280px-worth either way.
+   Derived from the same two variables the rail itself uses, so changing
+   --rail-w moves the page and the column together.
+
+   The cost is page width on a laptop: at 1550px the wrapper reaches the window
+   edge somewhere around a 1600px viewport, and below that the page simply
+   fills the screen with its 40px padding holding the text off the edge. That
+   was the accepted trade for a column that does not shrink when a rail
+   appears. */
+.brief-modern.with-sidenav .body-layout {
+  max-width: calc(
+    var(--body-col) + var(--page-pad) * 2 + var(--rail-w) + var(--rail-gap)
+  );
+}
+/* THE MASTHEAD BOX IS THE COLUMN, NOT THE WRAPPER. The wrapper grows by the
+   rail's footprint, so a masthead that fills it was 1370 wide with a rail and
+   1100 without -- the band's box changed size because of navigation, which is
+   the same complaint the body column had.
+
+   Capping it here fixes that at the source and lets .bb-text drop its own
+   measure: the card IS the column now, so there is nothing left to inset the
+   copy from. One rule replaces a conditional one.
+
+   The full-bleed black is unaffected. It is painted by .hero-card::before with
+   `inset: 0 -50vw`, which reaches the viewport edge from wherever the card
+   happens to sit, so narrowing the card narrows its box and not its band. */
+.brief-modern .hero .container-brief { max-width: var(--body-col); }
+
 .brief-modern .container-brief {
   max-width: none;
   margin: 0;
